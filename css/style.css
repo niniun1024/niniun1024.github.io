@@ -140,7 +140,7 @@ body {
   font-family: "微软雅黑", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   background: #fff;
-  color: rgba(0,0,0,0.6);
+  color: #666;
   -webkit-overflow-scrolling: touch;
 }
 h1,
@@ -167,6 +167,9 @@ a {
   outline-width: 0;
   color: #258fb8;
   outline: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 .alignleft {
   float: left;
@@ -943,7 +946,7 @@ a {
   color: #c8c8c8;
 }
 .article-title {
-  color: #696969;
+  color: #0f9dd4;
   margin-left: 0px;
   font-weight: 300;
   line-height: 35px;
@@ -958,7 +961,8 @@ a {
   transition: color 0.3s;
 }
 .article-title:hover {
-  color: #b0a0aa;
+  color: #0f79a2;
+  text-decoration: none;
 }
 .article-inner {
   position: relative;

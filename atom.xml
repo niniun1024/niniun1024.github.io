@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jyy12.github.io/"/>
-  <updated>2016-04-23T07:51:09.041Z</updated>
+  <updated>2016-04-23T09:02:04.967Z</updated>
   <id>http://jyy12.github.io/</id>
   
   <author>
@@ -20,23 +20,20 @@
     <link href="http://jyy12.github.io/2016/03/26/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E4%B8%8A%E4%B8%80%E9%A1%B5%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/"/>
     <id>http://jyy12.github.io/2016/03/26/移动端返回上一页实现方法/</id>
     <published>2016-03-26T06:33:44.000Z</published>
-    <updated>2016-04-23T07:51:09.041Z</updated>
+    <updated>2016-04-23T09:02:04.967Z</updated>
     
-    <content type="html">&lt;h1 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述:&quot;&gt;&lt;/a&gt;一、问题描述:&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;问题描述：使用window.history.go(-1)或者window.history.back(-1)实现移动端返回上一页功能，原生safair浏览器里存在问题（通过flex布局的上一张页面滚动无效，只能显示点击前停留的那屏，无法通过触摸滚动页面）
-问题环境：存在于ios 9.3(13E233)和ios9.3.1(13E238)系统,ios9.3其它版本未发现该问题，ios安装的其它浏览器不存在该问题，android也没有该问题。
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;二、解决方案：&quot;&gt;&lt;a href=&quot;#二、解决方案：&quot; class=&quot;headerlink&quot; title=&quot;二、解决方案：&quot;&gt;&lt;/a&gt;二、解决方案：&lt;/h1&gt;&lt;p&gt;　　ios原生浏览器（ios其它浏览器不存在这种情况）下通过document.referrer实现返回上一页，部分手机的QQ内嵌浏览器使用document.referrer不能正常返回上一页，android下通过referrer属性实现时，当刷新页面后返回前一页失效，所以判断移动端浏览器类型针对原生safair进行处理，具体代码如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;goBack&amp;quot; &amp;gt;返回&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var u = navigator.userAgent;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var goBack=document.getElementById(&amp;quot;goBack&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//针对ios原生浏览器处理&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;amp;&amp;amp; /(Safari)/i.test(u))&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    goBack.setAttribute(&amp;quot;onclick&amp;quot;,&amp;quot;javascript:window.location=document.referrer;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    <content type="html">&lt;h1 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述:&quot;&gt;&lt;/a&gt;一、问题描述:&lt;/h1&gt;&lt;p&gt;　　使用window.history.go(-1)或者window.history.back(-1)实现移动端返回上一页功能，原生safair浏览器里存在问题（通过flex布局的上一张页面滚动无效，只能显示点击前停留的那屏，无法通过触摸滚动页面）。存在于ios 9.3(13E233)和ios9.3.1(13E238)系统,ios9.3其它版本未发现该问题，ios安装的其它浏览器不存在该问题，android也没有该问题。&lt;/p&gt;
+&lt;h1 id=&quot;二、解决方案：&quot;&gt;&lt;a href=&quot;#二、解决方案：&quot; class=&quot;headerlink&quot; title=&quot;二、解决方案：&quot;&gt;&lt;/a&gt;二、解决方案：&lt;/h1&gt;&lt;p&gt;　　ios原生浏览器（ios其它浏览器不存在这种情况）下通过document.referrer实现返回上一页，部分手机的QQ内嵌浏览器使用document.referrer不能正常返回上一页，android下通过referrer属性实现时，当刷新页面后返回前一页失效，所以判断移动端浏览器类型针对原生safair进行处理，具体代码如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;goBack&amp;quot; &amp;gt;返回&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var u = navigator.userAgent;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var goBack=document.getElementById(&amp;quot;goBack&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//针对ios原生浏览器处理&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;amp;&amp;amp; /(Safari)/i.test(u))&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    goBack.setAttribute(&amp;quot;onclick&amp;quot;,&amp;quot;javascript:window.location=document.referrer;&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述:&quot;&gt;&lt;/a&gt;一、问题描述:&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;问题描述：使用window.history.go(-1)或者window.history
+      &lt;h1 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述:&quot;&gt;&lt;/a&gt;一、问题描述:&lt;/h1&gt;&lt;p&gt;　　使用window.history.go(-1)或者window.history.back(-1)实现
     
     </summary>
     
     
-      <category term="js返回上一页" scheme="http://jyy12.github.io/tags/js%E8%BF%94%E5%9B%9E%E4%B8%8A%E4%B8%80%E9%A1%B5/"/>
-    
-      <category term="移动端返回上一页" scheme="http://jyy12.github.io/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E4%B8%8A%E4%B8%80%E9%A1%B5/"/>
+      <category term="移动端开发" scheme="http://jyy12.github.io/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
@@ -45,7 +42,7 @@
     <link href="http://jyy12.github.io/2016/02/24/chrome%E5%8F%96%E6%B6%88%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BEflash%E5%B9%BF%E5%91%8A/"/>
     <id>http://jyy12.github.io/2016/02/24/chrome取消浏览器自动播放flash广告/</id>
     <published>2016-02-24T06:33:44.000Z</published>
-    <updated>2016-03-27T13:09:28.956Z</updated>
+    <updated>2016-04-23T09:15:30.166Z</updated>
     
     <content type="html">&lt;h1 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述:&quot;&gt;&lt;/a&gt;一、问题描述:&lt;/h1&gt;&lt;p&gt;　　chrome 45及以上版本默认不自动播放flash，对于非自动播放的广告，chrome会在flash上悬浮一个播放按钮，点击后可播放。flash广告多使用覆盖a链接来实现，这种方法下无法点中chrome贴心提供的播放按钮。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt; 不自动播放的flash需满足以下两点： &lt;/strong&gt;&lt;/p&gt;
@@ -74,9 +71,7 @@
     </summary>
     
     
-      <category term="chrome flash广告不播放" scheme="http://jyy12.github.io/tags/chrome-flash%E5%B9%BF%E5%91%8A%E4%B8%8D%E6%92%AD%E6%94%BE/"/>
-    
-      <category term="chrome flash" scheme="http://jyy12.github.io/tags/chrome-flash/"/>
+      <category term="前端开发" scheme="http://jyy12.github.io/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
