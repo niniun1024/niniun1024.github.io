@@ -17,8 +17,8 @@
   
   <entry>
     <title>chrome background tab情况下setTimeout、setInterval渲染机制问题</title>
-    <link href="http://jyy12.github.io/2016/05/08/2016-5-8/chrome%20background%20tab%E6%83%85%E5%86%B5%E4%B8%8BsetTimeout%E3%80%81setInterval%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/"/>
-    <id>http://jyy12.github.io/2016/05/08/2016-5-8/chrome background tab情况下setTimeout、setInterval渲染机制/</id>
+    <link href="http://jyy12.github.io/2016/05/08/chrome%20background%20tab%E6%83%85%E5%86%B5%E4%B8%8BsetTimeout%E3%80%81setInterval%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/"/>
+    <id>http://jyy12.github.io/2016/05/08/chrome background tab情况下setTimeout、setInterval渲染机制/</id>
     <published>2016-05-08T13:33:44.000Z</published>
     <updated>2016-05-08T15:00:32.959Z</updated>
     
