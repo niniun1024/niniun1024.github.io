@@ -1,17 +1,16 @@
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1, user-scalable=0, minimal-ui=yes" charset="UTF-8">
     <title>移动端网络连接判断</title>
 <script>
+var networkWIFI;
 function test(){
-    (function(win){
+
         var wifi = true;
-        var ua = win.navigator.userAgent;
-        var con = win.navigator.connection;
+        var ua = window.navigator.userAgent;
+        var con = window.navigator.connection;
         // 如果是微信
         if(/MicroMessenger/.test(ua)){
             // 如果是微信6.0以上版本，用UA来判断
@@ -38,8 +37,7 @@ function test(){
             }
         }
 
-        win.networkWIFI = wifi;
-    })(window);
+        networkWIFI = wifi;
 }
 
 
@@ -54,8 +52,8 @@ function test(){
 test();
 alert(networkWIFI)
 document.getElementById('btn').addEventListener('click',function(){
-test();
-alert(networkWIFI)
+    test();
+alert('click'+networkWIFI)
 
 })
 
