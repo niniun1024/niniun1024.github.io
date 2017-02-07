@@ -37,7 +37,7 @@ function test(){
             }
         }
 
-        networkWIFI = wifi;
+        return wifi;
 }
 
 
@@ -49,11 +49,11 @@ function test(){
 
 
 <script>
-test();
-alert(networkWIFI)
+
+alert(test())
 document.getElementById('btn').addEventListener('click',function(){
     test();
-alert('click'+networkWIFI)
+alert(test())
 
 })
 
