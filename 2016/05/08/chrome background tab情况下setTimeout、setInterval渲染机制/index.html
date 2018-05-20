@@ -4,24 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>chrome background tab情况下setTimeout、setInterval渲染机制问题 | Jin&#39;s Blog</title>
+  <title>chrome background tab情况下setTimeout、setInterval渲染机制问题 | niniun&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="chrome下，当把标签页切换到非活动状态下（background tab）,被切换的页面里执行的setTimeout/setInterval会发生混乱。在做倒计时时由于执行的频率较少，以为标签非活动状态下会停止setTimeout/setIntervaql的执行，测试证明chrome并没有停止计时器的执行，而只是针对执行时间小于1000ms的定时器减缓其执行频率，定时器间隔时间越小减缓强度越">
 <meta name="keywords" content="前端开发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="chrome background tab情况下setTimeout、setInterval渲染机制问题">
-<meta property="og:url" content="http://jyy12.github.io/2016/05/08/chrome background tab情况下setTimeout、setInterval渲染机制/index.html">
-<meta property="og:site_name" content="Jin&#39;s Blog">
+<meta property="og:url" content="http://niniun1024.github.io/2016/05/08/chrome background tab情况下setTimeout、setInterval渲染机制/index.html">
+<meta property="og:site_name" content="niniun&#39;s blog">
 <meta property="og:description" content="chrome下，当把标签页切换到非活动状态下（background tab）,被切换的页面里执行的setTimeout/setInterval会发生混乱。在做倒计时时由于执行的频率较少，以为标签非活动状态下会停止setTimeout/setIntervaql的执行，测试证明chrome并没有停止计时器的执行，而只是针对执行时间小于1000ms的定时器减缓其执行频率，定时器间隔时间越小减缓强度越">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://jyy12.github.io/img/2016-5-8/test.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2016-5-8/test.png">
 <meta property="og:updated_time" content="2016-05-08T15:00:32.959Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="chrome background tab情况下setTimeout、setInterval渲染机制问题">
 <meta name="twitter:description" content="chrome下，当把标签页切换到非活动状态下（background tab）,被切换的页面里执行的setTimeout/setInterval会发生混乱。在做倒计时时由于执行的频率较少，以为标签非活动状态下会停止setTimeout/setIntervaql的执行，测试证明chrome并没有停止计时器的执行，而只是针对执行时间小于1000ms的定时器减缓其执行频率，定时器间隔时间越小减缓强度越">
-<meta name="twitter:image" content="http://jyy12.github.io/img/2016-5-8/test.png">
+<meta name="twitter:image" content="http://niniun1024.github.io/img/2016-5-8/test.png">
   
-    <link rel="alternative" href="/atom.xml" title="Jin&#39;s Blog" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="niniun&#39;s blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -41,7 +41,7 @@
 			
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">Jin&#39;s Blog</a></h1>
+		  <h1 class="header-author"><a href="/">niniun1024</a></h1>
 		</hgroup>
 
 		
@@ -104,13 +104,13 @@
 					<nav class="header-nav">
 						<div class="social">
 							
-								<a class="github" target="_blank" href="http://github.com/jyy12" title="github">github</a>
+								<a class="github" target="_blank" href="http://github.com/niniun1024" title="github">github</a>
 					        
 								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 					        
 						</div>
                         <div id="search-form-wrap">
-                            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jyy12.github.io"></form>
+                            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://niniun1024.github.io"></form>
                         </div>
 					</nav>
 				</section>
@@ -137,7 +137,7 @@
 				
 				<section class="switch-part switch-part4">
 				
-					<div id="js-aboutme">职业：前端开发工程师。Email：jyy12@qq.com</div>
+					<div id="js-aboutme">职业：前端开发工程师。Email：niniun1024@foxmail.com</div>
 				</section>
 				
 			</div>
@@ -150,7 +150,7 @@
       <nav id="mobile-nav">
   	<div class="overlay">
   		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">Jin&#39;s Blog</h1>
+  		<h1 class="header-author js-mobile-header hide">niniun1024</h1>
   	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
@@ -160,7 +160,7 @@
 			
 			</div>
 			<hgroup>
-			  <h1 class="header-author">Jin&#39;s Blog</h1>
+			  <h1 class="header-author">niniun1024</h1>
 			</hgroup>
 			
 			<nav class="header-menu">
@@ -176,7 +176,7 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="http://github.com/jyy12" title="github">github</a>
+						<a class="github" target="_blank" href="http://github.com/niniun1024" title="github">github</a>
 			        
 						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 			        
@@ -290,7 +290,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Jin&#39;s Blog
+    		&copy; 2018 niniun1024
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
