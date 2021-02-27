@@ -1,291 +1,490 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>niniun&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="niniun&apos;s blog">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"niniun1024.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="niniun1024&#39;s blog">
 <meta property="og:type" content="website">
-<meta property="og:title" content="niniun&#39;s blog">
+<meta property="og:title" content="niniun1024&#39;s blog">
 <meta property="og:url" content="http://niniun1024.github.io/index.html">
-<meta property="og:site_name" content="niniun&#39;s blog">
-<meta property="og:description" content="niniun&apos;s blog">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:site_name" content="niniun1024&#39;s blog">
+<meta property="og:description" content="niniun1024&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="niniun1024">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="niniun&#39;s blog">
-<meta name="twitter:description" content="niniun&apos;s blog">
+
+<link rel="canonical" href="http://niniun1024.github.io/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>niniun1024's blog</title>
   
-    <link rel="alternative" href="/atom.xml" title="niniun&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="/img/avatar.jpg" class="js-avatar">
-			
-		</a>
-		<hgroup>
-		  <h1 class="header-author"><a href="/">niniun1024</a></h1>
-		</hgroup>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-		
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
 
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						<div class="icon-wrap icon-link hide" data-idx="2">
-							<div class="loopback_l"></div>
-							<div class="loopback_r"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						<li>友情链接</li>
-						
-						
-						<li>关于我</li>
-						
-					</ul>
-				</div>
-			</div>
-		
+  <div class="site-meta">
 
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/archives">所有文章</a></li>
-				        
-						</ul>
-					</nav>
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">niniun1024's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="http://github.com/niniun1024" title="github">github</a>
-					        
-								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-					        
-						</div>
-                        <div id="search-form-wrap">
-                            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://niniun1024.github.io"></form>
-                        </div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/前端开发/" style="font-size: 20px;">前端开发</a> <a href="/tags/移动端开发/" style="font-size: 20px;">移动端开发</a> <a href="/tags/项目实践/" style="font-size: 10px;">项目实践</a>
-					</div>
-				</section>
-				
-				
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.w3.org/">w3c</a>
-			        
-			        </div>
-				</section>
-				
-
-				
-				
-				<section class="switch-part switch-part4">
-				
-					<div id="js-aboutme">职业：前端开发工程师。Email：niniun1024@foxmail.com</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">niniun1024</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="/img/avatar.jpg" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">niniun1024</h1>
-			</hgroup>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/archives">所有文章</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="http://github.com/niniun1024" title="github">github</a>
-			        
-						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
 </nav>
 
-      <div class="body-wrap">
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
   
-    <article id="post-vue单面应用实践" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2018/03/15/vue单面应用实践/" class="article-date">
-  	<time datetime="2018-03-15T14:09:19.000Z" itemprop="datePublished">2018-03-15</time>
-</a>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/02/27/Electron%E4%B9%8B%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/27/Electron%E4%B9%8B%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">Electron之远程页面代码注入</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-27 16:51:45 / 修改时间：16:52:40" itemprop="dateCreated datePublished" datetime="2021-02-27T16:51:45+08:00">2021-02-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)  </span><br><span class="line"><span class="keyword">const</span> win = <span class="keyword">new</span> BrowserWindow()</span><br><span class="line">win.loadURL(<span class="string">&#x27;http://www.baidu.com&#x27;</span>)</span><br><span class="line">win.webContents.on(<span class="string">&quot;did-finish-load&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 直接注入CSS代码</span></span><br><span class="line">  win.webContents.insertCSS(<span class="string">&quot;body&#123;border:10px solid red !important;&#125;&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 注入CSS文件</span></span><br><span class="line">  <span class="keyword">const</span> css = fs.readFileSync(path.join(__dirname, <span class="string">&#x27;./insertCss.css&#x27;</span>)).toString();</span><br><span class="line">  win.webContents.insertCSS(css);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 直接注入JS代码</span></span><br><span class="line">  win.webContents.executeJavaScript(<span class="string">&#x27;alert(&quot;test&quot;);&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 注入JS文件</span></span><br><span class="line">  <span class="keyword">const</span> js = fs.readFileSync(path.join(__dirname, <span class="string">&#x27;./insertJs.js&#x27;</span>)).toString();</span><br><span class="line">  win.webContents.executeJavaScript(js);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 在渲染进程焦点位置输入内容，如文本框</span></span><br><span class="line">  win.webContents.insertText(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
     </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/15/vue单面应用实践/">vue单面应用实践</a>
-    </h1>
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/" class="post-title-link" itemprop="url">Electron之安装界面</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-27 14:25:44 / 修改时间：15:30:43" itemprop="dateCreated datePublished" datetime="2021-02-27T14:25:44+08:00">2021-02-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
-      
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h1 id="一、使用vue-cli初始化项目-vue-cli为vue的构建工具，默认配置里已结合webpack-vue-router-babel"><a href="#一、使用vue-cli初始化项目-vue-cli为vue的构建工具，默认配置里已结合webpack-vue-router-babel" class="headerlink" title="一、使用vue-cli初始化项目(vue-cli为vue的构建工具，默认配置里已结合webpack/vue-router/babel)"></a>一、使用vue-cli初始化项目(vue-cli为vue的构建工具，默认配置里已结合webpack/vue-router/babel)</h1><p><a href="https://vuejs-templates.github.io/webpack/" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack/</a><br>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev</p>
+          <p>Electron开发的应用默认安装界面较简洁，无法选择安装路径，一般在桌面应用开发过程中需要更丰富的安装功能，如展示使用协议、选择安装目录、选择安装组件等，安装成功后执行哪些操作等等。<br>下方以Electron+Vue项目为例，使用electron-builder+nsis自定义打包界面。</p>
+<h1 id="在vue-config-js中配置NSIS，救命代码如下："><a href="#在vue-config-js中配置NSIS，救命代码如下：" class="headerlink" title="在vue.config.js中配置NSIS，救命代码如下："></a>在vue.config.js中配置NSIS，救命代码如下：</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 第三方插件配置</span></span><br><span class="line">  pluginOptions: &#123;</span><br><span class="line">    <span class="comment">// vue-cli-plugin-electron-builder配置</span></span><br><span class="line">    electronBuilder: &#123;</span><br><span class="line">      builderOptions: &#123;</span><br><span class="line">        win: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 图标路径 windows系统中icon需要256*256的ico格式图片，更换应用图标亦在此处</span></span><br><span class="line">          target: [&#123;</span><br><span class="line">            <span class="comment">// 打包成一个独立的 exe 安装程序</span></span><br><span class="line">            target: <span class="string">&#x27;nsis&#x27;</span>,</span><br><span class="line">            <span class="comment">// 这个意思是打出来32 bit + 64 bit的包，但是要注意：这样打包出来的安装包体积比较大，所以建议直接打32的安装包。</span></span><br><span class="line">            <span class="string">&#x27;arch&#x27;</span>: [</span><br><span class="line">              <span class="string">&#x27;x64&#x27;</span></span><br><span class="line">              <span class="comment">// &#x27;ia32&#x27;</span></span><br><span class="line">            ]</span><br><span class="line">          &#125;]</span><br><span class="line">        &#125;,</span><br><span class="line">        dmg: &#123;</span><br><span class="line">          <span class="string">&#x27;contents&#x27;</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&#x27;x&#x27;</span>: <span class="number">410</span>,</span><br><span class="line">              <span class="string">&#x27;y&#x27;</span>: <span class="number">150</span>,</span><br><span class="line">              <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;link&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;path&#x27;</span>: <span class="string">&#x27;/Applications&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&#x27;x&#x27;</span>: <span class="number">130</span>,</span><br><span class="line">              <span class="string">&#x27;y&#x27;</span>: <span class="number">150</span>,</span><br><span class="line">              <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;file&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        linux: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          target: <span class="string">&#x27;AppImage&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        mac: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        files: [<span class="string">&#x27;**/*&#x27;</span>],</span><br><span class="line">        asar: <span class="literal">false</span>,</span><br><span class="line">        nsis: &#123;</span><br><span class="line">          <span class="string">&quot;include&quot;</span>: <span class="string">&quot;public/nim/nim_setup.nsi&quot;</span>,</span><br><span class="line">          <span class="comment">// 是否一键安装，建议为 false，可以让用户点击下一步、下一步、下一步的形式安装程序，如果为true，当用户双击构建好的程序，自动安装程序并打开，即：一键安装（one-click installer）</span></span><br><span class="line">          oneClick: <span class="literal">false</span>,</span><br><span class="line">          <span class="comment">// 允许请求提升。 如果为false，则用户必须使用提升的权限重新启动安装程序。</span></span><br><span class="line">          allowElevation: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 允许修改安装目录，建议为 true，是否允许用户改变安装目录，默认是不允许</span></span><br><span class="line">          allowToChangeInstallationDirectory: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 安装图标</span></span><br><span class="line">          installerIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 卸载图标</span></span><br><span class="line">          uninstallerIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 安装时头部图标</span></span><br><span class="line">          installerHeaderIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 创建桌面图标</span></span><br><span class="line">          createDesktopShortcut: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 创建开始菜单图标</span></span><br><span class="line">          createStartMenuShortcut: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      chainWebpackMainProcess: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        config.plugin(<span class="string">&#x27;define&#x27;</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">          args[ <span class="number">0</span> ][ <span class="string">&#x27;IS_ELECTRON&#x27;</span> ] = <span class="literal">true</span></span><br><span class="line">          <span class="keyword">return</span> args</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      chainWebpackRendererProcess: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        config.plugin(<span class="string">&#x27;define&#x27;</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">          args[ <span class="number">0</span> ][ <span class="string">&#x27;IS_ELECTRON&#x27;</span> ] = <span class="literal">true</span></span><br><span class="line">          <span class="keyword">return</span> args</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      outputDir: <span class="string">&#x27;dist&#x27;</span>,</span><br><span class="line">      <span class="comment">// mainProcessFile: &#x27;src/main.js&#x27;,</span></span><br><span class="line">      <span class="comment">// mainProcessWatch: [&#x27;src/main&#x27;]</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>注意： window下图标需为ico或png格式且不小于256*256<br>参考资料 <a target="_blank" rel="noopener" href="https://www.electron.build/icons.html#windows-nsis">https://www.electron.build/icons.html#windows-nsis</a></p>
+<h1 id="使用NSIS自定义安装界面"><a href="#使用NSIS自定义安装界面" class="headerlink" title="使用NSIS自定义安装界面"></a>使用NSIS自定义安装界面</h1><p>NSIS简界代码示例：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">nsis文件中配置安装界面相关信息（可通过nsis安装界面开发工具开发），nsi文件示例：</span><br><span class="line"><span class="comment">; HM NIS Edit Wizard helper defines</span></span><br><span class="line">!include <span class="string">&quot;MUI2.nsh&quot;</span></span><br><span class="line"><span class="comment">; ; MUI Settings</span></span><br><span class="line">!define MUI_ABORTWARNING</span><br><span class="line"><span class="comment">; 欢迎页面</span></span><br><span class="line">!<span class="keyword">insertmacro </span>MUI_PAGE_WELCOME</span><br><span class="line"><span class="keyword">ShowInstDetails </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">ShowUnInstDetails </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">SpaceTexts </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">; </span>安装脚本</span><br><span class="line">!macro customInstall</span><br><span class="line">!macroend</span><br></pre></td></tr></table></figure>
+
+<h1 id="NSIS界面开发"><a href="#NSIS界面开发" class="headerlink" title="NSIS界面开发"></a>NSIS界面开发</h1><h2 id="使用NSIS和HM-NIS-Edit生成NSIS文件"><a href="#使用NSIS和HM-NIS-Edit生成NSIS文件" class="headerlink" title="使用NSIS和HM NIS Edit生成NSIS文件"></a>使用NSIS和HM NIS Edit生成NSIS文件</h2><p>NSIS下载地址：<a target="_blank" rel="noopener" href="https://nsis.sourceforge.io/Download">https://nsis.sourceforge.io/Download</a><br>HM NIS Edit下载地址：<a target="_blank" rel="noopener" href="http://hmne.sourceforge.net/">http://hmne.sourceforge.net</a><br><strong>使用步骤</strong><br>1、打开HM NIS Edit，通过新建向导生成NSIS文件<br><img src="/img/2021-2-27/nsis01.png"><br><img src="/img/2021-2-27/nsis02.png"><br>2、填写应用相关信息<br><img src="/img/2021-2-27/nsis03.png"><br>3、选择语言及协议文件<br><img src="/img/2021-2-27/nsis04.png"><br><img src="/img/2021-2-27/nsis05.png"><br>4、选择应用打包目录，electron build生成的目录，对应out/win-unpacked<br><img src="/img/2021-2-27/nsis06.png"><br><img src="/img/2021-2-27/nsis07.png"><br><img src="/img/2021-2-27/nsis08.png"><br><img src="/img/2021-2-27/nsis09.png"><br><img src="/img/2021-2-27/nsis10.png"><br><img src="/img/2021-2-27/nsis11.png"><br><img src="/img/2021-2-27/nsis12.png"><br><img src="/img/2021-2-27/nsis13.png"><br><img src="/img/2021-2-27/nsis14.png"></p>
+<p>参考资料： <a target="_blank" rel="noopener" href="https://lihefei.blog.csdn.net/article/details/108797377">https://lihefei.blog.csdn.net/article/details/108797377</a></p>
+<h2 id="牛牛安装界面控件"><a href="#牛牛安装界面控件" class="headerlink" title="牛牛安装界面控件"></a>牛牛安装界面控件</h2><p>牛牛安装界面控件是一款安装包UI控制，可自定义安装皮肤界面。<br>1、下载牛牛安装界面控件<br><a target="_blank" rel="noopener" href="http://www.ggniu.cn/download.htm">http://www.ggniu.cn/download.htm</a><br>2、修改包里对应的NSIS配置项，配置在SetupScripts目录下<br>3、把生成的electron文件放到FilesToInstall目录<br>4、运行build-nim-nozip.bat进行打包，最终输出exe文件到Output目录</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2018/03/15/vue%E5%8D%95%E9%9D%A2%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/15/vue%E5%8D%95%E9%9D%A2%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/" class="post-title-link" itemprop="url">vue单面应用实践</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-15 22:09:19" itemprop="dateCreated datePublished" datetime="2018-03-15T22:09:19+08:00">2018-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-22 21:08:02" itemprop="dateModified" datetime="2021-02-22T21:08:02+08:00">2021-02-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VUE/" itemprop="url" rel="index"><span itemprop="name">VUE</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="使用vue-cli初始化项目-vue-cli为vue的构建工具，默认配置里已结合webpack-vue-router-babel"><a href="#使用vue-cli初始化项目-vue-cli为vue的构建工具，默认配置里已结合webpack-vue-router-babel" class="headerlink" title="使用vue-cli初始化项目(vue-cli为vue的构建工具，默认配置里已结合webpack/vue-router/babel)"></a>使用vue-cli初始化项目(vue-cli为vue的构建工具，默认配置里已结合webpack/vue-router/babel)</h1><p><a target="_blank" rel="noopener" href="https://vuejs-templates.github.io/webpack/">https://vuejs-templates.github.io/webpack/</a><br>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev</p>
 <p>查看vue-cli是否安装成功(V需大写)：vue -V    </p>
-<p>如npm install失败可切换到淘宝镜像使用cnpm安装：<br>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>cnpm i</p>
+<p>如npm install失败可切换到淘宝镜像使用cnpm安装：<br>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a><br>cnpm i</p>
 <p>运行项目：npm run dev</p>
 <p>使用插件：vue+webpack+vue-router+axios+mockjs</p>
-<h1 id="二、添加less"><a href="#二、添加less" class="headerlink" title="二、添加less"></a>二、添加less</h1><p>安装：npm install less less-loader –save-dev<br>使用<code>&lt;style lang=&quot;less&quot; scoped&gt;</code><br>引入less文件时行尾需加分号</p>
-<h1 id="三、vue-router路由使用"><a href="#三、vue-router路由使用" class="headerlink" title="三、vue-router路由使用"></a>三、vue-router路由使用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Router from &apos;vue-router&apos;</span><br><span class="line">Vue.use(Router)</span><br></pre></td></tr></table></figure>
-<p>路由传参：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/detail/"</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"&#123;name:'detail',params: &#123;id: item.id&#125;&#125;"</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"'/detail/'+item.id"</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"&#123; path: 'register', query: &#123; plan: 'private' &#125;&#125;"</span>&gt;</span>Register<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>在子组件中调用参数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$route.params.id</span><br><span class="line">&#123;&#123;$route.params.id&#125;&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="四、axios的使用"><a href="#四、axios的使用" class="headerlink" title="四、axios的使用"></a>四、axios的使用</h1><p>安装npm install axios –save<br>import Vue from ‘vue’<br>import axios from ‘axios’<br>Vue.prototype.$axios = axios<br>使用：this.$axios.get(…).then(…).catch(…)</p>
-<h1 id="五、模拟数据（mock-js）"><a href="#五、模拟数据（mock-js）" class="headerlink" title="五、模拟数据（mock.js）"></a>五、模拟数据（mock.js）</h1><p>1、安装：npm install mockjs –save-dev<br>2、建立模拟数据文件mockData.js(mock.js规则<a href="http://mockjs.com/examples.html)；" target="_blank" rel="noopener">http://mockjs.com/examples.html)；</a><br>3、在入口文件里配置开发环境引入mock数据，生产环境不引用，另添加开发环境下在控制台打印JSON数据<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'development'</span>) &#123;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'./mockData'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="添加less"><a href="#添加less" class="headerlink" title="添加less"></a>添加less</h1><p>安装：npm install less less-loader –save-dev<br>使用<code>&lt;style lang=&quot;less&quot; scoped&gt;</code><br>引入less文件时行尾需加分号</p>
+<h1 id="vue-router路由使用"><a href="#vue-router路由使用" class="headerlink" title="vue-router路由使用"></a>vue-router路由使用</h1><pre><code>import Router from &#39;vue-router&#39;
+Vue.use(Router)
+</code></pre>
+<p>路由传参：</p>
+<pre><code class="html">&lt;router-link to=&quot;/detail/&quot; &gt;
+&lt;router-link :to=&quot;&#123;name:&#39;detail&#39;,params: &#123;id: item.id&#125;&#125;&quot; &gt;
+&lt;router-link :to=&quot;&#39;/detail/&#39;+item.id&quot; &gt;
+&lt;router-link :to=&quot;&#123; path: &#39;register&#39;, query: &#123; plan: &#39;private&#39; &#125;&#125;&quot;&gt;Register&lt;/router-link&gt;
+</code></pre>
+<p>在子组件中调用参数：</p>
+<pre><code class="javascript">this.$route.params.id
+&#123;&#123;$route.params.id&#125;&#125;
+</code></pre>
+<h1 id="axios的使用"><a href="#axios的使用" class="headerlink" title="axios的使用"></a>axios的使用</h1><p>安装npm install axios –save<br>import Vue from ‘vue’<br>import axios from ‘axios’<br>Vue.prototype.$axios = axios<br>使用：this.$axios.get(…).then(…).catch(…)</p>
+<h1 id="模拟数据（mock-js）"><a href="#模拟数据（mock-js）" class="headerlink" title="模拟数据（mock.js）"></a>模拟数据（mock.js）</h1><p>1、安装：npm install mockjs –save-dev<br>2、建立模拟数据文件mockData.js(mock.js规则<a target="_blank" rel="noopener" href="http://mockjs.com/examples.html)%EF%BC%9B">http://mockjs.com/examples.html)；</a><br>3、在入口文件里配置开发环境引入mock数据，生产环境不引用，另添加开发环境下在控制台打印JSON数据</p>
+<pre><code class="javascript">if (process.env.NODE_ENV === &#39;development&#39;) &#123;
+  require(&#39;./mockData&#39;)
+&#125;
+</code></pre>
 <p>4、正则模糊匹配url（适用带参数地址）<br>Mock.mock(new RegExp(AjaxApi.detail), DetailData)<br>5、模拟数据转为字符串并在控制台格式化输出<br>window.JSON.stringify(response.data,null,2)   // 在webpack中打包使用时需加window前缀</p>
-<h1 id="六、图片"><a href="#六、图片" class="headerlink" title="六、图片"></a>六、图片</h1><p>.vue文件中通过img标签引用图片可直接使用相对路径<br>样式中使用图片，使用相对路径，在build/webpack.base.conf.js中配置，当图片小于10000kb时会使用base64</p>
-<h1 id="七、Eslint配置"><a href="#七、Eslint配置" class="headerlink" title="七、Eslint配置"></a>七、Eslint配置</h1><p>关闭eslint：build/webpack.base.conf.js 配置文件中的eslint rules注释掉即可</p>
-<p>.eslintrc.js配置自定义规则：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// allow paren-less arrow functions</span></span><br><span class="line"><span class="string">'arrow-parens'</span>: <span class="number">0</span>,</span><br><span class="line"><span class="comment">// allow async-await</span></span><br><span class="line"><span class="string">'generator-star-spacing'</span>: <span class="number">0</span>,</span><br><span class="line"><span class="comment">// allow debugger during development</span></span><br><span class="line"><span class="string">'no-debugger'</span>: process.env.NODE_ENV === <span class="string">'production'</span> ? <span class="number">2</span> : <span class="number">0</span>,</span><br><span class="line"><span class="string">"no-unused-vars"</span>: [<span class="number">2</span>, &#123;</span><br><span class="line">  <span class="comment">// 允许声明未使用变量</span></span><br><span class="line">  <span class="string">"vars"</span>: <span class="string">"local"</span>,</span><br><span class="line">  <span class="comment">// 参数不检查</span></span><br><span class="line">  <span class="string">"args"</span>: <span class="string">"none"</span></span><br><span class="line">&#125;],</span><br><span class="line"><span class="comment">// 关闭语句强制分号结尾</span></span><br><span class="line"><span class="string">"semi"</span>: [<span class="number">0</span>],</span><br><span class="line"><span class="comment">//空行最多不能超过100行</span></span><br><span class="line"><span class="string">"no-multiple-empty-lines"</span>: [<span class="number">0</span>, &#123;<span class="string">"max"</span>: <span class="number">100</span>&#125;],</span><br><span class="line"><span class="comment">//关闭禁止混用tab和空格</span></span><br><span class="line"><span class="string">"no-mixed-spaces-and-tabs"</span>: [<span class="number">0</span>],</span><br><span class="line"><span class="comment">// 关闭行尾不能有空格</span></span><br><span class="line"><span class="string">"no-trailing-spaces"</span>: <span class="number">0</span>,</span><br></pre></td></tr></table></figure></p>
-<h1 id="七、代码懒加载"><a href="#七、代码懒加载" class="headerlink" title="七、代码懒加载"></a>七、代码懒加载</h1><p>1、添加 syntax-dynamic-import 插件(<a href="https://babeljs.io/docs/plugins/syntax-dynamic-import/" target="_blank" rel="noopener">https://babeljs.io/docs/plugins/syntax-dynamic-import/</a>)<br>2、.babelrc里配置<br>{“plugins”: [“syntax-dynamic-import”]}<br>3、页面引用<br>const detail = () =&gt; import(‘@/components/detail’)<br>或者多个<br>const detail = () =&gt; import(/<em> webpackChunkName: “detail” </em>/ ‘@/components/detail’)<br>const about = () =&gt; import(/<em> webpackChunkName: “detail” </em>/ ‘@/components/about’)</p>
+<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><p>.vue文件中通过img标签引用图片可直接使用相对路径<br>样式中使用图片，使用相对路径，在build/webpack.base.conf.js中配置，当图片小于10000kb时会使用base64</p>
+<h1 id="Eslint配置"><a href="#Eslint配置" class="headerlink" title="Eslint配置"></a>Eslint配置</h1><p>关闭eslint：build/webpack.base.conf.js 配置文件中的eslint rules注释掉即可</p>
+<p>.eslintrc.js配置自定义规则：</p>
+<pre><code class="javascript">// allow paren-less arrow functions
+&#39;arrow-parens&#39;: 0,
+// allow async-await
+&#39;generator-star-spacing&#39;: 0,
+// allow debugger during development
+&#39;no-debugger&#39;: process.env.NODE_ENV === &#39;production&#39; ? 2 : 0,
+&quot;no-unused-vars&quot;: [2, &#123;
+  // 允许声明未使用变量
+  &quot;vars&quot;: &quot;local&quot;,
+  // 参数不检查
+  &quot;args&quot;: &quot;none&quot;
+&#125;],
+// 关闭语句强制分号结尾
+&quot;semi&quot;: [0],
+//空行最多不能超过100行
+&quot;no-multiple-empty-lines&quot;: [0, &#123;&quot;max&quot;: 100&#125;],
+//关闭禁止混用tab和空格
+&quot;no-mixed-spaces-and-tabs&quot;: [0],
+// 关闭行尾不能有空格
+&quot;no-trailing-spaces&quot;: 0,
+</code></pre>
+<h1 id="七、代码懒加载"><a href="#七、代码懒加载" class="headerlink" title="七、代码懒加载"></a>七、代码懒加载</h1><p>1、添加 syntax-dynamic-import 插件(<a target="_blank" rel="noopener" href="https://babeljs.io/docs/plugins/syntax-dynamic-import/">https://babeljs.io/docs/plugins/syntax-dynamic-import/</a>)<br>2、.babelrc里配置<br>{“plugins”: [“syntax-dynamic-import”]}<br>3、页面引用<br>const detail = () =&gt; import(‘@/components/detail’)<br>或者多个<br>const detail = () =&gt; import(/* webpackChunkName: “detail” <em>/ ‘@/components/detail’)<br>const about = () =&gt; import(/</em> webpackChunkName: “detail” */ ‘@/components/about’)</p>
 <p>另外需在webpack.base.conf.js是配置生成的路径及文件名</p>
-<h1 id="八、路由切换返回回到原滚动位置"><a href="#八、路由切换返回回到原滚动位置" class="headerlink" title="八、路由切换返回回到原滚动位置"></a>八、路由切换返回回到原滚动位置</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [...],</span><br><span class="line">  scrollBehavior (to, <span class="keyword">from</span>, savedPosition) &#123;</span><br><span class="line">    <span class="comment">// return 期望滚动到哪个的位置</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>如果列表页数据是通过上拉加载，可通过vuex进行数据管理并在跳转时记录列表页滚动条位置，参考<a href="http://www.cnblogs.com/buerjj/p/8405443.html" target="_blank" rel="noopener">http://www.cnblogs.com/buerjj/p/8405443.html</a><br>实现方法：<br>1、通过vuex记录动态加载的列表数据indexItems，页面跳转时记录滚动条位置pageYOffset, 是否目标页面返回isFromDetail（在路由中beforeRouteEnter修改状态）<br>2、列表页重新加载时判断indexItems是否大于0及isFromDetail为true时，从indexItems读取数据，并跳转滚动条到指定位置</p>
+<h1 id="路由切换返回回到原滚动位置"><a href="#路由切换返回回到原滚动位置" class="headerlink" title="路由切换返回回到原滚动位置"></a>路由切换返回回到原滚动位置</h1><pre><code class="javascript">const router = new VueRouter(&#123;
+  routes: [...],
+  scrollBehavior (to, from, savedPosition) &#123;
+    // return 期望滚动到哪个的位置
+  &#125;
+&#125;)
+</code></pre>
+<p>如果列表页数据是通过上拉加载，可通过vuex进行数据管理并在跳转时记录列表页滚动条位置，参考<a target="_blank" rel="noopener" href="http://www.cnblogs.com/buerjj/p/8405443.html">http://www.cnblogs.com/buerjj/p/8405443.html</a><br>实现方法：<br>1、通过vuex记录动态加载的列表数据indexItems，页面跳转时记录滚动条位置pageYOffset, 是否目标页面返回isFromDetail（在路由中beforeRouteEnter修改状态）<br>2、列表页重新加载时判断indexItems是否大于0及isFromDetail为true时，从indexItems读取数据，并跳转滚动条到指定位置</p>
 
       
     </div>
+
     
-    <div class="article-info article-info-index">
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/项目实践/">项目实践</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
-</article>
-
-
-
-
-
-
-
-
-
   
-    <article id="post-移动端限制文本框输入为整数或两位小数" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/01/29/移动端限制文本框输入为整数或两位小数/" class="article-date">
-  	<time datetime="2018-01-29T13:35:13.000Z" itemprop="datePublished">2018-01-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/29/移动端限制文本框输入为整数或两位小数/">移动端限制文本框输入为整数或两位小数</a>
-    </h1>
-  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2018/01/29/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%99%90%E5%88%B6%E6%96%87%E6%9C%AC%E6%A1%86%E8%BE%93%E5%85%A5%E4%B8%BA%E6%95%B4%E6%95%B0%E6%88%96%E4%B8%A4%E4%BD%8D%E5%B0%8F%E6%95%B0/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/29/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%99%90%E5%88%B6%E6%96%87%E6%9C%AC%E6%A1%86%E8%BE%93%E5%85%A5%E4%B8%BA%E6%95%B4%E6%95%B0%E6%88%96%E4%B8%A4%E4%BD%8D%E5%B0%8F%E6%95%B0/" class="post-title-link" itemprop="url">移动端限制文本框输入为整数或两位小数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-29 21:35:13" itemprop="dateCreated datePublished" datetime="2018-01-29T21:35:13+08:00">2018-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-04-15 22:07:41" itemprop="dateModified" datetime="2018-04-15T22:07:41+08:00">2018-04-15</time>
+              </span>
+
+          
+
+        </div>
       </header>
-      
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h1 id="一、测试环境："><a href="#一、测试环境：" class="headerlink" title="一、测试环境："></a>一、测试环境：</h1><blockquote>
+          <h1 id="一、测试环境："><a href="#一、测试环境：" class="headerlink" title="一、测试环境："></a>一、测试环境：</h1><blockquote>
 <p>华为荣耀6原生浏览器：chrome30<br>安卓QQ浏览器：chrome37<br>安卓微信：chrome57<br>安卓搜狗浏览器：chrome46<br>安卓UC：chrome57<br>iphone5s 10.3.2<br>ipad 9.3.2</p>
 </blockquote>
 <h1 id="二、type-”number”表现形式："><a href="#二、type-”number”表现形式：" class="headerlink" title="二、type=”number”表现形式："></a>二、type=”number”表现形式：</h1><blockquote>
@@ -297,203 +496,336 @@
 <h1 id="四、type-”text”和pattern-”-0-9-”一起使用时表现形式："><a href="#四、type-”text”和pattern-”-0-9-”一起使用时表现形式：" class="headerlink" title="四、type=”text”和pattern=”[0-9]*”一起使用时表现形式："></a>四、type=”text”和pattern=”[0-9]*”一起使用时表现形式：</h1><blockquote>
 <p>安卓：调用全键盘，可输入任何字符，在表单触发submit事件时验证pattern规则<br>iphone5s：调用九格宫数字键盘，不可切换输入法，只可输入0-9数字，可粘贴所有字符<br>ipad：调用全数字键盘，可输入任意字符</p>
 </blockquote>
-<div class="remark"><strong> 注：</strong><br>1、IOS中，只有[0-9]*才可以调起九宫格数字键盘，\d 无效；<br>2、pattern属性适用于以下 <code>&lt;input&gt;</code> 类型：text, search, url, telepone, email 以及 password。所以number文本框的pattern属性的规则是无效的，它遵循的是number的规则，唯一的作用是可以在IOS下调起九宫格数字键盘。<br></div>
+<div class="remark">** 注：**
+1、IOS中，只有[0-9]*才可以调起九宫格数字键盘，\d 无效；
+2、pattern属性适用于以下 `<input>` 类型：text, search, url, telepone, email 以及 password。所以number文本框的pattern属性的规则是无效的，它遵循的是number的规则，唯一的作用是可以在IOS下调起九宫格数字键盘。
+</div>
 
-<h1 id="五、限制只能输入整数（与zepto同用）"><a href="#五、限制只能输入整数（与zepto同用）" class="headerlink" title="五、限制只能输入整数（与zepto同用）"></a>五、限制只能输入整数（与zepto同用）</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">pattern</span>=<span class="string">"[0-9]*"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"set-input-int"</span>  <span class="attr">placeholder</span>=<span class="string">"number整数"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$.fn.formatInt=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target=<span class="keyword">this</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">verify</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//console.log(e.keyCode)</span></span><br><span class="line">        <span class="comment">//if(e.keyCode==69 || e.keyCode==189 || e.keyCode==187)return false;   // 安卓下number可输入除数字外还可输"+-e"，过滤"+-e",PC有效移动端无效</span></span><br><span class="line">        <span class="keyword">var</span> val=$(<span class="keyword">this</span>).val();</span><br><span class="line">        val=val.replace(<span class="regexp">/[^\d]/g</span>,<span class="string">''</span>);</span><br><span class="line">        val= <span class="built_in">isNaN</span>(<span class="built_in">parseInt</span>(val))?<span class="string">''</span>:<span class="built_in">parseInt</span>(val);</span><br><span class="line">        $(<span class="keyword">this</span>).val(<span class="string">''</span>).val(val)     <span class="comment">// 安卓下number里‘.’无法过滤掉，所以先清空</span></span><br><span class="line">    &#125;</span><br><span class="line">    target.on(<span class="string">'keyup'</span>,verify)</span><br><span class="line">    target.on(<span class="string">'blur'</span>,verify)           </span><br><span class="line">&#125;</span><br><span class="line">$(<span class="string">'.set-input-int'</span>).formatInt();</span><br></pre></td></tr></table></figure>
-<div class="remark"><strong> 备注：</strong><br>1、android type=”number”输入”+-e”会清空文本框内容，使用text不存在这个问题，但是text无法直接调用数字键盘<br>2、iphone5S和ipad下通过粘贴输入的非数字会清空<br>3、android chrome30/37，类似parseInt(‘343sds’)会返回NaN，所有返回NaN的做清空处理<br></div>
+<h1 id="五、限制只能输入整数（与zepto同用）"><a href="#五、限制只能输入整数（与zepto同用）" class="headerlink" title="五、限制只能输入整数（与zepto同用）"></a>五、限制只能输入整数（与zepto同用）</h1><pre><code class="html">&lt;input type=&quot;number&quot; pattern=&quot;[0-9]*&quot; value=&quot;&quot; class=&quot;set-input-int&quot;  placeholder=&quot;number整数&quot; /&gt;
+</code></pre>
+<pre><code class="javascript">$.fn.formatInt=function()&#123;
+    var target=this;
+    function verify(e)&#123;
+        //console.log(e.keyCode)
+        //if(e.keyCode==69 || e.keyCode==189 || e.keyCode==187)return false;   // 安卓下number可输入除数字外还可输&quot;+-e&quot;，过滤&quot;+-e&quot;,PC有效移动端无效
+        var val=$(this).val();
+        val=val.replace(/[^\d]/g,&#39;&#39;);
+        val= isNaN(parseInt(val))?&#39;&#39;:parseInt(val);
+        $(this).val(&#39;&#39;).val(val)     // 安卓下number里‘.’无法过滤掉，所以先清空
+    &#125;
+    target.on(&#39;keyup&#39;,verify)
+    target.on(&#39;blur&#39;,verify)           
+&#125;
+$(&#39;.set-input-int&#39;).formatInt();
+</code></pre>
+<div class="remark">** 备注：**
+1、android type="number"输入"+-e"会清空文本框内容，使用text不存在这个问题，但是text无法直接调用数字键盘
+2、iphone5S和ipad下通过粘贴输入的非数字会清空
+3、android chrome30/37，类似parseInt('343sds')会返回NaN，所有返回NaN的做清空处理
+</div>
 
-<h1 id="六、限制最多可输入两位小数（与zepto同用）"><a href="#六、限制最多可输入两位小数（与zepto同用）" class="headerlink" title="六、限制最多可输入两位小数（与zepto同用）"></a>六、限制最多可输入两位小数（与zepto同用）</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"set-input-tofixed"</span> <span class="attr">placeholder</span>=<span class="string">"input两位小数"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"set-input-tofixed"</span> <span class="attr">placeholder</span>=<span class="string">"number两位小数"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$.fn.formatToFixed=<span class="function"><span class="keyword">function</span>(<span class="params">opt</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target=<span class="keyword">this</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">verify</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> val=$(<span class="keyword">this</span>).val();</span><br><span class="line">        val=val.replace(<span class="regexp">/[^\d+\.]/g</span>,<span class="string">''</span>); </span><br><span class="line">        <span class="comment">// 只输入数字和点</span></span><br><span class="line">        <span class="keyword">if</span>(val!=<span class="string">''</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(val.indexOf(<span class="string">'.'</span>)&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">var</span> arr=val.split(<span class="string">'.'</span>);</span><br><span class="line">                val=arr.length&gt;<span class="number">2</span>?<span class="built_in">parseFloat</span>(val):val;</span><br><span class="line">                val=arr[<span class="number">1</span>].length&gt;opt?<span class="built_in">parseFloat</span>(val).toFixed(opt):val;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                val=<span class="built_in">parseFloat</span>(val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        $(<span class="keyword">this</span>).val(val)</span><br><span class="line">    &#125;</span><br><span class="line">    target.on(<span class="string">'keyup'</span>,verify)</span><br><span class="line">    target.on(<span class="string">'blur'</span>,verify)</span><br><span class="line">&#125;</span><br><span class="line">$(<span class="string">'.set-input-tofixed'</span>).formatToFixed(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-<div class="remark"> <strong> 备注：</strong><br>1、设置pattern=”[0-9]*”会导致IOS下不能输入小数点，text不能直接调起数字键盘，number可以调起全数字键盘，<br>2、安卓微信下number存在“+-e”导致的清空内容问题，chrome30/37、iphone5s、ipad下number验证异常时都会清空文本框内容（如输入字母或符号），使用text IOS和安卓不存在这个问题，但是用户体验不好。<br></div>
+<h1 id="六、限制最多可输入两位小数（与zepto同用）"><a href="#六、限制最多可输入两位小数（与zepto同用）" class="headerlink" title="六、限制最多可输入两位小数（与zepto同用）"></a>六、限制最多可输入两位小数（与zepto同用）</h1><pre><code class="html">&lt;input type=&quot;text&quot; value=&quot;&quot; class=&quot;set-input-tofixed&quot; placeholder=&quot;input两位小数&quot; /&gt;
+&lt;input type=&quot;number&quot; value=&quot;&quot; class=&quot;set-input-tofixed&quot; placeholder=&quot;number两位小数&quot; /&gt;
+</code></pre>
+<pre><code class="javascript">$.fn.formatToFixed=function(opt)&#123;
+    var target=this;
+    function verify()&#123;
+        var val=$(this).val();
+        val=val.replace(/[^\d+\.]/g,&#39;&#39;); 
+        // 只输入数字和点
+        if(val!=&#39;&#39;)&#123;
+            if(val.indexOf(&#39;.&#39;)&gt;=0)&#123;
+                var arr=val.split(&#39;.&#39;);
+                val=arr.length&gt;2?parseFloat(val):val;
+                val=arr[1].length&gt;opt?parseFloat(val).toFixed(opt):val;
+            &#125;else&#123;
+                val=parseFloat(val);
+            &#125;
+        &#125;
+        $(this).val(val)
+    &#125;
+    target.on(&#39;keyup&#39;,verify)
+    target.on(&#39;blur&#39;,verify)
+&#125;
+$(&#39;.set-input-tofixed&#39;).formatToFixed(2);
+</code></pre>
+<div class="remark"> ** 备注：**
+1、设置pattern="[0-9]*"会导致IOS下不能输入小数点，text不能直接调起数字键盘，number可以调起全数字键盘，
+2、安卓微信下number存在“+-e”导致的清空内容问题，chrome30/37、iphone5s、ipad下number验证异常时都会清空文本框内容（如输入字母或符号），使用text IOS和安卓不存在这个问题，但是用户体验不好。
+</div>
 
 <p>　　关于input type=”number”的取值问题：在IOS及安卓下低版本的chrome（30/37）下可输入任意字符，当取的值为非合法数字时会返回空，安卓高版本的浏览器下只可输入“+-e.”及数字，当为非合法数字时取值也返回空。</p>
-<p>另外下面方法在PC上有效，移动端无效：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;number&quot; onkeypress=&quot;return (/[\d]/.test(String.fromCharCode(event.keyCode)))&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>另外下面方法在PC上有效，移动端无效：</p>
+<pre><code>&lt;input type=&quot;number&quot; onkeypress=&quot;return (/[\d]/.test(String.fromCharCode(event.keyCode)))&quot; /&gt;
+</code></pre>
 
       
     </div>
+
     
-    <div class="article-info article-info-index">
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动端开发/">移动端开发</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
-</article>
-
-
-
-
-
-
-
-
-
   
-    <article id="post-chrome background tab情况下setTimeout、setInterval渲染机制" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/08/chrome background tab情况下setTimeout、setInterval渲染机制/" class="article-date">
-  	<time datetime="2016-05-08T13:33:44.000Z" itemprop="datePublished">2016-05-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/08/chrome background tab情况下setTimeout、setInterval渲染机制/">chrome background tab情况下setTimeout、setInterval渲染机制问题</a>
-    </h1>
-  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2016/05/08/chrome%20background%20tab%E6%83%85%E5%86%B5%E4%B8%8BsetTimeout%E3%80%81setInterval%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/08/chrome%20background%20tab%E6%83%85%E5%86%B5%E4%B8%8BsetTimeout%E3%80%81setInterval%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">chrome background tab情况下setTimeout、setInterval渲染机制问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2016-05-08 21:33:44 / 修改时间：23:00:32" itemprop="dateCreated datePublished" datetime="2016-05-08T21:33:44+08:00">2016-05-08</time>
+            </span>
+
+          
+
+        </div>
       </header>
-      
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>　　chrome下，当把标签页切换到非活动状态下（background tab）,被切换的页面里执行的setTimeout/setInterval会发生混乱。在做倒计时时由于执行的频率较少，以为标签非活动状态下会停止setTimeout/setIntervaql的执行，测试证明chrome并没有停止计时器的执行，而只是针对执行时间小于1000ms的定时器减缓其执行频率，定时器间隔时间越小减缓强度越大。</p>
+          <p>　　chrome下，当把标签页切换到非活动状态下（background tab）,被切换的页面里执行的setTimeout/setInterval会发生混乱。在做倒计时时由于执行的频率较少，以为标签非活动状态下会停止setTimeout/setIntervaql的执行，测试证明chrome并没有停止计时器的执行，而只是针对执行时间小于1000ms的定时器减缓其执行频率，定时器间隔时间越小减缓强度越大。</p>
 <blockquote>
-<p>In early 2011, both Firefox and Chrome clamped the minimum wait time for setTimeout and setInterval to one second when running in a tab that is not the active tab for its window. <a href="https://blog.pivotal.io/pivotal-labs/labs/chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs" target="_blank" rel="noopener">查看原文</a></p>
+<p>In early 2011, both Firefox and Chrome clamped the minimum wait time for setTimeout and setInterval to one second when running in a tab that is not the active tab for its window. <a target="_blank" rel="noopener" href="https://blog.pivotal.io/pivotal-labs/labs/chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs">查看原文</a></p>
 </blockquote>
 <p>以下为约一个小时的background tab页里setInterval的测试数据：<br><img src="/img/2016-5-8/test.png" alt="测试结果"></p>
-<p>测试代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt; </span><br><span class="line">&lt;html&gt; </span><br><span class="line">&lt;head&gt; </span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;&lt;/title&gt; </span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">strong&#123;color:#FF0000;font-weight:bold;display:inline-block;width:60px;text-align:right;margin-right:5px;&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div&gt;&lt;strong&gt;1000ms:&lt;/strong&gt;&lt;span id=&quot;a&quot;&gt;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">&lt;div&gt;&lt;strong&gt;999ms:&lt;/strong&gt;&lt;span id=&quot;g&quot;&gt;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">&lt;div&gt;&lt;strong&gt;500ms:&lt;/strong&gt;&lt;span id=&quot;b&quot;&gt;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">&lt;div&gt;&lt;strong&gt;250ms:&lt;/strong&gt;&lt;span id=&quot;f&quot;&gt;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">&lt;div&gt;&lt;strong&gt;100ms:&lt;/strong&gt;&lt;span id=&quot;c&quot;&gt;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;d&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div&gt;&lt;strong&gt;10ms:&lt;/strong&gt;&lt;span id=&quot;e&quot;&gt;&lt;/span&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script src=&quot;jquery-1.11.3.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var now=new Date();</span><br><span class="line">var aa=bb=cc=dd=ee=ff=gg=0;</span><br><span class="line">function a()&#123;</span><br><span class="line">    $(&apos;#a&apos;).text(aa+=1000)</span><br><span class="line">&#125;</span><br><span class="line">function b()&#123;</span><br><span class="line">    $(&apos;#b&apos;).text(bb+=500)</span><br><span class="line">&#125;</span><br><span class="line">function f()&#123;</span><br><span class="line">    $(&apos;#f&apos;).text(ff+=250)</span><br><span class="line">&#125;</span><br><span class="line">function c()&#123;</span><br><span class="line">    $(&apos;#c&apos;).text(cc+=100)</span><br><span class="line">&#125;</span><br><span class="line">function d()&#123;</span><br><span class="line">    $(&apos;#d&apos;).text(dd+=50)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">function e()&#123;</span><br><span class="line">    $(&apos;#e&apos;).text(ee+=10)</span><br><span class="line">&#125;</span><br><span class="line">function g()&#123;</span><br><span class="line">    $(&apos;#g&apos;).text(gg+=999);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">setInterval(a,1000);</span><br><span class="line">setInterval(c,100);</span><br><span class="line">setInterval(e,10);</span><br><span class="line">setInterval(f,250);</span><br><span class="line">setInterval(b,500);</span><br><span class="line">setInterval(g,999);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a href="https://blog.pivotal.io/pivotal-labs/labs/chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs" target="_blank" rel="noopener">chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs</a><br><a href="https://developer.chrome.com/extensions/event_pages#transition" target="_blank" rel="noopener">https://developer.chrome.com/extensions/event_pages#transition</a></p>
+<p>测试代码：</p>
+<pre><code>&lt;!DOCTYPE HTML&gt; 
+&lt;html&gt; 
+&lt;head&gt; 
+&lt;meta charset=&quot;utf-8&quot;&gt; 
+&lt;title&gt;&lt;/title&gt; 
+&lt;style type=&quot;text/css&quot;&gt;
+strong&#123;color:#FF0000;font-weight:bold;display:inline-block;width:60px;text-align:right;margin-right:5px;&#125;
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;&lt;strong&gt;1000ms:&lt;/strong&gt;&lt;span id=&quot;a&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;999ms:&lt;/strong&gt;&lt;span id=&quot;g&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;500ms:&lt;/strong&gt;&lt;span id=&quot;b&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;250ms:&lt;/strong&gt;&lt;span id=&quot;f&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;100ms:&lt;/strong&gt;&lt;span id=&quot;c&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div id=&quot;d&quot;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;10ms:&lt;/strong&gt;&lt;span id=&quot;e&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;script src=&quot;jquery-1.11.3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var now=new Date();
+var aa=bb=cc=dd=ee=ff=gg=0;
+function a()&#123;
+    $(&#39;#a&#39;).text(aa+=1000)
+&#125;
+function b()&#123;
+    $(&#39;#b&#39;).text(bb+=500)
+&#125;
+function f()&#123;
+    $(&#39;#f&#39;).text(ff+=250)
+&#125;
+function c()&#123;
+    $(&#39;#c&#39;).text(cc+=100)
+&#125;
+function d()&#123;
+    $(&#39;#d&#39;).text(dd+=50)
+&#125;
+ 
+function e()&#123;
+    $(&#39;#e&#39;).text(ee+=10)
+&#125;
+function g()&#123;
+    $(&#39;#g&#39;).text(gg+=999);
+&#125;
+ 
+setInterval(a,1000);
+setInterval(c,100);
+setInterval(e,10);
+setInterval(f,250);
+setInterval(b,500);
+setInterval(g,999);
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a target="_blank" rel="noopener" href="https://blog.pivotal.io/pivotal-labs/labs/chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs">chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs</a><br><a target="_blank" rel="noopener" href="https://developer.chrome.com/extensions/event_pages#transition">https://developer.chrome.com/extensions/event_pages#transition</a></p>
 
       
     </div>
+
     
-    <div class="article-info article-info-index">
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端开发/">前端开发</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
-</article>
-
-
-
-
-
-
-
-
-
   
-    <article id="post-移动端返回上一页实现方法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/26/移动端返回上一页实现方法/" class="article-date">
-  	<time datetime="2016-03-26T06:33:44.000Z" itemprop="datePublished">2016-03-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/26/移动端返回上一页实现方法/">移动端返回上一页实现方法</a>
-    </h1>
-  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2016/03/26/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E4%B8%8A%E4%B8%80%E9%A1%B5%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/26/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E4%B8%8A%E4%B8%80%E9%A1%B5%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">移动端返回上一页实现方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-26 14:33:44" itemprop="dateCreated datePublished" datetime="2016-03-26T14:33:44+08:00">2016-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2016-04-23 17:02:04" itemprop="dateModified" datetime="2016-04-23T17:02:04+08:00">2016-04-23</time>
+              </span>
+
+          
+
+        </div>
       </header>
-      
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述:"></a>一、问题描述:</h1><p>　　使用window.history.go(-1)或者window.history.back(-1)实现移动端返回上一页功能，原生safair浏览器里存在问题（通过flex布局的上一张页面滚动无效，只能显示点击前停留的那屏，无法通过触摸滚动页面）。存在于ios 9.3(13E233)和ios9.3.1(13E238)系统,ios9.3其它版本未发现该问题，ios安装的其它浏览器不存在该问题，android也没有该问题。</p>
-<h1 id="二、解决方案："><a href="#二、解决方案：" class="headerlink" title="二、解决方案："></a>二、解决方案：</h1><p>　　ios原生浏览器（ios其它浏览器不存在这种情况）下通过document.referrer实现返回上一页，部分手机的QQ内嵌浏览器使用document.referrer不能正常返回上一页，android下通过referrer属性实现时，当刷新页面后返回前一页失效，所以判断移动端浏览器类型针对原生safair进行处理，具体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;#&quot; id=&quot;goBack&quot; &gt;返回&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">var u = navigator.userAgent;</span><br><span class="line">var goBack=document.getElementById(&quot;goBack&quot;);</span><br><span class="line">//针对ios原生浏览器处理</span><br><span class="line">if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;&amp; /(Safari)/i.test(u))&#123;</span><br><span class="line">    goBack.setAttribute(&quot;onclick&quot;,&quot;javascript:window.location=document.referrer;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述:"></a>一、问题描述:</h1><p>　　使用window.history.go(-1)或者window.history.back(-1)实现移动端返回上一页功能，原生safair浏览器里存在问题（通过flex布局的上一张页面滚动无效，只能显示点击前停留的那屏，无法通过触摸滚动页面）。存在于ios 9.3(13E233)和ios9.3.1(13E238)系统,ios9.3其它版本未发现该问题，ios安装的其它浏览器不存在该问题，android也没有该问题。</p>
+<h1 id="二、解决方案："><a href="#二、解决方案：" class="headerlink" title="二、解决方案："></a>二、解决方案：</h1><p>　　ios原生浏览器（ios其它浏览器不存在这种情况）下通过document.referrer实现返回上一页，部分手机的QQ内嵌浏览器使用document.referrer不能正常返回上一页，android下通过referrer属性实现时，当刷新页面后返回前一页失效，所以判断移动端浏览器类型针对原生safair进行处理，具体代码如下：</p>
+<pre><code>&lt;a href=&quot;#&quot; id=&quot;goBack&quot; &gt;返回&lt;/a&gt;
+
+var u = navigator.userAgent;
+var goBack=document.getElementById(&quot;goBack&quot;);
+//针对ios原生浏览器处理
+if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;&amp; /(Safari)/i.test(u))&#123;
+    goBack.setAttribute(&quot;onclick&quot;,&quot;javascript:window.location=document.referrer;&quot;);
+&#125;
+</code></pre>
 
       
     </div>
+
     
-    <div class="article-info article-info-index">
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动端开发/">移动端开发</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
-</article>
-
-
-
-
-
-
-
-
-
   
-    <article id="post-chrome取消浏览器自动播放flash广告" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/02/24/chrome取消浏览器自动播放flash广告/" class="article-date">
-  	<time datetime="2016-02-24T06:33:44.000Z" itemprop="datePublished">2016-02-24</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/24/chrome取消浏览器自动播放flash广告/">chrome取消浏览器自动播放flash广告</a>
-    </h1>
-  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2016/02/24/chrome%E5%8F%96%E6%B6%88%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BEflash%E5%B9%BF%E5%91%8A/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/02/24/chrome%E5%8F%96%E6%B6%88%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BEflash%E5%B9%BF%E5%91%8A/" class="post-title-link" itemprop="url">chrome取消浏览器自动播放flash广告</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-02-24 14:33:44" itemprop="dateCreated datePublished" datetime="2016-02-24T14:33:44+08:00">2016-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2016-04-23 17:24:51" itemprop="dateModified" datetime="2016-04-23T17:24:51+08:00">2016-04-23</time>
+              </span>
+
+          
+
+        </div>
       </header>
-      
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述:"></a>一、问题描述:</h1><p>　　chrome 45及以上版本默认不自动播放flash，对于非自动播放的广告，chrome会在flash上悬浮一个播放按钮，点击后可播放。flash广告多使用覆盖a链接来实现，这种方法下无法点中chrome贴心提供的播放按钮。</p>
-<p><strong> 不自动播放的flash需满足以下两点： </strong></p>
+          <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述:"></a>一、问题描述:</h1><p>　　chrome 45及以上版本默认不自动播放flash，对于非自动播放的广告，chrome会在flash上悬浮一个播放按钮，点击后可播放。flash广告多使用覆盖a链接来实现，这种方法下无法点中chrome贴心提供的播放按钮。</p>
+<p>** 不自动播放的flash需满足以下两点： **</p>
 <ol>
 <li>跨域</li>
 <li>尺寸小于398*298（未知此尺寸chrome是怎么得出的）</li>
 </ol>
 <blockquote>
-<p><strong> acelan86文中解决思路（<a href="https://github.com/acelan86/whatthefuck/wiki/chrome-45%E4%BB%A5%E4%B8%8A%E4%B8%8D%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BE%22%E9%9D%9E%E5%BF%85%E8%A6%81%22flash%E7%9A%84%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%83%BD%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">文章链接</a>）： </strong><br>在flash渲染的时候暂时把尺寸设置成大于398*298，在实际展现的时候在设置回来。<br>这里的尺寸有几个注意点： </p>
+<p>** acelan86文中解决思路（<a target="_blank" rel="noopener" href="https://github.com/acelan86/whatthefuck/wiki/chrome-45%E4%BB%A5%E4%B8%8A%E4%B8%8D%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BE%22%E9%9D%9E%E5%BF%85%E8%A6%81%22flash%E7%9A%84%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%83%BD%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">文章链接</a>）： **<br>在flash渲染的时候暂时把尺寸设置成大于398*298，在实际展现的时候在设置回来。<br>这里的尺寸有几个注意点： </p>
 <ol>
 <li>不只是flash自己的尺寸而是真正展现的尺寸，有可能flash设置了足够大，但是它外面包含的容器overflow了，导致flash实际尺寸没有这么大，这样也是无法自动播放的 </li>
 <li>经过尝试，opacity:0 的flash只要尺寸足够大，也是可以自动播放的</li>
@@ -501,100 +833,201 @@
 </blockquote>
 <p>另外发现当flash能过定位设置在布局之外，再定时显示也可解决flash自动播放的问题。</p>
 <h1 id="二、解决方案："><a href="#二、解决方案：" class="headerlink" title="二、解决方案："></a>二、解决方案：</h1><p>1、同域下flash不受限制<br>2、设置大于398*298的尺寸，在渲染完成后改回小尺寸(渲染时间不可控，渲染影响因素不明)，参考acelan86上文中方法<br>3、通过定位设置一个很大的left值（使flash不可见，一定时间后改回正常值，时间不可控）</p>
-<p>其中2、3方法的具体写法：<br>（1）JS通过setTimeout设置<br>（2）针对webkit利用css animation设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (-webkit-min-device-pixel-ratio:0)&#123;</span><br><span class="line">    .fixedFlashAutoStart&#123;</span><br><span class="line">        position:relative;</span><br><span class="line">        left:99999px;</span><br><span class="line">        -webkit-animation:fixedFlashAutoPlay 1ms linear 500ms 1 forwards;</span><br><span class="line">    &#125;</span><br><span class="line">    @-webkit-keyframes fixedFlashAutoPlay&#123;</span><br><span class="line">        from &#123;left:99999px;&#125;</span><br><span class="line">        to &#123;left:0;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中2、3方法的具体写法：<br>（1）JS通过setTimeout设置<br>（2）针对webkit利用css animation设置：</p>
+<pre><code>@media screen and (-webkit-min-device-pixel-ratio:0)&#123;
+    .fixedFlashAutoStart&#123;
+        position:relative;
+        left:99999px;
+        -webkit-animation:fixedFlashAutoPlay 1ms linear 500ms 1 forwards;
+    &#125;
+    @-webkit-keyframes fixedFlashAutoPlay&#123;
+        from &#123;left:99999px;&#125;
+        to &#123;left:0;&#125;
+    &#125;
+&#125;
+</code></pre>
 <h1 id="三、存在的问题："><a href="#三、存在的问题：" class="headerlink" title="三、存在的问题："></a>三、存在的问题：</h1><p>2、3定时重绘的方法非百分百有效，因所设置时间因素不可控（非flash下载时间，不确定是否是flash渲染时间）。</p>
-<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a href="https://github.com/acelan86/whatthefuck/wiki/chrome-45%E4%BB%A5%E4%B8%8A%E4%B8%8D%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BE%22%E9%9D%9E%E5%BF%85%E8%A6%81%22flash%E7%9A%84%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%83%BD%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">chrome-45以上不自动播放”非必要”flash的一种可能解决方案</a><br><a href="https://news.ycombinator.com/item?id=10133771" target="_blank" rel="noopener">https://news.ycombinator.com/item?id=10133771</a><br><a href="https://code.google.com/p/chromium/codesearch#chromium/src/content/renderer/pepper/plugin_power_saver_helper.cc&amp;sq=package:chromium&amp;type=cs&amp;l=87" target="_blank" rel="noopener">chromium source code see constants</a><br><a href="https://code.google.com/p/chromium/codesearch#chromium/src/content/renderer/pepper/plugin_instance_throttler_impl.cc&amp;q=plugin_instance_throttler_impl&amp;sq=package:chromium&amp;type=cs&amp;l=5" target="_blank" rel="noopener">chromium source code See ShouldThrottleConten</a></p>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a target="_blank" rel="noopener" href="https://github.com/acelan86/whatthefuck/wiki/chrome-45%E4%BB%A5%E4%B8%8A%E4%B8%8D%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BE%22%E9%9D%9E%E5%BF%85%E8%A6%81%22flash%E7%9A%84%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%83%BD%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">chrome-45以上不自动播放”非必要”flash的一种可能解决方案</a><br><a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=10133771">https://news.ycombinator.com/item?id=10133771</a><br><a target="_blank" rel="noopener" href="https://code.google.com/p/chromium/codesearch#chromium/src/content/renderer/pepper/plugin_power_saver_helper.cc&sq=package:chromium&type=cs&l=87">chromium source code see constants</a><br><a target="_blank" rel="noopener" href="https://code.google.com/p/chromium/codesearch#chromium/src/content/renderer/pepper/plugin_instance_throttler_impl.cc&q=plugin_instance_throttler_impl&sq=package:chromium&type=cs&l=5">chromium source code See ShouldThrottleConten</a></p>
 
       
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端开发/">前端开发</a></li></ul>
-	</div>
 
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
     
-  </div>
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-</article>
-
-
-
-
-
-
-
+  
+  
 
 
   
-  
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2018 niniun1024
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
+
+
+          </div>
+          
 
 <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: true,
-		isPost: false,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
     }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">niniun1024</p>
+  <div class="site-description" itemprop="description">niniun1024's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">niniun1024</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
