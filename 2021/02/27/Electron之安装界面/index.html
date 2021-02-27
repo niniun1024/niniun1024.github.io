@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"niniun1024.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Electron开发的应用默认安装界面较简洁，无法选择安装路径，一般在桌面应用开发过程中需要更丰富的安装功能，如展示使用协议、选择安装目录、选择安装组件等，安装成功后执行哪些操作等等。下方以Electron+Vue项目为例，使用electron-builder+nsis自定义打包界面。 在vue.config.js中配置NSIS，救命代码如下：123456789101112131415161718">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Electron之安装界面">
+<meta property="og:url" content="http://niniun1024.github.io/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/index.html">
+<meta property="og:site_name" content="niniun1024&#39;s blog">
+<meta property="og:description" content="Electron开发的应用默认安装界面较简洁，无法选择安装路径，一般在桌面应用开发过程中需要更丰富的安装功能，如展示使用协议、选择安装目录、选择安装组件等，安装成功后执行哪些操作等等。下方以Electron+Vue项目为例，使用electron-builder+nsis自定义打包界面。 在vue.config.js中配置NSIS，救命代码如下：123456789101112131415161718">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis01.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis02.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis03.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis04.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis05.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis06.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis07.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis08.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis09.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis10.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis11.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis12.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis13.png">
+<meta property="og:image" content="http://niniun1024.github.io/img/2021-2-27/nsis14.png">
+<meta property="article:published_time" content="2021-02-27T06:25:44.000Z">
+<meta property="article:modified_time" content="2021-02-27T07:30:43.584Z">
+<meta property="article:author" content="niniun1024">
+<meta property="article:tag" content="技术学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://niniun1024.github.io/img/2021-2-27/nsis01.png">
+
+<link rel="canonical" href="http://niniun1024.github.io/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Electron之安装界面 | niniun1024's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">niniun1024's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Electron之安装界面
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-27 14:25:44 / 修改时间：15:30:43" itemprop="dateCreated datePublished" datetime="2021-02-27T14:25:44+08:00">2021-02-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Electron开发的应用默认安装界面较简洁，无法选择安装路径，一般在桌面应用开发过程中需要更丰富的安装功能，如展示使用协议、选择安装目录、选择安装组件等，安装成功后执行哪些操作等等。<br>下方以Electron+Vue项目为例，使用electron-builder+nsis自定义打包界面。</p>
+<h1 id="在vue-config-js中配置NSIS，救命代码如下："><a href="#在vue-config-js中配置NSIS，救命代码如下：" class="headerlink" title="在vue.config.js中配置NSIS，救命代码如下："></a>在vue.config.js中配置NSIS，救命代码如下：</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 第三方插件配置</span></span><br><span class="line">  pluginOptions: &#123;</span><br><span class="line">    <span class="comment">// vue-cli-plugin-electron-builder配置</span></span><br><span class="line">    electronBuilder: &#123;</span><br><span class="line">      builderOptions: &#123;</span><br><span class="line">        win: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 图标路径 windows系统中icon需要256*256的ico格式图片，更换应用图标亦在此处</span></span><br><span class="line">          target: [&#123;</span><br><span class="line">            <span class="comment">// 打包成一个独立的 exe 安装程序</span></span><br><span class="line">            target: <span class="string">&#x27;nsis&#x27;</span>,</span><br><span class="line">            <span class="comment">// 这个意思是打出来32 bit + 64 bit的包，但是要注意：这样打包出来的安装包体积比较大，所以建议直接打32的安装包。</span></span><br><span class="line">            <span class="string">&#x27;arch&#x27;</span>: [</span><br><span class="line">              <span class="string">&#x27;x64&#x27;</span></span><br><span class="line">              <span class="comment">// &#x27;ia32&#x27;</span></span><br><span class="line">            ]</span><br><span class="line">          &#125;]</span><br><span class="line">        &#125;,</span><br><span class="line">        dmg: &#123;</span><br><span class="line">          <span class="string">&#x27;contents&#x27;</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&#x27;x&#x27;</span>: <span class="number">410</span>,</span><br><span class="line">              <span class="string">&#x27;y&#x27;</span>: <span class="number">150</span>,</span><br><span class="line">              <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;link&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;path&#x27;</span>: <span class="string">&#x27;/Applications&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&#x27;x&#x27;</span>: <span class="number">130</span>,</span><br><span class="line">              <span class="string">&#x27;y&#x27;</span>: <span class="number">150</span>,</span><br><span class="line">              <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;file&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        linux: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          target: <span class="string">&#x27;AppImage&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        mac: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        files: [<span class="string">&#x27;**/*&#x27;</span>],</span><br><span class="line">        asar: <span class="literal">false</span>,</span><br><span class="line">        nsis: &#123;</span><br><span class="line">          <span class="string">&quot;include&quot;</span>: <span class="string">&quot;public/nim/nim_setup.nsi&quot;</span>,</span><br><span class="line">          <span class="comment">// 是否一键安装，建议为 false，可以让用户点击下一步、下一步、下一步的形式安装程序，如果为true，当用户双击构建好的程序，自动安装程序并打开，即：一键安装（one-click installer）</span></span><br><span class="line">          oneClick: <span class="literal">false</span>,</span><br><span class="line">          <span class="comment">// 允许请求提升。 如果为false，则用户必须使用提升的权限重新启动安装程序。</span></span><br><span class="line">          allowElevation: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 允许修改安装目录，建议为 true，是否允许用户改变安装目录，默认是不允许</span></span><br><span class="line">          allowToChangeInstallationDirectory: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 安装图标</span></span><br><span class="line">          installerIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 卸载图标</span></span><br><span class="line">          uninstallerIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 安装时头部图标</span></span><br><span class="line">          installerHeaderIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 创建桌面图标</span></span><br><span class="line">          createDesktopShortcut: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 创建开始菜单图标</span></span><br><span class="line">          createStartMenuShortcut: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      chainWebpackMainProcess: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        config.plugin(<span class="string">&#x27;define&#x27;</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">          args[ <span class="number">0</span> ][ <span class="string">&#x27;IS_ELECTRON&#x27;</span> ] = <span class="literal">true</span></span><br><span class="line">          <span class="keyword">return</span> args</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      chainWebpackRendererProcess: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        config.plugin(<span class="string">&#x27;define&#x27;</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">          args[ <span class="number">0</span> ][ <span class="string">&#x27;IS_ELECTRON&#x27;</span> ] = <span class="literal">true</span></span><br><span class="line">          <span class="keyword">return</span> args</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      outputDir: <span class="string">&#x27;dist&#x27;</span>,</span><br><span class="line">      <span class="comment">// mainProcessFile: &#x27;src/main.js&#x27;,</span></span><br><span class="line">      <span class="comment">// mainProcessWatch: [&#x27;src/main&#x27;]</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>注意： window下图标需为ico或png格式且不小于256*256<br>参考资料 <a target="_blank" rel="noopener" href="https://www.electron.build/icons.html#windows-nsis">https://www.electron.build/icons.html#windows-nsis</a></p>
+<h1 id="使用NSIS自定义安装界面"><a href="#使用NSIS自定义安装界面" class="headerlink" title="使用NSIS自定义安装界面"></a>使用NSIS自定义安装界面</h1><p>NSIS简界代码示例：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">nsis文件中配置安装界面相关信息（可通过nsis安装界面开发工具开发），nsi文件示例：</span><br><span class="line"><span class="comment">; HM NIS Edit Wizard helper defines</span></span><br><span class="line">!include <span class="string">&quot;MUI2.nsh&quot;</span></span><br><span class="line"><span class="comment">; ; MUI Settings</span></span><br><span class="line">!define MUI_ABORTWARNING</span><br><span class="line"><span class="comment">; 欢迎页面</span></span><br><span class="line">!<span class="keyword">insertmacro </span>MUI_PAGE_WELCOME</span><br><span class="line"><span class="keyword">ShowInstDetails </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">ShowUnInstDetails </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">SpaceTexts </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">; </span>安装脚本</span><br><span class="line">!macro customInstall</span><br><span class="line">!macroend</span><br></pre></td></tr></table></figure>
+
+<h1 id="NSIS界面开发"><a href="#NSIS界面开发" class="headerlink" title="NSIS界面开发"></a>NSIS界面开发</h1><h2 id="使用NSIS和HM-NIS-Edit生成NSIS文件"><a href="#使用NSIS和HM-NIS-Edit生成NSIS文件" class="headerlink" title="使用NSIS和HM NIS Edit生成NSIS文件"></a>使用NSIS和HM NIS Edit生成NSIS文件</h2><p>NSIS下载地址：<a target="_blank" rel="noopener" href="https://nsis.sourceforge.io/Download">https://nsis.sourceforge.io/Download</a><br>HM NIS Edit下载地址：<a target="_blank" rel="noopener" href="http://hmne.sourceforge.net/">http://hmne.sourceforge.net</a><br><strong>使用步骤</strong><br>1、打开HM NIS Edit，通过新建向导生成NSIS文件<br><img src="/img/2021-2-27/nsis01.png"><br><img src="/img/2021-2-27/nsis02.png"><br>2、填写应用相关信息<br><img src="/img/2021-2-27/nsis03.png"><br>3、选择语言及协议文件<br><img src="/img/2021-2-27/nsis04.png"><br><img src="/img/2021-2-27/nsis05.png"><br>4、选择应用打包目录，electron build生成的目录，对应out/win-unpacked<br><img src="/img/2021-2-27/nsis06.png"><br><img src="/img/2021-2-27/nsis07.png"><br><img src="/img/2021-2-27/nsis08.png"><br><img src="/img/2021-2-27/nsis09.png"><br><img src="/img/2021-2-27/nsis10.png"><br><img src="/img/2021-2-27/nsis11.png"><br><img src="/img/2021-2-27/nsis12.png"><br><img src="/img/2021-2-27/nsis13.png"><br><img src="/img/2021-2-27/nsis14.png"></p>
+<p>参考资料： <a target="_blank" rel="noopener" href="https://lihefei.blog.csdn.net/article/details/108797377">https://lihefei.blog.csdn.net/article/details/108797377</a></p>
+<h2 id="牛牛安装界面控件"><a href="#牛牛安装界面控件" class="headerlink" title="牛牛安装界面控件"></a>牛牛安装界面控件</h2><p>牛牛安装界面控件是一款安装包UI控制，可自定义安装皮肤界面。<br>1、下载牛牛安装界面控件<br><a target="_blank" rel="noopener" href="http://www.ggniu.cn/download.htm">http://www.ggniu.cn/download.htm</a><br>2、修改包里对应的NSIS配置项，配置在SetupScripts目录下<br>3、把生成的electron文件放到FilesToInstall目录<br>4、运行build-nim-nozip.bat进行打包，最终输出exe文件到Output目录</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/" rel="tag"># 技术学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/15/vue%E5%8D%95%E9%9D%A2%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/" rel="prev" title="vue单面应用实践">
+      <i class="fa fa-chevron-left"></i> vue单面应用实践
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/27/Electron%E4%B9%8B%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/" rel="next" title="Electron之远程页面代码注入">
+      Electron之远程页面代码注入 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8vue-config-js%E4%B8%AD%E9%85%8D%E7%BD%AENSIS%EF%BC%8C%E6%95%91%E5%91%BD%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">在vue.config.js中配置NSIS，救命代码如下：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8NSIS%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">使用NSIS自定义安装界面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NSIS%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">NSIS界面开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8NSIS%E5%92%8CHM-NIS-Edit%E7%94%9F%E6%88%90NSIS%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">使用NSIS和HM NIS Edit生成NSIS文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%9B%E7%89%9B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2%E6%8E%A7%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">牛牛安装界面控件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">niniun1024</p>
+  <div class="site-description" itemprop="description">niniun1024's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">niniun1024</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
