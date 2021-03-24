@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"niniun1024.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="主进程向渲染进程发送消息123456789&#x2F;&#x2F; 主进程win.webContents.send(&amp;#x27;mainMsg&amp;#x27;, &amp;#x27;hello&amp;#x27;)   &#x2F;&#x2F; 主进程向渲染进程发送异步消息ipcRenderer.sendSync()      &#x2F;&#x2F; 发布同步消息&#x2F;&#x2F; 渲染进程const &amp;#123; ipcRenderer &amp;#125; &#x3D; window.require(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Electron之主进程与渲染进程通信">
+<meta property="og:url" content="http://niniun1024.github.io/2021/03/24/Electron%E4%B9%8B%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="niniun1024&#39;s blog">
+<meta property="og:description" content="主进程向渲染进程发送消息123456789&#x2F;&#x2F; 主进程win.webContents.send(&amp;#x27;mainMsg&amp;#x27;, &amp;#x27;hello&amp;#x27;)   &#x2F;&#x2F; 主进程向渲染进程发送异步消息ipcRenderer.sendSync()      &#x2F;&#x2F; 发布同步消息&#x2F;&#x2F; 渲染进程const &amp;#123; ipcRenderer &amp;#125; &#x3D; window.require(">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-24T11:33:27.000Z">
+<meta property="article:modified_time" content="2021-03-24T11:34:03.687Z">
+<meta property="article:author" content="niniun1024">
+<meta property="article:tag" content="技术学习">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://niniun1024.github.io/2021/03/24/Electron%E4%B9%8B%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Electron之主进程与渲染进程通信 | niniun1024's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">niniun1024's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/03/24/Electron%E4%B9%8B%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Electron之主进程与渲染进程通信
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-24 19:33:27 / 修改时间：19:34:03" itemprop="dateCreated datePublished" datetime="2021-03-24T19:33:27+08:00">2021-03-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="主进程向渲染进程发送消息"><a href="#主进程向渲染进程发送消息" class="headerlink" title="主进程向渲染进程发送消息"></a>主进程向渲染进程发送消息</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主进程</span></span><br><span class="line">win.webContents.send(<span class="string">&#x27;mainMsg&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>)   <span class="comment">// 主进程向渲染进程发送异步消息</span></span><br><span class="line">ipcRenderer.sendSync()      <span class="comment">// 发布同步消息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">const</span> &#123; ipcRenderer &#125; = <span class="built_in">window</span>.require(<span class="string">&#x27;electron&#x27;</span>);</span><br><span class="line">ipcRenderer.on(<span class="string">&#x27;mainMsg&#x27;</span>, <span class="function">(<span class="params">event, message</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;主进程通知渲染进程：&quot;</span> + message)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="渲染进程向主进程发送消息"><a href="#渲染进程向主进程发送消息" class="headerlink" title="渲染进程向主进程发送消息"></a>渲染进程向主进程发送消息</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">const</span> &#123; ipcRenderer &#125; = <span class="built_in">window</span>.require(<span class="string">&#x27;electron&#x27;</span>);</span><br><span class="line">ipcRenderer.send(<span class="string">&#x27;appMsg&#x27;</span>, <span class="string">&#x27;hi&#x27;</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主进程</span></span><br><span class="line">ipcMain.on(<span class="string">&#x27;appMsg&#x27;</span>, <span class="function">(<span class="params">e, val</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;渲染进程通知主进程：&#x27;</span>+val)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="渲染进程获取主进程的变量值"><a href="#渲染进程获取主进程的变量值" class="headerlink" title="渲染进程获取主进程的变量值"></a>渲染进程获取主进程的变量值</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主进程</span></span><br><span class="line"><span class="built_in">global</span>.test = &#123;</span><br><span class="line">  msg: <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">const</span> &#123; remote &#125; = <span class="built_in">window</span>.require(<span class="string">&#x27;electron&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(remote.getGlobal(<span class="string">&#x27;test&#x27;</span>).msg);</span><br></pre></td></tr></table></figure>
+
+<h1 id="主进程获取渲染进程变量"><a href="#主进程获取渲染进程变量" class="headerlink" title="主进程获取渲染进程变量"></a>主进程获取渲染进程变量</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程获取变量值后通知主进程</span></span><br><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">const</span> &#123; ipcRenderer &#125; = <span class="built_in">window</span>.require(<span class="string">&#x27;electron&#x27;</span>);</span><br><span class="line">ipcRenderer.send(<span class="string">&#x27;clientInitStatus&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主进程</span></span><br><span class="line"><span class="keyword">let</span> initStatus = <span class="literal">false</span>;</span><br><span class="line">ipcMain.on(<span class="string">&#x27;clientInitStatus&#x27;</span>, <span class="function">(<span class="params">e, val</span>) =&gt;</span> &#123;</span><br><span class="line">  initStatus = val;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="渲染进程向主进程发送同步消息"><a href="#渲染进程向主进程发送同步消息" class="headerlink" title="渲染进程向主进程发送同步消息"></a>渲染进程向主进程发送同步消息</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">let</span> a = ipcRenderer.sendSync(<span class="string">&#x27;syncMsg&#x27;</span>, <span class="string">&#x27;ping&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主进程</span></span><br><span class="line">ipcMain.on(<span class="string">&#x27;syncMsg&#x27;</span>, <span class="function">(<span class="params">event, arg</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arg) <span class="comment">// prints &quot;ping&quot;</span></span><br><span class="line">  event.returnValue = <span class="string">&#x27;pong&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>注意：ipcRenderer.sendSync如果放在vue的created或mounted中，会阻塞窗口渲染，同时返回值为uundefined，可以通过setTimeout(fn, 0)异常执行</p>
+<h1 id="渲染进程向主进程发送异步消息"><a href="#渲染进程向主进程发送异步消息" class="headerlink" title="渲染进程向主进程发送异步消息"></a>渲染进程向主进程发送异步消息</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程 </span></span><br><span class="line">ipcRenderer.send(<span class="string">&#x27;asyncMsg&#x27;</span>, <span class="string">&#x27;ping&#x27;</span>)</span><br><span class="line">ipcRenderer.on(<span class="string">&#x27;asyncReply&#x27;</span>, <span class="function">(<span class="params">event, arg</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arg) <span class="comment">// prints &quot;pong&quot;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主进程</span></span><br><span class="line">ipcMain.on(<span class="string">&#x27;asyncMsg&#x27;</span>, <span class="function">(<span class="params">event, arg</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arg) <span class="comment">// prints &quot;ping&quot;</span></span><br><span class="line">  event.reply(<span class="string">&#x27;asyncReply&#x27;</span>, <span class="string">&#x27;pong&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>注意：ipcRenderer.send如果放在vue的created或mounted中，不会执行，可通过setTimeout(fn, 0)异步执行</p>
+<h1 id="渲染进程向主进程发送消息返回Promise"><a href="#渲染进程向主进程发送消息返回Promise" class="headerlink" title="渲染进程向主进程发送消息返回Promise"></a>渲染进程向主进程发送消息返回Promise</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line">ipcRenderer.invoke(<span class="string">&#x27;some-name&#x27;</span>, <span class="number">4</span>).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;last:&#x27;</span>, result)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主进程</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomeWork</span>(<span class="params">opt</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;doSomeWork:&#x27;</span>, opt)</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove,reject</span>)  =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>)</span><br><span class="line">      reslove(<span class="number">10</span>)</span><br><span class="line">    &#125;, <span class="number">5000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ipcMain.handle(<span class="string">&#x27;some-name&#x27;</span>, <span class="keyword">async</span> (event, someArgument) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;handle:&#x27;</span>,someArgument)</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">await</span> doSomeWork(someArgument)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;result:&#x27;</span>, result)</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">打印顺序：</span></span><br><span class="line"><span class="comment">handle:4</span></span><br><span class="line"><span class="comment">doSomeWork: 4</span></span><br><span class="line"><span class="comment">setTimeout    // 5秒后执行</span></span><br><span class="line"><span class="comment">result: 10</span></span><br><span class="line"><span class="comment">last:10    // 渲染进程控制台，其它在命令符界面</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="ipcRenderer-postMessage"><a href="#ipcRenderer-postMessage" class="headerlink" title="ipcRenderer.postMessage"></a>ipcRenderer.postMessage</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">const</span> &#123; port1, port2 &#125; = <span class="keyword">new</span> MessageChannel()</span><br><span class="line">ipcRenderer.postMessage(<span class="string">&#x27;port&#x27;</span>, &#123; <span class="attr">message</span>: <span class="string">&#x27;hello&#x27;</span> &#125;, [port1])</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主进程</span></span><br><span class="line">ipcMain.on(<span class="string">&#x27;port&#x27;</span>, <span class="function">(<span class="params">e, msg</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [port] = e.ports</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考资料<br><a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/ipc-renderer#ipcrendereronchannel-listener">https://www.electronjs.org/docs/api/ipc-renderer#ipcrendereronchannel-listener</a><br><a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/ipc-main">https://www.electronjs.org/docs/api/ipc-main</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/" rel="tag"># 技术学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/22/Electron%E4%B9%8B%E7%AA%97%E5%8F%A3%E6%9C%80%E5%B0%8F%E5%8C%96%E5%AF%B9%E5%AE%9A%E6%97%B6%E5%99%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E5%BD%B1%E5%93%8D/" rel="prev" title="Electron之窗口最小化对定时器执行的影响">
+      <i class="fa fa-chevron-left"></i> Electron之窗口最小化对定时器执行的影响
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%90%91%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">主进程向渲染进程发送消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%90%91%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">2.</span> <span class="nav-text">渲染进程向主进程发送消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E8%8E%B7%E5%8F%96%E4%B8%BB%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%98%E9%87%8F%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">渲染进程获取主进程的变量值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E8%BF%9B%E7%A8%8B%E8%8E%B7%E5%8F%96%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">主进程获取渲染进程变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%90%91%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%8F%91%E9%80%81%E5%90%8C%E6%AD%A5%E6%B6%88%E6%81%AF"><span class="nav-number">5.</span> <span class="nav-text">渲染进程向主进程发送同步消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%90%91%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%8F%91%E9%80%81%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF"><span class="nav-number">6.</span> <span class="nav-text">渲染进程向主进程发送异步消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E5%90%91%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E8%BF%94%E5%9B%9EPromise"><span class="nav-number">7.</span> <span class="nav-text">渲染进程向主进程发送消息返回Promise</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ipcRenderer-postMessage"><span class="nav-number">8.</span> <span class="nav-text">ipcRenderer.postMessage</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">niniun1024</p>
+  <div class="site-description" itemprop="description">niniun1024's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">niniun1024</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

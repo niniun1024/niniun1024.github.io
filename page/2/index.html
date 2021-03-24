@@ -162,6 +162,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2016/03/26/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E4%B8%8A%E4%B8%80%E9%A1%B5%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/26/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E4%B8%8A%E4%B8%80%E9%A1%B5%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">移动端返回上一页实现方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-26 14:33:44" itemprop="dateCreated datePublished" datetime="2016-03-26T14:33:44+08:00">2016-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2016-04-23 17:02:04" itemprop="dateModified" datetime="2016-04-23T17:02:04+08:00">2016-04-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述:"></a>一、问题描述:</h1><p>　　使用window.history.go(-1)或者window.history.back(-1)实现移动端返回上一页功能，原生safair浏览器里存在问题（通过flex布局的上一张页面滚动无效，只能显示点击前停留的那屏，无法通过触摸滚动页面）。存在于ios 9.3(13E233)和ios9.3.1(13E238)系统,ios9.3其它版本未发现该问题，ios安装的其它浏览器不存在该问题，android也没有该问题。</p>
+<h1 id="二、解决方案："><a href="#二、解决方案：" class="headerlink" title="二、解决方案："></a>二、解决方案：</h1><p>　　ios原生浏览器（ios其它浏览器不存在这种情况）下通过document.referrer实现返回上一页，部分手机的QQ内嵌浏览器使用document.referrer不能正常返回上一页，android下通过referrer属性实现时，当刷新页面后返回前一页失效，所以判断移动端浏览器类型针对原生safair进行处理，具体代码如下：</p>
+<pre><code>&lt;a href=&quot;#&quot; id=&quot;goBack&quot; &gt;返回&lt;/a&gt;
+
+var u = navigator.userAgent;
+var goBack=document.getElementById(&quot;goBack&quot;);
+//针对ios原生浏览器处理
+if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;&amp; /(Safari)/i.test(u))&#123;
+    goBack.setAttribute(&quot;onclick&quot;,&quot;javascript:window.location=document.referrer;&quot;);
+&#125;
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2016/02/24/chrome%E5%8F%96%E6%B6%88%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BEflash%E5%B9%BF%E5%91%8A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -321,7 +396,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
