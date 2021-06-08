@@ -162,6 +162,181 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/" class="post-title-link" itemprop="url">Electron之安装界面</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-27 14:25:44 / 修改时间：15:30:43" itemprop="dateCreated datePublished" datetime="2021-02-27T14:25:44+08:00">2021-02-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Electron开发的应用默认安装界面较简洁，无法选择安装路径，一般在桌面应用开发过程中需要更丰富的安装功能，如展示使用协议、选择安装目录、选择安装组件等，安装成功后执行哪些操作等等。<br>下方以Electron+Vue项目为例，使用electron-builder+nsis自定义打包界面。</p>
+<h1 id="在vue-config-js中配置NSIS，救命代码如下："><a href="#在vue-config-js中配置NSIS，救命代码如下：" class="headerlink" title="在vue.config.js中配置NSIS，救命代码如下："></a>在vue.config.js中配置NSIS，救命代码如下：</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 第三方插件配置</span></span><br><span class="line">  pluginOptions: &#123;</span><br><span class="line">    <span class="comment">// vue-cli-plugin-electron-builder配置</span></span><br><span class="line">    electronBuilder: &#123;</span><br><span class="line">      builderOptions: &#123;</span><br><span class="line">        win: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 图标路径 windows系统中icon需要256*256的ico格式图片，更换应用图标亦在此处</span></span><br><span class="line">          target: [&#123;</span><br><span class="line">            <span class="comment">// 打包成一个独立的 exe 安装程序</span></span><br><span class="line">            target: <span class="string">&#x27;nsis&#x27;</span>,</span><br><span class="line">            <span class="comment">// 这个意思是打出来32 bit + 64 bit的包，但是要注意：这样打包出来的安装包体积比较大，所以建议直接打32的安装包。</span></span><br><span class="line">            <span class="string">&#x27;arch&#x27;</span>: [</span><br><span class="line">              <span class="string">&#x27;x64&#x27;</span></span><br><span class="line">              <span class="comment">// &#x27;ia32&#x27;</span></span><br><span class="line">            ]</span><br><span class="line">          &#125;]</span><br><span class="line">        &#125;,</span><br><span class="line">        dmg: &#123;</span><br><span class="line">          <span class="string">&#x27;contents&#x27;</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&#x27;x&#x27;</span>: <span class="number">410</span>,</span><br><span class="line">              <span class="string">&#x27;y&#x27;</span>: <span class="number">150</span>,</span><br><span class="line">              <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;link&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;path&#x27;</span>: <span class="string">&#x27;/Applications&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&#x27;x&#x27;</span>: <span class="number">130</span>,</span><br><span class="line">              <span class="string">&#x27;y&#x27;</span>: <span class="number">150</span>,</span><br><span class="line">              <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;file&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        linux: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          target: <span class="string">&#x27;AppImage&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        mac: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        files: [<span class="string">&#x27;**/*&#x27;</span>],</span><br><span class="line">        asar: <span class="literal">false</span>,</span><br><span class="line">        nsis: &#123;</span><br><span class="line">          <span class="string">&quot;include&quot;</span>: <span class="string">&quot;public/nim/nim_setup.nsi&quot;</span>,</span><br><span class="line">          <span class="comment">// 是否一键安装，建议为 false，可以让用户点击下一步、下一步、下一步的形式安装程序，如果为true，当用户双击构建好的程序，自动安装程序并打开，即：一键安装（one-click installer）</span></span><br><span class="line">          oneClick: <span class="literal">false</span>,</span><br><span class="line">          <span class="comment">// 允许请求提升。 如果为false，则用户必须使用提升的权限重新启动安装程序。</span></span><br><span class="line">          allowElevation: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 允许修改安装目录，建议为 true，是否允许用户改变安装目录，默认是不允许</span></span><br><span class="line">          allowToChangeInstallationDirectory: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 安装图标</span></span><br><span class="line">          installerIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 卸载图标</span></span><br><span class="line">          uninstallerIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 安装时头部图标</span></span><br><span class="line">          installerHeaderIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 创建桌面图标</span></span><br><span class="line">          createDesktopShortcut: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 创建开始菜单图标</span></span><br><span class="line">          createStartMenuShortcut: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      chainWebpackMainProcess: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        config.plugin(<span class="string">&#x27;define&#x27;</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">          args[ <span class="number">0</span> ][ <span class="string">&#x27;IS_ELECTRON&#x27;</span> ] = <span class="literal">true</span></span><br><span class="line">          <span class="keyword">return</span> args</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      chainWebpackRendererProcess: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        config.plugin(<span class="string">&#x27;define&#x27;</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">          args[ <span class="number">0</span> ][ <span class="string">&#x27;IS_ELECTRON&#x27;</span> ] = <span class="literal">true</span></span><br><span class="line">          <span class="keyword">return</span> args</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      outputDir: <span class="string">&#x27;dist&#x27;</span>,</span><br><span class="line">      <span class="comment">// mainProcessFile: &#x27;src/main.js&#x27;,</span></span><br><span class="line">      <span class="comment">// mainProcessWatch: [&#x27;src/main&#x27;]</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>注意： window下图标需为ico或png格式且不小于256*256<br>参考资料 <a target="_blank" rel="noopener" href="https://www.electron.build/icons.html#windows-nsis">https://www.electron.build/icons.html#windows-nsis</a></p>
+<h1 id="使用NSIS自定义安装界面"><a href="#使用NSIS自定义安装界面" class="headerlink" title="使用NSIS自定义安装界面"></a>使用NSIS自定义安装界面</h1><p>NSIS简界代码示例：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">nsis文件中配置安装界面相关信息（可通过nsis安装界面开发工具开发），nsi文件示例：</span><br><span class="line"><span class="comment">; HM NIS Edit Wizard helper defines</span></span><br><span class="line">!include <span class="string">&quot;MUI2.nsh&quot;</span></span><br><span class="line"><span class="comment">; ; MUI Settings</span></span><br><span class="line">!define MUI_ABORTWARNING</span><br><span class="line"><span class="comment">; 欢迎页面</span></span><br><span class="line">!<span class="keyword">insertmacro </span>MUI_PAGE_WELCOME</span><br><span class="line"><span class="keyword">ShowInstDetails </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">ShowUnInstDetails </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">SpaceTexts </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">; </span>安装脚本</span><br><span class="line">!macro customInstall</span><br><span class="line">!macroend</span><br></pre></td></tr></table></figure>
+
+<h1 id="NSIS界面开发"><a href="#NSIS界面开发" class="headerlink" title="NSIS界面开发"></a>NSIS界面开发</h1><h2 id="使用NSIS和HM-NIS-Edit生成NSIS文件"><a href="#使用NSIS和HM-NIS-Edit生成NSIS文件" class="headerlink" title="使用NSIS和HM NIS Edit生成NSIS文件"></a>使用NSIS和HM NIS Edit生成NSIS文件</h2><p>NSIS下载地址：<a target="_blank" rel="noopener" href="https://nsis.sourceforge.io/Download">https://nsis.sourceforge.io/Download</a><br>HM NIS Edit下载地址：<a target="_blank" rel="noopener" href="http://hmne.sourceforge.net/">http://hmne.sourceforge.net</a><br><strong>使用步骤</strong><br>1、打开HM NIS Edit，通过新建向导生成NSIS文件<br><img src="/img/2021-2-27/nsis01.png"><br><img src="/img/2021-2-27/nsis02.png"><br>2、填写应用相关信息<br><img src="/img/2021-2-27/nsis03.png"><br>3、选择语言及协议文件<br><img src="/img/2021-2-27/nsis04.png"><br><img src="/img/2021-2-27/nsis05.png"><br>4、选择应用打包目录，electron build生成的目录，对应out/win-unpacked<br><img src="/img/2021-2-27/nsis06.png"><br><img src="/img/2021-2-27/nsis07.png"><br><img src="/img/2021-2-27/nsis08.png"><br><img src="/img/2021-2-27/nsis09.png"><br><img src="/img/2021-2-27/nsis10.png"><br><img src="/img/2021-2-27/nsis11.png"><br><img src="/img/2021-2-27/nsis12.png"><br><img src="/img/2021-2-27/nsis13.png"><br><img src="/img/2021-2-27/nsis14.png"></p>
+<p>参考资料： <a target="_blank" rel="noopener" href="https://lihefei.blog.csdn.net/article/details/108797377">https://lihefei.blog.csdn.net/article/details/108797377</a></p>
+<h2 id="牛牛安装界面控件"><a href="#牛牛安装界面控件" class="headerlink" title="牛牛安装界面控件"></a>牛牛安装界面控件</h2><p>牛牛安装界面控件是一款安装包UI控制，可自定义安装皮肤界面。<br>1、下载牛牛安装界面控件<br><a target="_blank" rel="noopener" href="http://www.ggniu.cn/download.htm">http://www.ggniu.cn/download.htm</a><br>2、修改包里对应的NSIS配置项，配置在SetupScripts目录下<br>3、把生成的electron文件放到FilesToInstall目录<br>4、运行build-nim-nozip.bat进行打包，最终输出exe文件到Output目录</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2018/03/15/vue%E5%8D%95%E9%9D%A2%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/15/vue%E5%8D%95%E9%9D%A2%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/" class="post-title-link" itemprop="url">vue单面应用实践</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-15 22:09:19" itemprop="dateCreated datePublished" datetime="2018-03-15T22:09:19+08:00">2018-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-16 15:54:26" itemprop="dateModified" datetime="2021-05-16T15:54:26+08:00">2021-05-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="使用vue-cli初始化项目-vue-cli为vue的构建工具，默认配置里已结合webpack-vue-router-babel"><a href="#使用vue-cli初始化项目-vue-cli为vue的构建工具，默认配置里已结合webpack-vue-router-babel" class="headerlink" title="使用vue-cli初始化项目(vue-cli为vue的构建工具，默认配置里已结合webpack/vue-router/babel)"></a>使用vue-cli初始化项目(vue-cli为vue的构建工具，默认配置里已结合webpack/vue-router/babel)</h1><p><a target="_blank" rel="noopener" href="https://vuejs-templates.github.io/webpack/">https://vuejs-templates.github.io/webpack/</a><br>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev</p>
+<p>查看vue-cli是否安装成功(V需大写)：vue -V    </p>
+<p>如npm install失败可切换到淘宝镜像使用cnpm安装：<br>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a><br>cnpm i</p>
+<p>运行项目：npm run dev</p>
+<p>使用插件：vue+webpack+vue-router+axios+mockjs</p>
+<h1 id="添加less"><a href="#添加less" class="headerlink" title="添加less"></a>添加less</h1><p>安装：npm install less less-loader –save-dev<br>使用<code>&lt;style lang=&quot;less&quot; scoped&gt;</code><br>引入less文件时行尾需加分号</p>
+<h1 id="vue-router路由使用"><a href="#vue-router路由使用" class="headerlink" title="vue-router路由使用"></a>vue-router路由使用</h1><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line">Vue.use(Router)</span><br></pre></td></tr></table></figure>
+
+<p>路由传参：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">&quot;/detail/&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123;name:&#x27;detail&#x27;,params: &#123;id: item.id&#125;&#125;&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#x27;/detail/&#x27;+item.id&quot;</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123; path: &#x27;register&#x27;, query: &#123; plan: &#x27;private&#x27; &#125;&#125;&quot;</span>&gt;</span>Register<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在子组件中调用参数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.$route.params.id</span><br><span class="line">&#123;&#123;$route.params.id&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="axios的使用"><a href="#axios的使用" class="headerlink" title="axios的使用"></a>axios的使用</h1><p>安装npm install axios –save<br>import Vue from ‘vue’<br>import axios from ‘axios’<br>Vue.prototype.$axios = axios<br>使用：this.$axios.get(…).then(…).catch(…)</p>
+<h1 id="模拟数据（mock-js）"><a href="#模拟数据（mock-js）" class="headerlink" title="模拟数据（mock.js）"></a>模拟数据（mock.js）</h1><p>1、安装：npm install mockjs –save-dev<br>2、建立模拟数据文件mockData.js(mock.js规则<a target="_blank" rel="noopener" href="http://mockjs.com/examples.html)%EF%BC%9B">http://mockjs.com/examples.html)；</a><br>3、在入口文件里配置开发环境引入mock数据，生产环境不引用，另添加开发环境下在控制台打印JSON数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">&#x27;development&#x27;</span>) &#123;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&#x27;./mockData&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4、正则模糊匹配url（适用带参数地址）<br>Mock.mock(new RegExp(AjaxApi.detail), DetailData)<br>5、模拟数据转为字符串并在控制台格式化输出<br>window.JSON.stringify(response.data,null,2)   // 在webpack中打包使用时需加window前缀</p>
+<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><p>.vue文件中通过img标签引用图片可直接使用相对路径<br>样式中使用图片，使用相对路径，在build/webpack.base.conf.js中配置，当图片小于10000kb时会使用base64</p>
+<h1 id="Eslint配置"><a href="#Eslint配置" class="headerlink" title="Eslint配置"></a>Eslint配置</h1><p>关闭eslint：build/webpack.base.conf.js 配置文件中的eslint rules注释掉即可</p>
+<p>.eslintrc.js配置自定义规则：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// allow paren-less arrow functions</span></span><br><span class="line"><span class="string">&#x27;arrow-parens&#x27;</span>: <span class="number">0</span>,</span><br><span class="line"><span class="comment">// allow async-await</span></span><br><span class="line"><span class="string">&#x27;generator-star-spacing&#x27;</span>: <span class="number">0</span>,</span><br><span class="line"><span class="comment">// allow debugger during development</span></span><br><span class="line"><span class="string">&#x27;no-debugger&#x27;</span>: process.env.NODE_ENV === <span class="string">&#x27;production&#x27;</span> ? <span class="number">2</span> : <span class="number">0</span>,</span><br><span class="line"><span class="string">&quot;no-unused-vars&quot;</span>: [<span class="number">2</span>, &#123;</span><br><span class="line">  <span class="comment">// 允许声明未使用变量</span></span><br><span class="line">  <span class="string">&quot;vars&quot;</span>: <span class="string">&quot;local&quot;</span>,</span><br><span class="line">  <span class="comment">// 参数不检查</span></span><br><span class="line">  <span class="string">&quot;args&quot;</span>: <span class="string">&quot;none&quot;</span></span><br><span class="line">&#125;],</span><br><span class="line"><span class="comment">// 关闭语句强制分号结尾</span></span><br><span class="line"><span class="string">&quot;semi&quot;</span>: [<span class="number">0</span>],</span><br><span class="line"><span class="comment">//空行最多不能超过100行</span></span><br><span class="line"><span class="string">&quot;no-multiple-empty-lines&quot;</span>: [<span class="number">0</span>, &#123;<span class="string">&quot;max&quot;</span>: <span class="number">100</span>&#125;],</span><br><span class="line"><span class="comment">//关闭禁止混用tab和空格</span></span><br><span class="line"><span class="string">&quot;no-mixed-spaces-and-tabs&quot;</span>: [<span class="number">0</span>],</span><br><span class="line"><span class="comment">// 关闭行尾不能有空格</span></span><br><span class="line"><span class="string">&quot;no-trailing-spaces&quot;</span>: <span class="number">0</span>,</span><br></pre></td></tr></table></figure>
+<h1 id="七、代码懒加载"><a href="#七、代码懒加载" class="headerlink" title="七、代码懒加载"></a>七、代码懒加载</h1><p>1、添加 syntax-dynamic-import 插件(<a target="_blank" rel="noopener" href="https://babeljs.io/docs/plugins/syntax-dynamic-import/">https://babeljs.io/docs/plugins/syntax-dynamic-import/</a>)<br>2、.babelrc里配置<br>{“plugins”: [“syntax-dynamic-import”]}<br>3、页面引用<br>const detail = () =&gt; import(‘@/components/detail’)<br>或者多个<br>const detail = () =&gt; import(/* webpackChunkName: “detail” <em>/ ‘@/components/detail’)<br>const about = () =&gt; import(/</em> webpackChunkName: “detail” */ ‘@/components/about’)</p>
+<p>另外需在webpack.base.conf.js是配置生成的路径及文件名</p>
+<h1 id="路由切换返回回到原滚动位置"><a href="#路由切换返回回到原滚动位置" class="headerlink" title="路由切换返回回到原滚动位置"></a>路由切换返回回到原滚动位置</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [...],</span><br><span class="line">  scrollBehavior (to, <span class="keyword">from</span>, savedPosition) &#123;</span><br><span class="line">    <span class="comment">// return 期望滚动到哪个的位置</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果列表页数据是通过上拉加载，可通过vuex进行数据管理并在跳转时记录列表页滚动条位置，参考<a target="_blank" rel="noopener" href="http://www.cnblogs.com/buerjj/p/8405443.html">http://www.cnblogs.com/buerjj/p/8405443.html</a><br>实现方法：<br>1、通过vuex记录动态加载的列表数据indexItems，页面跳转时记录滚动条位置pageYOffset, 是否目标页面返回isFromDetail（在路由中beforeRouteEnter修改状态）<br>2、列表页重新加载时判断indexItems是否大于0及isFromDetail为true时，从indexItems读取数据，并跳转滚动条到指定位置</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2018/01/29/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%99%90%E5%88%B6%E6%96%87%E6%9C%AC%E6%A1%86%E8%BE%93%E5%85%A5%E4%B8%BA%E6%95%B4%E6%95%B0%E6%88%96%E4%B8%A4%E4%BD%8D%E5%B0%8F%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -655,7 +830,7 @@ if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;&amp; /(Safari)/i.test(u))&#1
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -668,7 +843,7 @@ if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;&amp; /(Safari)/i.test(u))&#1
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
