@@ -162,6 +162,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/03/01/Electron%E4%B9%8B%E5%BC%82%E5%BD%A2%E7%AA%97%E5%8F%A3%E9%80%8F%E6%98%8E%E5%8C%BA%E5%9F%9F%E7%A9%BF%E9%80%8F%E7%82%B9%E5%87%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/01/Electron%E4%B9%8B%E5%BC%82%E5%BD%A2%E7%AA%97%E5%8F%A3%E9%80%8F%E6%98%8E%E5%8C%BA%E5%9F%9F%E7%A9%BF%E9%80%8F%E7%82%B9%E5%87%BB/" class="post-title-link" itemprop="url">Electron之异形窗口透明区域穿透点击</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-01 19:15:52 / 修改时间：19:47:17" itemprop="dateCreated datePublished" datetime="2021-03-01T19:15:52+08:00">2021-03-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h1><p>Electron可通过设置窗口背景透明，实现异形窗口，此时窗口透明区域不可穿透点击，需结合Electron的win.setIgnoreMouseEvents(true)来控制是否可点击穿透。</p>
+<p>网页监听鼠标的mouseenter和mouseleave，当鼠标移进透明区域时设置可穿透点击，移出透明区域设置不可穿透点击。<br>透明区域可通过SVG的path绘制，在path上监听mouseenter、mouseleave事件</p>
+<h1 id="实现示例"><a href="#实现示例" class="headerlink" title="实现示例"></a>实现示例</h1><p><img src="/img/2021-3/electron-shape.png"></p>
+<p><strong>Electron main.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; app, BrowserWindow, ipcMain, nativeTheme &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createWindow</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> win = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">    width: <span class="number">636</span>,</span><br><span class="line">    height: <span class="number">608</span>,</span><br><span class="line">    transparent: <span class="literal">true</span>, </span><br><span class="line">    frame: <span class="literal">false</span>,</span><br><span class="line">    webPreferences: &#123;</span><br><span class="line">      enableRemoteModule: <span class="literal">true</span>,</span><br><span class="line">      nodeIntegration: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  win.loadFile(<span class="string">&#x27;index.html&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.whenReady().then(createWindow)</span><br></pre></td></tr></table></figure>
+
+<p><strong>网页html代码</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">id</span>=<span class="string">&quot;mysvg&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 638 608&quot;</span> <span class="attr">preserveAspectRatio</span>=<span class="string">&quot;xMidYMid meet&quot;</span> <span class="attr">width</span>=<span class="string">&quot;638&quot;</span> <span class="attr">height</span>=<span class="string">&quot;608&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">path</span> <span class="attr">id</span>=<span class="string">&quot;myPath&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;transparent&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">d</span>=<span class="string">&quot;M-0.000,0.000 C141.651,0.335 283.344,0.670 424.995,1.005 C387.422,8.830 348.302,70.646 323.519,73.360 C281.998,58.785 272.863,43.524 244.146,81.400 C246.649,89.071 251.449,102.745 247.160,109.538 C240.093,117.208 223.391,114.533 211.995,118.582 C204.293,122.937 196.589,127.292 188.887,131.646 C188.552,134.996 188.217,138.346 187.882,141.696 C180.603,143.984 176.794,148.338 171.807,152.750 C162.095,152.750 152.381,152.750 142.670,152.750 C144.814,138.677 141.003,133.625 137.646,121.597 C137.311,121.597 136.976,121.597 136.642,121.597 C135.302,124.277 133.962,126.957 132.623,129.637 C136.113,135.403 140.492,139.559 141.665,147.725 C140.995,149.400 140.325,151.075 139.656,152.750 C122.300,152.383 54.545,149.388 49.231,157.775 C45.436,163.783 46.967,179.518 47.222,188.928 C40.524,187.923 33.825,186.918 27.127,185.913 C27.127,186.248 27.127,186.583 27.127,186.918 C33.825,190.267 40.524,193.618 47.222,196.967 C47.222,201.656 47.222,206.347 47.222,211.036 C28.469,213.932 4.684,226.921 1.005,245.204 C0.670,245.204 0.335,245.204 -0.000,245.204 C-0.000,163.477 -0.000,81.726 -0.000,0.000 ZM639.000,0.000 C639.000,203.646 639.000,407.354 639.000,611.000 C549.589,610.665 460.151,610.330 370.741,609.995 C393.227,606.021 396.204,579.094 389.830,553.719 C382.268,523.616 368.018,490.884 359.689,452.220 C360.024,452.220 360.359,452.220 360.693,452.220 C361.028,452.890 361.363,453.560 361.698,454.230 C372.414,474.662 383.133,495.100 393.849,515.531 C409.993,504.290 431.090,455.364 431.024,428.102 C451.818,428.419 555.314,431.385 560.632,423.077 C567.045,412.449 562.800,310.223 562.642,288.416 C567.283,286.323 570.440,285.022 572.689,280.377 C569.340,281.381 565.990,282.387 562.642,283.391 C562.976,253.581 563.311,223.762 563.646,193.952 C596.625,185.529 585.166,140.347 631.967,136.671 C631.967,138.011 631.967,139.351 631.967,140.691 C625.604,144.710 619.240,148.731 612.877,152.750 C612.877,153.085 612.877,153.420 612.877,153.755 C626.038,152.429 630.970,144.945 637.995,137.676 C637.995,136.336 637.995,134.996 637.995,133.656 C615.110,119.997 577.533,164.674 562.642,173.854 C563.944,126.466 515.064,151.640 483.269,152.750 C478.206,131.689 462.742,144.997 451.118,135.666 C449.113,134.057 451.312,130.803 448.104,129.637 C440.737,130.306 433.367,130.976 426.000,131.646 C426.000,131.311 426.000,130.976 426.000,130.641 C466.935,120.257 510.306,64.132 480.255,16.079 C462.982,12.070 439.252,9.659 427.005,0.000 C497.663,0.000 568.342,0.000 639.000,0.000 ZM442.075,23.113 C443.080,23.113 444.085,23.113 445.090,23.113 C480.852,49.723 458.378,94.262 429.014,109.538 C416.796,106.891 411.044,104.027 400.882,95.469 C400.882,95.134 400.882,94.799 400.882,94.464 C401.552,94.129 402.222,93.794 402.892,93.459 C412.214,93.073 418.668,90.918 421.981,96.474 C427.832,94.595 440.336,83.306 439.061,74.365 C436.382,74.030 433.703,73.695 431.024,73.360 C431.024,72.355 431.024,71.350 431.024,70.345 C437.386,65.321 443.751,60.296 450.113,55.271 C450.312,49.069 450.018,47.012 447.099,44.217 C449.075,49.030 449.293,52.797 447.099,57.281 C427.892,60.692 425.989,89.946 406.910,73.360 C401.266,73.931 395.059,77.891 389.830,78.385 C385.377,78.806 377.746,74.641 366.722,76.375 C367.057,73.695 367.392,71.015 367.726,68.336 C366.387,68.336 365.047,68.336 363.708,68.336 C364.712,66.996 365.717,65.656 366.722,64.316 C377.103,57.282 387.487,50.246 397.868,43.212 C412.602,36.513 427.341,29.812 442.075,23.113 ZM285.340,428.102 C285.663,452.521 296.152,451.966 303.425,466.289 C303.759,466.289 304.094,466.289 304.429,466.289 C304.764,462.940 305.099,459.590 305.434,456.240 C306.773,457.245 308.113,458.250 309.453,459.255 C315.869,478.435 333.637,489.613 343.613,505.482 C351.065,517.334 355.270,538.648 360.693,550.704 C370.551,572.618 353.489,590.289 368.731,611.000 C245.833,611.000 122.898,611.000 -0.000,611.000 C0.335,489.415 0.670,367.794 1.005,246.209 C1.005,246.879 1.005,247.549 1.005,248.219 C3.684,252.573 6.363,256.929 9.042,261.283 C18.563,273.926 42.008,282.697 47.222,298.465 C47.222,318.227 47.222,337.995 47.222,357.757 C29.880,361.735 24.000,377.758 18.085,392.929 C18.755,393.264 19.425,393.599 20.094,393.934 C29.523,387.712 38.223,379.547 47.222,373.836 C46.736,388.115 43.226,420.503 52.245,426.092 C60.037,430.951 81.861,428.350 93.439,428.102 C85.282,442.703 73.066,454.118 67.316,471.314 C89.164,460.650 112.868,446.378 134.632,437.146 C134.632,437.481 134.632,437.816 134.632,438.151 C130.740,450.999 133.725,465.940 139.656,476.339 C152.661,475.886 156.306,469.979 167.788,468.299 C184.647,465.833 194.389,476.020 207.976,477.344 C222.095,468.460 232.217,463.218 236.108,444.181 C236.443,438.822 236.778,433.461 237.113,428.102 C237.113,428.772 237.113,429.442 237.113,430.112 C239.792,434.801 242.472,439.492 245.151,444.181 C246.156,443.176 247.160,442.171 248.165,441.166 C253.713,438.700 257.207,434.100 259.217,428.102 C267.924,428.102 276.633,428.102 285.340,428.102 Z&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>网页CSS代码</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>,<span class="selector-tag">body</span>&#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">win.png</span>) no-repeat <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>网页js代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> win = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>).remote.getCurrentWindow()</span><br><span class="line"><span class="keyword">const</span> el = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;myPath&#x27;</span>)</span><br><span class="line">el.addEventListener(<span class="string">&#x27;mouseenter&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  win.setIgnoreMouseEvents(<span class="literal">true</span>, &#123; <span class="attr">forward</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">el.addEventListener(<span class="string">&#x27;mouseleave&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  win.setIgnoreMouseEvents(<span class="literal">false</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="photoshop生成SVG-path代码"><a href="#photoshop生成SVG-path代码" class="headerlink" title="photoshop生成SVG path代码"></a>photoshop生成SVG path代码</h1><p>photoshop可以把形状直接复制出SVG代码，实现形状图层有以下两种方法：<br><strong>方法一：</strong>选择钢笔工具，类型选择形状，新建一个图层绘制对应的形状，在该图层上点击右键“复制SVG”<br><strong>方法二：</strong>选区选中透明区域，把选区转为路径，在画布上右键“定义自定形状”；工具栏选择“自定形状工具”，类型选择形状，再选择对应的自制自定义图形，插入到图层中，图层右键“复制SVG”</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/02/27/Electron%E4%B9%8B%E8%BF%9C%E7%A8%8B%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -898,20 +982,20 @@ if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;&amp; /(Safari)/i.test(u))&#1
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
