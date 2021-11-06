@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"niniun1024.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Vue2与Vue3 keep-alive的使用区别是Vue2在router-view标签外层，Vue3在router-view标签内 通过include或exclude匹配缓存路由123456&#x2F;&#x2F; include 名称对应的是组件的name值&lt;router-view v-slot&#x3D;&quot;&amp;#123; Component &amp;#125;&quot;&gt;  &lt;keep-alive">
+  <meta name="description" content="在 index.js 主进程中，无法操作渲染进程的DOM，因为它无法访问到渲染进程 document 上下文，它们存在于完全不同的进程中。为解决这个问题可使用预加载脚本，预加载脚本可同时运行于主进程和渲染进程。预加载脚本在渲染进程加载之前加载，并可以访问渲染进程 (例如 window 和 document) 和 Node.js 环境及Node.js API。在预加载脚本中给 window 挂载变量">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue3与vue-Router4下Keep-alive踩坑">
-<meta property="og:url" content="http://niniun1024.github.io/2021/06/08/vue3%E4%B8%8Evue-Router4%E4%B8%8BKeep-alive%E8%B8%A9%E5%9D%91/index.html">
+<meta property="og:title" content="Electron预加载JS">
+<meta property="og:url" content="http://niniun1024.github.io/2021/11/06/Electron%E9%A2%84%E5%8A%A0%E8%BD%BDJS/index.html">
 <meta property="og:site_name" content="niniun1024&#39;s blog">
-<meta property="og:description" content="Vue2与Vue3 keep-alive的使用区别是Vue2在router-view标签外层，Vue3在router-view标签内 通过include或exclude匹配缓存路由123456&#x2F;&#x2F; include 名称对应的是组件的name值&lt;router-view v-slot&#x3D;&quot;&amp;#123; Component &amp;#125;&quot;&gt;  &lt;keep-alive">
+<meta property="og:description" content="在 index.js 主进程中，无法操作渲染进程的DOM，因为它无法访问到渲染进程 document 上下文，它们存在于完全不同的进程中。为解决这个问题可使用预加载脚本，预加载脚本可同时运行于主进程和渲染进程。预加载脚本在渲染进程加载之前加载，并可以访问渲染进程 (例如 window 和 document) 和 Node.js 环境及Node.js API。在预加载脚本中给 window 挂载变量">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-06-08T14:10:11.000Z">
-<meta property="article:modified_time" content="2021-06-09T08:39:01.448Z">
+<meta property="article:published_time" content="2021-11-06T06:48:47.000Z">
+<meta property="article:modified_time" content="2021-11-06T07:15:17.291Z">
 <meta property="article:author" content="niniun1024">
-<meta property="article:tag" content="踩坑">
+<meta property="article:tag" content="技术学习">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://niniun1024.github.io/2021/06/08/vue3%E4%B8%8Evue-Router4%E4%B8%8BKeep-alive%E8%B8%A9%E5%9D%91/">
+<link rel="canonical" href="http://niniun1024.github.io/2021/11/06/Electron%E9%A2%84%E5%8A%A0%E8%BD%BDJS/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>vue3与vue-Router4下Keep-alive踩坑 | niniun1024's blog</title>
+  <title>Electron预加载JS | niniun1024's blog</title>
   
 
 
@@ -166,7 +166,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/06/08/vue3%E4%B8%8Evue-Router4%E4%B8%8BKeep-alive%E8%B8%A9%E5%9D%91/">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/11/06/Electron%E9%A2%84%E5%8A%A0%E8%BD%BDJS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +179,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          vue3与vue-Router4下Keep-alive踩坑
+          Electron预加载JS
         </h1>
 
         <div class="post-meta">
@@ -188,23 +188,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-06-08 22:10:11" itemprop="dateCreated datePublished" datetime="2021-06-08T22:10:11+08:00">2021-06-08</time>
+              <time title="创建时间：2021-11-06 14:48:47 / 修改时间：15:15:17" itemprop="dateCreated datePublished" datetime="2021-11-06T14:48:47+08:00">2021-11-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-09 16:39:01" itemprop="dateModified" datetime="2021-06-09T16:39:01+08:00">2021-06-09</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
                 </span>
             </span>
 
@@ -219,13 +213,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Vue2与Vue3 keep-alive的使用区别是Vue2在router-view标签外层，Vue3在router-view标签内</p>
-<h1 id="通过include或exclude匹配缓存路由"><a href="#通过include或exclude匹配缓存路由" class="headerlink" title="通过include或exclude匹配缓存路由"></a>通过include或exclude匹配缓存路由</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// include 名称对应的是组件的name值</span></span><br><span class="line">&lt;router-view v-slot=<span class="string">&quot;&#123; Component &#125;&quot;</span>&gt;</span><br><span class="line">  &lt;keep-alive include=<span class="string">&quot;AllGame, MyFavorite&quot;</span>&gt;</span><br><span class="line">    &lt;component <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;view&quot;</span> :is=<span class="string">&quot;Component&quot;</span> /&gt;</span><br><span class="line">  &lt;/keep-alive&gt;</span><br><span class="line">&lt;/router-view&gt;</span><br></pre></td></tr></table></figure>
+        <p>在 index.js 主进程中，无法操作渲染进程的DOM，因为它无法访问到渲染进程 document 上下文，它们存在于完全不同的进程中。<br>为解决这个问题可使用预加载脚本，预加载脚本可同时运行于主进程和渲染进程。预加载脚本在渲染进程加载之前加载，并可以访问渲染进程 (例如 window 和 document) 和 Node.js 环境及Node.js API。在预加载脚本中给 window 挂载变量需开启contextIsolation。</p>
+<h1 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h1><p>在index.html文件有个id为electron-version的div,页面加载时显示electron版本号。<br>创建一个名为 preload.js 的新脚本如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> replaceText = <span class="function">(<span class="params">selector, text</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> element = <span class="built_in">document</span>.getElementById(selector);</span><br><span class="line">    <span class="keyword">if</span> (element) element.innerText = text;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  replaceText(<span class="string">&#x27;electron-version&#x27;</span>, process.versions.electron);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在初始化 BrowserWindow 实例的时候设置预加载该脚本。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createWindow</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> win = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">    width: <span class="number">800</span>,</span><br><span class="line">    height: <span class="number">600</span>,</span><br><span class="line">    webPreferences: &#123;</span><br><span class="line">      preload: path.join(__dirname, <span class="string">&#x27;preload.js&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  win.loadFile(<span class="string">&#x27;index.html&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ipc通信使用示例"><a href="#ipc通信使用示例" class="headerlink" title="ipc通信使用示例"></a>ipc通信使用示例</h1><p>ipcRenderer.send 的方法暴露给 web 端，存在安全隐患，建议使用预加载去实现相关功能（把通信代码放在预加载JS内，与WEB运行环境隔离）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// preload.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; contextBridge, ipcRenderer &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"><span class="comment">// 全局变量myAPI</span></span><br><span class="line">contextBridge.exposeInMainWorld(<span class="string">&#x27;myAPI&#x27;</span>, &#123;</span><br><span class="line">  <span class="function"><span class="title">getMessage</span>(<span class="params">args</span>)</span> &#123;</span><br><span class="line">      ipcRenderer.send(<span class="string">&#x27;message-from-proload&#x27;</span>, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>渲染进程调用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.myAPI.getMessage(<span class="string">&#x27;postMessage&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
-<h1 id="通过路由配置meta-keepAlive匹配缓存页面"><a href="#通过路由配置meta-keepAlive匹配缓存页面" class="headerlink" title="通过路由配置meta.keepAlive匹配缓存页面"></a>通过路由配置meta.keepAlive匹配缓存页面</h1><p>实际测试发现v-if=”route.meta.keepAlive”放在keep-alive标签或者外层标签都不生效，keep-alive内判断可生效</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-view v-slot=<span class="string">&quot;&#123; Component, route &#125;&quot;</span>&gt;</span><br><span class="line">  &lt;keep-alive&gt;</span><br><span class="line">    &lt;component v-<span class="keyword">if</span>=<span class="string">&quot;route.meta.keepAlive&quot;</span> :is=<span class="string">&quot;Component&quot;</span> :key=<span class="string">&quot;route.path&quot;</span>/&gt;</span><br><span class="line">  &lt;/keep-alive&gt;</span><br><span class="line">  &lt;component  v-<span class="keyword">if</span>=<span class="string">&quot;!route.meta.keepAlive&quot;</span> :is=<span class="string">&quot;Component&quot;</span> :key=<span class="string">&quot;route.path&quot;</span>/&gt;</span><br><span class="line">&lt;/router-view&gt;</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>参考资料<br><a target="_blank" rel="noopener" href="https://next.router.vuejs.org/api/#route">https://next.router.vuejs.org/api/#route</a></p>
+<p>参考资料<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg4MTYwMzY1Mw==&mid=2247499689&idx=1&sn=2300db2286aa482a6a64b07be1fe8735&chksm=cf61da83f81653959e9909ddaa862e987a9eb077e3497a8fce4e6c0a2f55c2cc6b2f30d3659f&mpshare=1&scene=23&srcid=1020v98oJ5JOObC88E5hYN8S&sharer_sharetime=1634720805448&sharer_shareid=8cc6b9c4bc1cae4b150b90d6914bf62b#rd">Electron 快速入门，顺便聊聊 IPC 通信</a></p>
 </blockquote>
 
     </div>
@@ -236,7 +235,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag"># 踩坑</a>
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/" rel="tag"># 技术学习</a>
           </div>
 
         
@@ -245,13 +244,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/05/16/Vue3%E4%B8%AD%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E3%80%81%E6%96%B9%E6%B3%95%E3%80%81%E6%8F%92%E4%BB%B6/" rel="prev" title="Vue3中设置全局变量、方法、插件">
-      <i class="fa fa-chevron-left"></i> Vue3中设置全局变量、方法、插件
+    <a href="/2021/11/06/%E5%AF%B9%E8%B1%A1%E6%B7%B1%E6%8B%B7%E8%B4%9D/" rel="prev" title="对象深拷贝">
+      <i class="fa fa-chevron-left"></i> 对象深拷贝
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/06/08/%E9%9B%86%E6%88%90%E7%AC%AC%E4%B8%89%E6%96%B9web%E5%86%85%E5%AE%B9%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9Awebview%E3%80%81browserView%E3%80%81iframe%E3%80%81browserWindow/" rel="next" title="集成第三方web内容的四种方式：webview、browserView、iframe、browserWindow">
-      集成第三方web内容的四种方式：webview、browserView、iframe、browserWindow <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -310,7 +306,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87include%E6%88%96exclude%E5%8C%B9%E9%85%8D%E7%BC%93%E5%AD%98%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">通过include或exclude匹配缓存路由</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AEmeta-keepAlive%E5%8C%B9%E9%85%8D%E7%BC%93%E5%AD%98%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">通过路由配置meta.keepAlive匹配缓存页面</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">简单示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ipc%E9%80%9A%E4%BF%A1%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">ipc通信使用示例</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
