@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"niniun1024.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="mitthttps:&#x2F;&#x2F;github.com&#x2F;developit&#x2F;mittnpm install –save mitt 1234567891011121314import mitt from &amp;#x27;mitt&amp;#x27;const emitter &#x3D; mitt()&#x2F;&#x2F; listen to an eventemitter.on(&amp;#x27;foo&amp;#x27;, e &#x3D;&gt; console.l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue跨组件通信">
+<meta property="og:url" content="http://niniun1024.github.io/2022/04/11/vue%E8%B7%A8%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="niniun1024&#39;s blog">
+<meta property="og:description" content="mitthttps:&#x2F;&#x2F;github.com&#x2F;developit&#x2F;mittnpm install –save mitt 1234567891011121314import mitt from &amp;#x27;mitt&amp;#x27;const emitter &#x3D; mitt()&#x2F;&#x2F; listen to an eventemitter.on(&amp;#x27;foo&amp;#x27;, e &#x3D;&gt; console.l">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-11T11:30:47.000Z">
+<meta property="article:modified_time" content="2022-04-11T11:29:48.401Z">
+<meta property="article:author" content="niniun1024">
+<meta property="article:tag" content="解决方案">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://niniun1024.github.io/2022/04/11/vue%E8%B7%A8%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>vue跨组件通信 | niniun1024's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">niniun1024's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2022/04/11/vue%E8%B7%A8%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue跨组件通信
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-11 19:30:47 / 修改时间：19:29:48" itemprop="dateCreated datePublished" datetime="2022-04-11T19:30:47+08:00">2022-04-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="mitt"><a href="#mitt" class="headerlink" title="mitt"></a>mitt</h1><p><a target="_blank" rel="noopener" href="https://github.com/developit/mitt">https://github.com/developit/mitt</a><br>npm install –save mitt</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mitt <span class="keyword">from</span> <span class="string">&#x27;mitt&#x27;</span></span><br><span class="line"><span class="keyword">const</span> emitter = mitt()</span><br><span class="line"><span class="comment">// listen to an event</span></span><br><span class="line">emitter.on(<span class="string">&#x27;foo&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">&#x27;foo&#x27;</span>, e) )</span><br><span class="line"><span class="comment">// listen to all events</span></span><br><span class="line">emitter.on(<span class="string">&#x27;*&#x27;</span>, <span class="function">(<span class="params">type, e</span>) =&gt;</span> <span class="built_in">console</span>.log(type, e) )</span><br><span class="line"><span class="comment">// fire an event</span></span><br><span class="line">emitter.emit(<span class="string">&#x27;foo&#x27;</span>, &#123; <span class="attr">a</span>: <span class="string">&#x27;b&#x27;</span> &#125;)</span><br><span class="line"><span class="comment">// clearing all events</span></span><br><span class="line">emitter.all.clear()</span><br><span class="line"><span class="comment">// working with handler references:</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onFoo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">emitter.on(<span class="string">&#x27;foo&#x27;</span>, onFoo)   <span class="comment">// listen</span></span><br><span class="line">emitter.off(<span class="string">&#x27;foo&#x27;</span>, onFoo)  <span class="comment">// unlisten</span></span><br></pre></td></tr></table></figure>
+<p><strong>mitt源码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        all: n = n || <span class="keyword">new</span> <span class="built_in">Map</span>,</span><br><span class="line">        on: <span class="function"><span class="keyword">function</span>(<span class="params">e, t</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> i = n.get(e);</span><br><span class="line">            i ? i.push(t) : n.set(e, [t])</span><br><span class="line">        &#125;,</span><br><span class="line">        off: <span class="function"><span class="keyword">function</span>(<span class="params">e, t</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> i = n.get(e);</span><br><span class="line">            i &amp;&amp; (t ? i.splice(i.indexOf(t) &gt;&gt;&gt; <span class="number">0</span>, <span class="number">1</span>) : n.set(e, []))</span><br><span class="line">        &#125;,</span><br><span class="line">        emit: <span class="function"><span class="keyword">function</span>(<span class="params">e, t</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> i = n.get(e);</span><br><span class="line">            i &amp;&amp; i.slice().map(<span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">                n(t)</span><br><span class="line">            &#125;),</span><br><span class="line">            (i = n.get(<span class="string">&quot;*&quot;</span>)) &amp;&amp; i.slice().map(<span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">                n(e, t)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 仿写</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">control</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> map = obj || <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> bus = &#123;</span><br><span class="line">    on: <span class="function"><span class="keyword">function</span>(<span class="params">event, cb</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> current = map.get(event);</span><br><span class="line">      <span class="keyword">if</span>(current)&#123;</span><br><span class="line">        current.push(cb)</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        map.set(event, [cb])</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    emit: <span class="function"><span class="keyword">function</span>(<span class="params">event, val</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> current = map.get(event);</span><br><span class="line">      <span class="keyword">if</span>(current)&#123;</span><br><span class="line">        current.slice().map(<span class="function"><span class="params">fn</span> =&gt;</span> &#123;</span><br><span class="line">          fn(val)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    off: <span class="function"><span class="keyword">function</span>(<span class="params">event, cb</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> current = map.get(event);</span><br><span class="line">      <span class="keyword">let</span> index = current.indexOf(cb);</span><br><span class="line">      <span class="keyword">if</span>(current &amp;&amp; index &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">        current.splice(index, <span class="number">1</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> bus</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> control()</span><br></pre></td></tr></table></figure>
+<h1 id="eventBus"><a href="#eventBus" class="headerlink" title="eventBus"></a>eventBus</h1><p>通过vue2自带实例方法$emit、$on、$off实现，监听和触发自定义事件<br>eventBus可在vue2中使用，Vue3 中没有了 EventBus 跨组件通信，替代的方案 mitt.js，原理还是 EventBus</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一：Bus.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vue()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二： main.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span></span><br><span class="line">Vue.prototype.$bus = <span class="keyword">new</span> Vue()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法三：在vue根对象上注入main.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        Bus: <span class="keyword">new</span> Vue()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用（方法二示例）</span></span><br><span class="line"><span class="comment">// 发送</span></span><br><span class="line">&lt;button @click=<span class="string">&quot;handlerClick&quot;</span>&gt;按钮&lt;/button&gt;</span><br><span class="line"><span class="function"><span class="title">handlerClick</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 自定义事件名 sendMsg</span></span><br><span class="line">    <span class="built_in">this</span>.$bus.$emit(<span class="string">&quot;sendMsg&quot;</span>, <span class="string">&quot;这是要向外部发送的数据&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 接收（另一个组件）</span></span><br><span class="line"><span class="function"><span class="title">mounted</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 监听事件的触发</span></span><br><span class="line">    <span class="built_in">this</span>.$bus.$on(<span class="string">&quot;sendMsg&quot;</span>, <span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;这是接收到的数据：&quot;</span>, data)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 取消监听</span></span><br><span class="line"><span class="built_in">this</span>.$bus.$off(<span class="string">&quot;sendMsg&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="computed-watch-store"><a href="#computed-watch-store" class="headerlink" title="computed/watch  store"></a>computed/watch  store</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在computed方法中监听store的某个值是否有变化，当有变化执行相应的方法（代码中需对监听值有引用）</span></span><br><span class="line"><span class="comment">// vue2与vue3同理</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">&#x27;MyTest&#x27;</span>,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    <span class="function"><span class="title">bus</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.$store.state.flag     <span class="comment">// 每次flag变化时都会执行</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch:&#123;</span><br><span class="line">    <span class="function"><span class="title">bus</span>(<span class="params">val</span>)</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;watch:&#x27;</span>, val)   <span class="comment">// 每次flag变化时都会执行</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h1><p>支持IE10+、chrome41+<br>需注意区分其它代码发送的postMessage消息（开发模式下测试时发现webpack有使用postMessage方法）<br>在相关组件监听及发送message消息(其它组件也可以监听message方法)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">created</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">&quot;message&quot;</span>, <span class="built_in">this</span>.add, <span class="literal">false</span>);</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.postMessage(&#123;<span class="attr">event</span>:<span class="string">&#x27;test&#x27;</span>, <span class="attr">data</span>: <span class="string">&#x27;my test&#x27;</span>&#125;,<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">  &#125;, <span class="number">3000</span>)</span><br><span class="line">&#125;,</span><br><span class="line">methods:&#123;</span><br><span class="line">  <span class="function"><span class="title">add</span>(<span class="params">msg</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(msg.data &amp;&amp; msg.data.event==<span class="string">&#x27;test&#x27;</span>)&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(msg)</span><br><span class="line">      <span class="built_in">this</span>.name = msg.data.data;        </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="同页面监听本地储存值变化触发事件-支持chrome-edge"><a href="#同页面监听本地储存值变化触发事件-支持chrome-edge" class="headerlink" title="同页面监听本地储存值变化触发事件(支持chrome/edge)"></a>同页面监听本地储存值变化触发事件(支持chrome/edge)</h1><p>重写localStorage或sessionStorage的setItem方法，触发自定义事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> orignalSetItem = <span class="built_in">localStorage</span>.setItem;</span><br><span class="line"><span class="built_in">localStorage</span>.__proto__.setItem = <span class="function"><span class="keyword">function</span>(<span class="params">key,newValue</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> setItemEvent = <span class="keyword">new</span> Event(<span class="string">&quot;setItemEvent&quot;</span>);</span><br><span class="line">    setItemEvent.key = key;</span><br><span class="line">    setItemEvent.newValue = newValue;</span><br><span class="line">    setItemEvent.oldValue = <span class="built_in">localStorage</span>.getItem(key);</span><br><span class="line">    <span class="built_in">window</span>.dispatchEvent(setItemEvent);</span><br><span class="line">    orignalSetItem.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;setItemEvent&quot;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;key: &#x27;</span>+e.key);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;newValue: &#x27;</span>+e.newValue);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;oldValue: &#x27;</span>+e.oldValue);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="Broadcast-Channel"><a href="#Broadcast-Channel" class="headerlink" title="Broadcast Channel"></a>Broadcast Channel</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 广播监听</span></span><br><span class="line"><span class="keyword">const</span> bc = <span class="keyword">new</span> BroadcastChannel(<span class="string">&#x27;broad&#x27;</span>);</span><br><span class="line">bc.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其它组件，发送广播</span></span><br><span class="line"><span class="keyword">const</span> bc = <span class="keyword">new</span> BroadcastChannel(<span class="string">&#x27;broad&#x27;</span>);</span><br><span class="line">bc.postMessage(&#123;<span class="attr">msg</span>: <span class="number">232</span>&#125;); </span><br></pre></td></tr></table></figure>
+
+<h1 id="MessageChannel"><a href="#MessageChannel" class="headerlink" title="MessageChannel"></a>MessageChannel</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = &#123;<span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> channel = <span class="keyword">new</span> MessageChannel();</span><br><span class="line"><span class="keyword">var</span> port1 = channel.port1;</span><br><span class="line"><span class="keyword">var</span> port2 = channel.port2;</span><br><span class="line">port1.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;port1收到来自port2的数据：&quot;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(event.data);</span><br><span class="line">&#125;</span><br><span class="line">port2.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;port2收到来自port1的数据：&quot;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(event.data);</span><br><span class="line">&#125;</span><br><span class="line">port1.postMessage(data);</span><br><span class="line">port2.postMessage(arr);</span><br></pre></td></tr></table></figure>
+
+<h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>采取轮询来检查值是否更新</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903811232825357">前端跨页面通信</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag"># 解决方案</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/06/Electron%E9%A2%84%E5%8A%A0%E8%BD%BDJS/" rel="prev" title="Electron预加载JS">
+      <i class="fa fa-chevron-left"></i> Electron预加载JS
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/11/storage%E4%BA%8B%E4%BB%B6/" rel="next" title="storage事件">
+      storage事件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mitt"><span class="nav-number">1.</span> <span class="nav-text">mitt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#eventBus"><span class="nav-number">2.</span> <span class="nav-text">eventBus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#computed-watch-store"><span class="nav-number">3.</span> <span class="nav-text">computed&#x2F;watch  store</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#postMessage"><span class="nav-number">4.</span> <span class="nav-text">postMessage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8C%E9%A1%B5%E9%9D%A2%E7%9B%91%E5%90%AC%E6%9C%AC%E5%9C%B0%E5%82%A8%E5%AD%98%E5%80%BC%E5%8F%98%E5%8C%96%E8%A7%A6%E5%8F%91%E4%BA%8B%E4%BB%B6-%E6%94%AF%E6%8C%81chrome-edge"><span class="nav-number">5.</span> <span class="nav-text">同页面监听本地储存值变化触发事件(支持chrome&#x2F;edge)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Broadcast-Channel"><span class="nav-number">6.</span> <span class="nav-text">Broadcast Channel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MessageChannel"><span class="nav-number">7.</span> <span class="nav-text">MessageChannel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie"><span class="nav-number">8.</span> <span class="nav-text">cookie</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">niniun1024</p>
+  <div class="site-description" itemprop="description">niniun1024's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">niniun1024</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
