@@ -162,6 +162,127 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2016/05/08/chrome%20background%20tab%E6%83%85%E5%86%B5%E4%B8%8BsetTimeout%E3%80%81setInterval%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/05/08/chrome%20background%20tab%E6%83%85%E5%86%B5%E4%B8%8BsetTimeout%E3%80%81setInterval%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">chrome background tab情况下setTimeout、setInterval渲染机制问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2016-05-08 21:33:44 / 修改时间：23:00:32" itemprop="dateCreated datePublished" datetime="2016-05-08T21:33:44+08:00">2016-05-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　chrome下，当把标签页切换到非活动状态下（background tab）,被切换的页面里执行的setTimeout/setInterval会发生混乱。在做倒计时时由于执行的频率较少，以为标签非活动状态下会停止setTimeout/setIntervaql的执行，测试证明chrome并没有停止计时器的执行，而只是针对执行时间小于1000ms的定时器减缓其执行频率，定时器间隔时间越小减缓强度越大。</p>
+<blockquote>
+<p>In early 2011, both Firefox and Chrome clamped the minimum wait time for setTimeout and setInterval to one second when running in a tab that is not the active tab for its window. <a target="_blank" rel="noopener" href="https://blog.pivotal.io/pivotal-labs/labs/chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs">查看原文</a></p>
+</blockquote>
+<p>以下为约一个小时的background tab页里setInterval的测试数据：<br><img src="/img/2016-5-8/test.png" alt="测试结果"></p>
+<p>测试代码：</p>
+<pre><code>&lt;!DOCTYPE HTML&gt; 
+&lt;html&gt; 
+&lt;head&gt; 
+&lt;meta charset=&quot;utf-8&quot;&gt; 
+&lt;title&gt;&lt;/title&gt; 
+&lt;style type=&quot;text/css&quot;&gt;
+strong&#123;color:#FF0000;font-weight:bold;display:inline-block;width:60px;text-align:right;margin-right:5px;&#125;
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;&lt;strong&gt;1000ms:&lt;/strong&gt;&lt;span id=&quot;a&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;999ms:&lt;/strong&gt;&lt;span id=&quot;g&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;500ms:&lt;/strong&gt;&lt;span id=&quot;b&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;250ms:&lt;/strong&gt;&lt;span id=&quot;f&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;100ms:&lt;/strong&gt;&lt;span id=&quot;c&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div id=&quot;d&quot;&gt;&lt;/div&gt;
+&lt;div&gt;&lt;strong&gt;10ms:&lt;/strong&gt;&lt;span id=&quot;e&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;script src=&quot;jquery-1.11.3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var now=new Date();
+var aa=bb=cc=dd=ee=ff=gg=0;
+function a()&#123;
+    $(&#39;#a&#39;).text(aa+=1000)
+&#125;
+function b()&#123;
+    $(&#39;#b&#39;).text(bb+=500)
+&#125;
+function f()&#123;
+    $(&#39;#f&#39;).text(ff+=250)
+&#125;
+function c()&#123;
+    $(&#39;#c&#39;).text(cc+=100)
+&#125;
+function d()&#123;
+    $(&#39;#d&#39;).text(dd+=50)
+&#125;
+ 
+function e()&#123;
+    $(&#39;#e&#39;).text(ee+=10)
+&#125;
+function g()&#123;
+    $(&#39;#g&#39;).text(gg+=999);
+&#125;
+ 
+setInterval(a,1000);
+setInterval(c,100);
+setInterval(e,10);
+setInterval(f,250);
+setInterval(b,500);
+setInterval(g,999);
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a target="_blank" rel="noopener" href="https://blog.pivotal.io/pivotal-labs/labs/chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs">chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs</a><br><a target="_blank" rel="noopener" href="https://developer.chrome.com/extensions/event_pages#transition">https://developer.chrome.com/extensions/event_pages#transition</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2016/03/26/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E4%B8%8A%E4%B8%80%E9%A1%B5%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -396,7 +517,7 @@ if(!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) &amp;&amp; /(Safari)/i.test(u))&#1
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

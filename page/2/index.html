@@ -162,6 +162,89 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/05/15/%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%B7%A5%E5%85%B7prettier%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/15/%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%B7%A5%E5%85%B7prettier%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">项目代码格式化工具prettier使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-15 15:47:01 / 修改时间：15:57:06" itemprop="dateCreated datePublished" datetime="2021-05-15T15:47:01+08:00">2021-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>多人合作时使项目代码风格保持统一，可使用prietter插件。</p>
+<h1 id="命令格式化"><a href="#命令格式化" class="headerlink" title="命令格式化"></a>命令格式化</h1><p>1、全局安装</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --<span class="built_in">global</span> prettier</span><br></pre></td></tr></table></figure>
+<p>2、在项目目录下配置规则文件.prettierrc.js和忽略规则文件.prettierignore<br>.prettierrc.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 字符串使用单引号</span></span><br><span class="line">  singleQuote: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 每行末尾自动添加分号</span></span><br><span class="line">  semi: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// tab缩进大小,默认为2</span></span><br><span class="line">  tabWidth: <span class="number">2</span>,</span><br><span class="line">  <span class="comment">// 使用tab缩进，默认false</span></span><br><span class="line">  useTabs: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// 对象中打印空格 默认true</span></span><br><span class="line">  <span class="comment">// true: &#123; foo: bar &#125;</span></span><br><span class="line">  <span class="comment">// false: &#123;foo: bar&#125;</span></span><br><span class="line">  bracketSpacing: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 箭头函数参数括号 默认avoid 可选 avoid| always,只有一个参数的箭头函数的参数是否带圆括号（默认avoid不带）</span></span><br><span class="line">  <span class="comment">// avoid 能省略括号的时候就省略 例如x =&gt; x</span></span><br><span class="line">  <span class="comment">// always 总是有括号</span></span><br><span class="line">  arrowParens: <span class="string">&#x27;avoid&#x27;</span>,</span><br><span class="line">  <span class="comment">// 换行长度，默认80</span></span><br><span class="line">  printWidth: <span class="number">210</span>,</span><br><span class="line">  <span class="string">&quot;endOfLine&quot;</span>: <span class="string">&quot;lf&quot;</span>,</span><br><span class="line">  <span class="comment">// 设置为true时,将多行JSX元素的 &gt; 放在最后一行的末尾，而不是单独放在下一行</span></span><br><span class="line">  jsxBracketSameLine: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// 数组、对象最后一个元素的尾逗号</span></span><br><span class="line">  trailingComma: <span class="string">&#x27;none&#x27;</span>,</span><br><span class="line">  <span class="comment">//  HTML 文件空格敏感度</span></span><br><span class="line">  htmlWhitespaceSensitivity: <span class="string">&#x27;ignore&#x27;</span>,</span><br><span class="line">  <span class="comment">// 选项可以开启保存时自动format</span></span><br><span class="line">  <span class="comment">// editor.formatOnSave: true</span></span><br><span class="line">  overrides: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;files&quot;</span>: [<span class="string">&quot;*.html&quot;</span>],</span><br><span class="line">      <span class="string">&quot;options&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;parser&quot;</span>: <span class="string">&quot;html&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;files&quot;</span>: [<span class="string">&quot;*.css&quot;</span>],</span><br><span class="line">      <span class="string">&quot;options&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;parser&quot;</span>: <span class="string">&quot;css&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;files&quot;</span>: [<span class="string">&quot;*.less&quot;</span>],</span><br><span class="line">      <span class="string">&quot;options&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;parser&quot;</span>: <span class="string">&quot;less&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>.prettierignore</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># .prettierignore</span><br><span class="line"></span><br><span class="line">*.min.js</span><br><span class="line">/node_modules</span><br><span class="line">/dist</span><br><span class="line"># OS</span><br><span class="line">.DS_Store</span><br><span class="line">.idea</span><br><span class="line">.editorconfig</span><br><span class="line">.npmrc</span><br><span class="line">package-lock.json</span><br><span class="line"># Ignored suffix</span><br><span class="line">*.log</span><br><span class="line">*.md</span><br><span class="line">*.svg</span><br><span class="line">*.png</span><br><span class="line">*.jpg</span><br><span class="line">*ignore</span><br><span class="line">## Built-files</span><br><span class="line">.cache</span><br><span class="line">dist</span><br></pre></td></tr></table></figure>
+
+<p>3、执行命令</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定文件格式化</span></span><br><span class="line">prettier --config  --write ./src/a.js</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定目录下所有JS文件</span></span><br><span class="line">prettier --config  --write ./src<span class="comment">/*.js</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">// 指定目录格式化</span></span><br><span class="line"><span class="comment">prettier --config  --write ./src/**</span></span><br></pre></td></tr></table></figure>
+
+<p>另外，prettier可与编辑集成。</p>
+<blockquote>
+<p>参考资料：<br><a target="_blank" rel="noopener" href="https://prettier.io/docs/en/install.html">https://prettier.io/docs/en/install.html</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/03/24/Electron%E4%B9%8B%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -957,127 +1040,6 @@ $(&#39;.set-input-tofixed&#39;).formatToFixed(2);
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2016/05/08/chrome%20background%20tab%E6%83%85%E5%86%B5%E4%B8%8BsetTimeout%E3%80%81setInterval%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="niniun1024">
-      <meta itemprop="description" content="niniun1024's blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="niniun1024's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/05/08/chrome%20background%20tab%E6%83%85%E5%86%B5%E4%B8%8BsetTimeout%E3%80%81setInterval%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">chrome background tab情况下setTimeout、setInterval渲染机制问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2016-05-08 21:33:44 / 修改时间：23:00:32" itemprop="dateCreated datePublished" datetime="2016-05-08T21:33:44+08:00">2016-05-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>　　chrome下，当把标签页切换到非活动状态下（background tab）,被切换的页面里执行的setTimeout/setInterval会发生混乱。在做倒计时时由于执行的频率较少，以为标签非活动状态下会停止setTimeout/setIntervaql的执行，测试证明chrome并没有停止计时器的执行，而只是针对执行时间小于1000ms的定时器减缓其执行频率，定时器间隔时间越小减缓强度越大。</p>
-<blockquote>
-<p>In early 2011, both Firefox and Chrome clamped the minimum wait time for setTimeout and setInterval to one second when running in a tab that is not the active tab for its window. <a target="_blank" rel="noopener" href="https://blog.pivotal.io/pivotal-labs/labs/chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs">查看原文</a></p>
-</blockquote>
-<p>以下为约一个小时的background tab页里setInterval的测试数据：<br><img src="/img/2016-5-8/test.png" alt="测试结果"></p>
-<p>测试代码：</p>
-<pre><code>&lt;!DOCTYPE HTML&gt; 
-&lt;html&gt; 
-&lt;head&gt; 
-&lt;meta charset=&quot;utf-8&quot;&gt; 
-&lt;title&gt;&lt;/title&gt; 
-&lt;style type=&quot;text/css&quot;&gt;
-strong&#123;color:#FF0000;font-weight:bold;display:inline-block;width:60px;text-align:right;margin-right:5px;&#125;
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div&gt;&lt;strong&gt;1000ms:&lt;/strong&gt;&lt;span id=&quot;a&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;&lt;strong&gt;999ms:&lt;/strong&gt;&lt;span id=&quot;g&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;&lt;strong&gt;500ms:&lt;/strong&gt;&lt;span id=&quot;b&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;&lt;strong&gt;250ms:&lt;/strong&gt;&lt;span id=&quot;f&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;&lt;strong&gt;100ms:&lt;/strong&gt;&lt;span id=&quot;c&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div id=&quot;d&quot;&gt;&lt;/div&gt;
-&lt;div&gt;&lt;strong&gt;10ms:&lt;/strong&gt;&lt;span id=&quot;e&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-
-&lt;script src=&quot;jquery-1.11.3.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-var now=new Date();
-var aa=bb=cc=dd=ee=ff=gg=0;
-function a()&#123;
-    $(&#39;#a&#39;).text(aa+=1000)
-&#125;
-function b()&#123;
-    $(&#39;#b&#39;).text(bb+=500)
-&#125;
-function f()&#123;
-    $(&#39;#f&#39;).text(ff+=250)
-&#125;
-function c()&#123;
-    $(&#39;#c&#39;).text(cc+=100)
-&#125;
-function d()&#123;
-    $(&#39;#d&#39;).text(dd+=50)
-&#125;
- 
-function e()&#123;
-    $(&#39;#e&#39;).text(ee+=10)
-&#125;
-function g()&#123;
-    $(&#39;#g&#39;).text(gg+=999);
-&#125;
- 
-setInterval(a,1000);
-setInterval(c,100);
-setInterval(e,10);
-setInterval(f,250);
-setInterval(b,500);
-setInterval(g,999);
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-</code></pre>
-<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a target="_blank" rel="noopener" href="https://blog.pivotal.io/pivotal-labs/labs/chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs">chrome-and-firefox-throttle-settimeout-setinterval-in-inactive-tabs</a><br><a target="_blank" rel="noopener" href="https://developer.chrome.com/extensions/event_pages#transition">https://developer.chrome.com/extensions/event_pages#transition</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1147,7 +1109,7 @@ setInterval(g,999);
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
