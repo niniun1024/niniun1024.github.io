@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"niniun1024.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="vue相关代码1234567891011121314151617&#x2F;&#x2F; router&#x2F;index.js&#x2F;&#x2F; vue2(vue-router 3.x)const router &#x3D; new VueRouter(&amp;#123;  base: &amp;#x27;&#x2F;dist&amp;#x27;,      &#x2F;&#x2F; 基础路径  mode: &amp;#x27;history&amp;#x27;,  &#x2F;&#x2F; 设置路由为history模式，默认为ha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue项目路由history模式服务端配置">
+<meta property="og:url" content="http://niniun1024.github.io/2022/04/18/vue%E9%A1%B9%E7%9B%AE%E8%B7%AF%E7%94%B1history%E6%A8%A1%E5%BC%8F%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="niniun1024&#39;s blog">
+<meta property="og:description" content="vue相关代码1234567891011121314151617&#x2F;&#x2F; router&#x2F;index.js&#x2F;&#x2F; vue2(vue-router 3.x)const router &#x3D; new VueRouter(&amp;#123;  base: &amp;#x27;&#x2F;dist&amp;#x27;,      &#x2F;&#x2F; 基础路径  mode: &amp;#x27;history&amp;#x27;,  &#x2F;&#x2F; 设置路由为history模式，默认为ha">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-18T11:47:06.000Z">
+<meta property="article:modified_time" content="2022-04-18T11:48:01.936Z">
+<meta property="article:author" content="niniun1024">
+<meta property="article:tag" content="解决方案">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://niniun1024.github.io/2022/04/18/vue%E9%A1%B9%E7%9B%AE%E8%B7%AF%E7%94%B1history%E6%A8%A1%E5%BC%8F%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>vue项目路由history模式服务端配置 | niniun1024's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">niniun1024's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2022/04/18/vue%E9%A1%B9%E7%9B%AE%E8%B7%AF%E7%94%B1history%E6%A8%A1%E5%BC%8F%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue项目路由history模式服务端配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-18 19:47:06 / 修改时间：19:48:01" itemprop="dateCreated datePublished" datetime="2022-04-18T19:47:06+08:00">2022-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="vue相关代码"><a href="#vue相关代码" class="headerlink" title="vue相关代码"></a>vue相关代码</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="comment">// vue2(vue-router 3.x)</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  base: <span class="string">&#x27;/dist&#x27;</span>,      <span class="comment">// 基础路径</span></span><br><span class="line">  mode: <span class="string">&#x27;history&#x27;</span>,  <span class="comment">// 设置路由为history模式，默认为hash</span></span><br><span class="line">  routes</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//vue3(vue-router 4.x)</span></span><br><span class="line"><span class="keyword">const</span> router = createRouter(&#123;</span><br><span class="line">  history: createWebHistory(process.env.BASE_URL),</span><br><span class="line">  routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = defineConfig(&#123;</span><br><span class="line">  publicPath: process.env.NODE_ENV === <span class="string">&#x27;production&#x27;</span> ? <span class="string">&#x27;./&#x27;</span> : <span class="string">&#x27;/&#x27;</span>   <span class="comment">// 设置引入JS、CSS为相对路径</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="node服务端配置"><a href="#node服务端配置" class="headerlink" title="node服务端配置"></a>node服务端配置</h1><h2 id="express-connect-history-api-fallback"><a href="#express-connect-history-api-fallback" class="headerlink" title="express+connect-history-api-fallback"></a>express+connect-history-api-fallback</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件目录public/dist，访问地址http://127.0.0.1/dist/`</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> history = <span class="built_in">require</span>(<span class="string">&#x27;connect-history-api-fallback&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line">app.use(history(&#123;</span><br><span class="line">  index: <span class="string">&#x27;/dist/&#x27;</span></span><br><span class="line">&#125;)); </span><br><span class="line">app.use(express.static(path.join(__dirname, <span class="string">&#x27;public&#x27;</span>)));</span><br><span class="line">app.listen(<span class="number">80</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;running at http://127.0.0.1&#x27;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="node-http"><a href="#node-http" class="headerlink" title="node http"></a>node http</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 页面访问地址：http:127.0.0.1 或 http:127.0.0.1/dist/  </span></span><br><span class="line"><span class="comment">// 注意：子目录需以/结尾</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> httpPort = <span class="number">80</span>;</span><br><span class="line"><span class="keyword">const</span> contentType = <span class="built_in">require</span>(<span class="string">&#x27;./contentType&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">redirect</span>(<span class="params">url, callback</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> pathArr = url.split(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">  pathArr.pop();</span><br><span class="line">  <span class="keyword">let</span> newUrl = pathArr.length &gt; <span class="number">0</span> ? pathArr.join(<span class="string">&#x27;/&#x27;</span>)+<span class="string">&#x27;/&#x27;</span> : <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  fs.readFile(newUrl+<span class="string">&#x27;index.html&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>, <span class="function">(<span class="params">err, content</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">      callback(content)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(pathArr.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">      redirect(newUrl, callback)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      callback(<span class="string">&#x27;页面不存在&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> url = req.url.slice(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">let</span> urlArr = url.split(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">  url = urlArr[urlArr.length-<span class="number">1</span>] == <span class="string">&#x27;&#x27;</span>? url + <span class="string">&#x27;index.html&#x27;</span> : url;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> nameArr = urlArr[urlArr.length-<span class="number">1</span>].split(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">  <span class="keyword">var</span> fileType = nameArr[nameArr.length-<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">var</span> type = <span class="string">&#x27;text/html; charset=utf-8&#x27;</span>;</span><br><span class="line">  contentType.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(item.type == fileType)&#123;</span><br><span class="line">      type = item.content</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  fs.readFile(url, <span class="string">&#x27;utf-8&#x27;</span>, <span class="function">(<span class="params">err, content</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="comment">// 路径不存在重定向到index.html</span></span><br><span class="line">      res.writeHead(<span class="number">200</span>, &#123;</span><br><span class="line">        <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;text/html; charset=utf-8&#x27;</span></span><br><span class="line">      &#125;) </span><br><span class="line">      redirect(url, <span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        res.end(response)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res.writeHead(<span class="number">200</span>, &#123;</span><br><span class="line">      <span class="string">&#x27;Content-Type&#x27;</span>: type</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    res.end(content)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;).listen(httpPort, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Server listening on: http://localhost:%s&#x27;</span>, httpPort)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h1><p>本地配置nginx服务<br>1、下载<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html?spm=a2c6h.12873639.article-detail.6.7b6e52b56anF0K">nginx</a><br>2、运行目录中nginx.exe</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根目录配置静态资源</span></span><br><span class="line">location / &#123;</span><br><span class="line">  try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 项目配置在子目录，每个项目需在服务端单独配置目录，router需指定base路径</span></span><br><span class="line">location ^~ <span class="regexp">/dist/</span>&#123;</span><br><span class="line">  try_files $uri /dist/index.html;   <span class="comment">// 路径找不到时返回对应的html</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://v3.router.vuejs.org/zh/guide/essentials/history-mode.html">vue-router文档后端配置示例</a><br><a target="_blank" rel="noopener" href="https://github.com/bripkens/connect-history-api-fallback">connect-history-api-fallback</a><br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/546504">XAMPP下配置nginx</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag"># 解决方案</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/13/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6/" rel="prev" title="自定义事件">
+      <i class="fa fa-chevron-left"></i> 自定义事件
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue%E7%9B%B8%E5%85%B3%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">vue相关代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#node%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">node服务端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#express-connect-history-api-fallback"><span class="nav-number">2.1.</span> <span class="nav-text">express+connect-history-api-fallback</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-http"><span class="nav-number">2.2.</span> <span class="nav-text">node http</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">nginx配置</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">niniun1024</p>
+  <div class="site-description" itemprop="description">niniun1024's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">niniun1024</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
