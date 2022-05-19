@@ -162,6 +162,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2022/05/19/electron%E4%B9%8B%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/19/electron%E4%B9%8B%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/" class="post-title-link" itemprop="url">electron之右键菜单</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-19 19:02:41 / 修改时间：19:04:45" itemprop="dateCreated datePublished" datetime="2022-05-19T19:02:41+08:00">2022-05-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>electron定义的右键菜单可展示到窗口之外，样式不可修改。<br>DOM模拟的无法在窗口之外展示，可以自定义外观。</p>
+<h1 id="屏蔽可拖动元素标题栏默认右键菜单"><a href="#屏蔽可拖动元素标题栏默认右键菜单" class="headerlink" title="屏蔽可拖动元素标题栏默认右键菜单"></a>屏蔽可拖动元素标题栏默认右键菜单</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一：主进程如下设置</span></span><br><span class="line">win.hookWindowMessage(<span class="number">0x116</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">  win.setEnabled(<span class="literal">false</span>);</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">      win.setEnabled(<span class="literal">true</span>);</span><br><span class="line">  &#125;,<span class="number">100</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二：渲染进程如下设置</span></span><br><span class="line">win.setEnabled(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="自定义可拖动元素右键菜单"><a href="#自定义可拖动元素右键菜单" class="headerlink" title="自定义可拖动元素右键菜单"></a>自定义可拖动元素右键菜单</h1><h2 id="方法一：electron自带拖动功能，自定义右键"><a href="#方法一：electron自带拖动功能，自定义右键" class="headerlink" title="方法一：electron自带拖动功能，自定义右键"></a>方法一：electron自带拖动功能，自定义右键</h2><p>拖动功能通过-webkit-app-region: drag;实现，可设置系统右键system-context-menu-prevent实现自定义菜单</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; Menu  &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> WM_INITMENU = <span class="number">0x0116</span>;</span><br><span class="line"><span class="keyword">const</span> menu = Menu.buildFromTemplate([</span><br><span class="line">  &#123;</span><br><span class="line">    label: <span class="string">&quot;baidu&quot;</span>,</span><br><span class="line">    click: <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; shell &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>);</span><br><span class="line">      <span class="keyword">await</span> shell.openExternal(<span class="string">&#x27;https://www.baidu.com&#x27;</span>);</span><br><span class="line">    &#125;    </span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    label: <span class="string">&quot;setting&quot;</span>,</span><br><span class="line">    submenu: [&#123; </span><br><span class="line">      label: <span class="string">&#x27;菜单21&#x27;</span>, </span><br><span class="line">      click: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;menu 21&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, &#123; </span><br><span class="line">      label: <span class="string">&#x27;菜单22&#x27;</span>,</span><br><span class="line">      click: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;menu 22&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">win.hookWindowMessage(WM_INITMENU, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  win.setEnabled(<span class="literal">false</span>);</span><br><span class="line">  win.setEnabled(<span class="literal">true</span>);</span><br><span class="line">  menu.popup();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="方法二：监听mousedown-mouseup-mousemove实现窗口拖动，dom添加右键菜单"><a href="#方法二：监听mousedown-mouseup-mousemove实现窗口拖动，dom添加右键菜单" class="headerlink" title="方法二：监听mousedown/mouseup/mousemove实现窗口拖动，dom添加右键菜单"></a>方法二：监听mousedown/mouseup/mousemove实现窗口拖动，dom添加右键菜单</h2><p><strong>第一步：监听mousedown/mouseup/mousemove实现窗口拖动</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">const</span> &#123;remote &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> currentWin = remote.getCurrentWindow();</span><br><span class="line"><span class="keyword">let</span> x = <span class="number">0</span>, y = <span class="number">0</span>, dragging = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">let</span> domEle = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;#domEle&#x27;</span>)</span><br><span class="line">domEle.addEventListener(<span class="string">&#x27;mousedown&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  dragging = <span class="literal">true</span>;</span><br><span class="line">  x = e.pageX;</span><br><span class="line">  y = e.pageY;</span><br><span class="line">&#125;);</span><br><span class="line">domEle.addEventListener(<span class="string">&#x27;mousemove&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  e.stopPropagation();</span><br><span class="line">  e.preventDefault();</span><br><span class="line">  <span class="keyword">if</span> (dragging) &#123;</span><br><span class="line">    <span class="keyword">var</span> xLoc = e.screenX - x;</span><br><span class="line">    <span class="keyword">var</span> yLoc = e.screenY - y;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      currentWin.setPosition(xLoc, yLoc);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">domEle.addEventListener(<span class="string">&#x27;mouseup&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  dragging = <span class="literal">false</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二步：DOM元素添加右键菜单</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">const</span> &#123;remote &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123;Menu, MenuItem&#125; = remote;</span><br><span class="line"><span class="comment">// 定制右键菜单</span></span><br><span class="line"><span class="keyword">var</span> menu = <span class="keyword">new</span> Menu();</span><br><span class="line">menu.append(<span class="keyword">new</span> MenuItem(&#123; </span><br><span class="line">  label: <span class="string">&#x27;MenuItem1&#x27;</span>, </span><br><span class="line">  click: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;item 1 clicked&#x27;</span>); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;));</span><br><span class="line"><span class="comment">// 分割线</span></span><br><span class="line">menu.append(<span class="keyword">new</span> MenuItem(&#123; <span class="attr">type</span>: <span class="string">&#x27;separator&#x27;</span> &#125;));</span><br><span class="line"><span class="comment">// 多选，是被选中的状态</span></span><br><span class="line">menu.append(<span class="keyword">new</span> MenuItem(&#123; </span><br><span class="line">  label: <span class="string">&#x27;MenuItem2&#x27;</span>, </span><br><span class="line">  type: <span class="string">&#x27;checkbox&#x27;</span>, </span><br><span class="line">  checked: <span class="literal">true</span> </span><br><span class="line">&#125;));</span><br><span class="line"><span class="comment">// 二级菜单</span></span><br><span class="line">menu.append(<span class="keyword">new</span> MenuItem(&#123; </span><br><span class="line">  label: <span class="string">&#x27;MenuItem3&#x27;</span>, </span><br><span class="line">  submenu:[</span><br><span class="line">    &#123;</span><br><span class="line">      label: <span class="string">&#x27;submenu1&#x27;</span>,</span><br><span class="line">      click: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;submenu1&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      label: <span class="string">&#x27;submenu1&#x27;</span>,</span><br><span class="line">      click: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;submenu1&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ] </span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&#x27;contextmenu&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 要阻止默认鼠标右键的事件，然后处理自身的逻辑</span></span><br><span class="line">  e.preventDefault();</span><br><span class="line">  menu.popup(remote.getCurrentWindow());</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2022/04/28/%E5%8A%A8%E7%94%BB%E4%BA%8C%E4%B8%89%E4%BA%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -963,97 +1041,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/06/08/%E9%9B%86%E6%88%90%E7%AC%AC%E4%B8%89%E6%96%B9web%E5%86%85%E5%AE%B9%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9Awebview%E3%80%81browserView%E3%80%81iframe%E3%80%81browserWindow/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="niniun1024">
-      <meta itemprop="description" content="niniun1024's blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="niniun1024's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/08/%E9%9B%86%E6%88%90%E7%AC%AC%E4%B8%89%E6%96%B9web%E5%86%85%E5%AE%B9%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9Awebview%E3%80%81browserView%E3%80%81iframe%E3%80%81browserWindow/" class="post-title-link" itemprop="url">集成第三方web内容的四种方式：webview、browserView、iframe、browserWindow</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-06-08 22:24:16 / 修改时间：22:27:55" itemprop="dateCreated datePublished" datetime="2021-06-08T22:24:16+08:00">2021-06-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="browserWindow"><a href="#browserWindow" class="headerlink" title="browserWindow"></a>browserWindow</h1><blockquote>
-<p>文档：<a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/browser-window#browserwindow">https://www.electronjs.org/docs/api/browser-window#browserwindow</a></p>
-</blockquote>
-<p>新开Electron窗口，拥有所有electron浏览器窗口的方法和属性，另外可打开模态窗口（禁用父窗口的子窗口，创建模态窗口必须设置 parent 和 modal 选项）</p>
-<h1 id="webview"><a href="#webview" class="headerlink" title="webview"></a>webview</h1><blockquote>
-<p>文档：<a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/webview-tag#webview-tag">https://www.electronjs.org/docs/api/webview-tag#webview-tag</a></p>
-</blockquote>
-<p>使用webview标签需在主窗口webPreferences中设置webviewTag:true，另外webview内嵌页面调用node和electron模块需进行如下设置：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  主窗口</span></span><br><span class="line">webPreferences: &#123;</span><br><span class="line">  nodeIntegration: <span class="literal">true</span>,</span><br><span class="line">  enableRemoteModule: <span class="literal">true</span>,</span><br><span class="line">  webviewTag: <span class="literal">true</span>,</span><br><span class="line">  contextIsolation: <span class="literal">false</span>   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 标签（display:flex;是为了使内部渲染后的网页视图窗口铺满webview容器）</span></span><br><span class="line">&lt;webview id=<span class="string">&quot;wb&quot;</span> style=<span class="string">&quot;display:flex;width:500px;height:500px&quot;</span> src=<span class="string">&quot;http://www.baidu.com&quot;</span> webpreferences=<span class="string">&quot;contextIsolation=false&quot;</span>  nodeintegration=<span class="string">&quot;true&quot;</span> enableremotemodule=<span class="string">&quot;true&quot;</span>  &gt;&lt;/webview&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong>electron12把contextIsolation默认值改为true,虽然主窗口中已设置false,但是webview标签内需再次设置webpreferences=”contextIsolation=false”，另外主窗口和webview的nodeintegration和enableremotemodule需同时设为true，才能成功使内嵌页调用node和electron模块</p>
-<p>webview可以监听DOM加载的开始与结束，并打开独立控制台</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webview = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;webview&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> indicator = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.indicator&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> loadstart = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  indicator.innerText = <span class="string">&#x27;loading...&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> loadstop = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  indicator.innerText = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  webview.openDevTools();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">webview.addEventListener(<span class="string">&#x27;dom-ready&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  webview.openDevTools()</span><br><span class="line">&#125;)</span><br><span class="line">    </span><br><span class="line">webview.addEventListener(<span class="string">&#x27;did-start-loading&#x27;</span>, loadstart)</span><br><span class="line">webview.addEventListener(<span class="string">&#x27;did-stop-loading&#x27;</span>, loadstop)</span><br></pre></td></tr></table></figure>
-<p>src 属性除了接受url地址，还可以接受数据 URL, 如 data:text/plain, Hello, world!。<br>webview拥有原生浏览器的前进、后退、停止加载、复制、粘贴、剪切、查找、全选、替换、打印、放大、缩小等功能接口，注入CSS和JS代码的方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;webview src=<span class="string">&quot;https://www.github.com/&quot;</span> preload=<span class="string">&quot;./test.js&quot;</span>&gt;&lt;/webview&gt;</span><br></pre></td></tr></table></figure>
-<p>preload脚本的URL的协议必须是 file: asar:二者之一，因为在访客页中，它是通过“内部”的 require 去加载的。当访客页没有 node integration ，这个脚本仍然有能力去访问所有的 Node APIs, 但是当这个脚本执行执行完成之后，通过Node 注入的全局对象（global objects）将会被删除。</p>
-<p>可通过httpreferrer设置嵌入页面的referrer，useragent设置嵌入页面的useragent，disablewebsecurity关闭web安全限制（默认true）</p>
-<p><font color=#f00>Electron的 webview 标签基于 Chromium webview，后者正在经历巨大的架构变化。 这将影响 webview 的稳定性，包括呈现、导航和事件路由。 我们目前建议不使用 webview 标签，并考虑其他替代方案，如 iframe ，Electron的 BrowserView 或完全避免嵌入内容的架构。</font></p>
-<h1 id="browserView"><a href="#browserView" class="headerlink" title="browserView"></a>browserView</h1><blockquote>
-<p>文档：<a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/browser-view#browserview">https://www.electronjs.org/docs/api/browser-view#browserview</a></p>
-</blockquote>
-<p>browserView提供的接口功能较少且多为实验性功能，browserView位置是相对于父窗口偏移，窗口直接覆盖在父窗口之上。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> win = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">  width: <span class="number">1000</span>,</span><br><span class="line">  height: <span class="number">650</span></span><br><span class="line">&#125;)</span><br><span class="line">win.loadFile(<span class="string">&#x27;index.html&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> view = <span class="keyword">new</span> BrowserView(); <span class="comment">//创建view窗口</span></span><br><span class="line">win.setBrowserView(view); <span class="comment">// 将子窗口view嵌入到父窗口win中</span></span><br><span class="line">view.setBounds(&#123; <span class="attr">x</span>: <span class="number">50</span>, <span class="attr">y</span>: <span class="number">50</span>, <span class="attr">width</span>: <span class="number">300</span>, <span class="attr">height</span>: <span class="number">300</span> &#125;); <span class="comment">// 设置view的宽高，相对父窗口的位置</span></span><br><span class="line">view.webContents.loadURL(<span class="string">&#x27;https://www.baidu.com&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<h1 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h1><p>Iframe 在 Electron 中的行为与普通浏览器中类似。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>1、browserWindow适用于新开窗口，位置脱离主窗口，包含丰富的功能接口，拥有调用node和electron模块的能力<br>2、webview可以与页面布局融合在一起，拥有丰富的浏览器功能接口，拥有调用node和electron模块的能力，不过需注意内核架构更新变化对它的影响<br>3、broswerView适用于简单嵌入第三方页面，位置相对于父窗口，直接覆盖在父窗口之上，为实验性功能<br>4、iframe适用场景同浏览器中iframe</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1123,14 +1110,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

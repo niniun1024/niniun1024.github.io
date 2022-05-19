@@ -23,14 +23,14 @@
   <meta name="description" content="niniun1024&#39;s blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="niniun1024&#39;s blog">
-<meta property="og:url" content="http://niniun1024.github.io/categories/Electron/index.html">
+<meta property="og:url" content="http://niniun1024.github.io/categories/electron/index.html">
 <meta property="og:site_name" content="niniun1024&#39;s blog">
 <meta property="og:description" content="niniun1024&#39;s blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="niniun1024">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://niniun1024.github.io/categories/Electron/">
+<link rel="canonical" href="http://niniun1024.github.io/categories/electron/">
 
 
 <script id="page-configurations">
@@ -43,7 +43,7 @@
   };
 </script>
 
-  <title>分类: Electron | niniun1024's blog</title>
+  <title>分类: electron | niniun1024's blog</title>
   
 
 
@@ -165,14 +165,14 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <h2 class="collection-header">Electron
+        <h2 class="collection-header">electron
           <small>分类</small>
         </h2>
       </div>
 
       
     <div class="collection-year">
-      <span class="collection-header">2021</span>
+      <span class="collection-header">2022</span>
     </div>
 
   <article itemscope itemtype="http://schema.org/Article">
@@ -180,126 +180,195 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2021-11-06T14:48:47+08:00"
-              content="2021-11-06">
-          11-06
+              datetime="2022-05-19T19:02:41+08:00"
+              content="2022-05-19">
+          05-19
         </time>
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/2021/11/06/Electron%E9%A2%84%E5%8A%A0%E8%BD%BDJS/" itemprop="url">
-            <span itemprop="name">Electron预加载JS</span>
+          <a class="post-title-link" href="/2022/05/19/electron%E4%B9%8B%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/" itemprop="url">
+            <span itemprop="name">electron之右键菜单</span>
           </a>
       </div>
 
     </header>
   </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    </div>
+  </div>
+  
+  
+  
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-06-20T14:01:51+08:00"
-              content="2021-06-20">
-          06-20
-        </time>
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">niniun1024</p>
+  <div class="site-description" itemprop="description">niniun1024's blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/06/20/Electron%E8%AF%B7%E6%B1%82%E5%A4%B4%E6%8B%A6%E6%88%AA%E5%8F%8A%E4%BF%AE%E6%94%B9%EF%BC%8Cresponse%E5%86%85%E5%AE%B9%E8%8E%B7%E5%8F%96/" itemprop="url">
-            <span itemprop="name">Electron请求头拦截及修改，response内容获取</span>
-          </a>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
       </div>
+    </main>
 
-    </header>
-  </article>
+    <footer class="footer">
+      <div class="footer-inner">
+        
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+        
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-06-08T22:24:16+08:00"
-              content="2021-06-08">
-          06-08
-        </time>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">niniun1024</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
       </div>
+    </footer>
+  </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/06/08/%E9%9B%86%E6%88%90%E7%AC%AC%E4%B8%89%E6%96%B9web%E5%86%85%E5%AE%B9%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9Awebview%E3%80%81browserView%E3%80%81iframe%E3%80%81browserWindow/" itemprop="url">
-            <span itemprop="name">集成第三方web内容的四种方式：webview、browserView、iframe、browserWindow</span>
-          </a>
-      </div>
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-    </header>
-  </article>
+<script src="/js/utils.js"></script>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<script src="/js/motion.js"></script>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-03-24T19:33:27+08:00"
-              content="2021-03-24">
-          03-24
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/03/24/Electron%E4%B9%8B%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" itemprop="url">
-            <span itemprop="name">Electron之主进程与渲染进程通信</span>
-          </a>
-      </div>
+<script src="/js/schemes/muse.js"></script>
 
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<script src="/js/next-boot.js"></script>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-03-22T19:37:47+08:00"
-              content="2021-03-22">
-          03-22
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/03/22/Electron%E4%B9%8B%E7%AA%97%E5%8F%A3%E6%9C%80%E5%B0%8F%E5%8C%96%E5%AF%B9%E5%AE%9A%E6%97%B6%E5%99%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E5%BD%B1%E5%93%8D/" itemprop="url">
-            <span itemprop="name">Electron之窗口最小化对定时器执行的影响</span>
-          </a>
-      </div>
 
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-03-20T22:27:14+08:00"
-              content="2021-03-20">
-          03-20
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/03/20/Electron%E4%B9%8B%E7%BD%91%E9%A1%B5%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86/" itemprop="url">
-            <span itemprop="name">Electron之网页数据请求处理</span>
-          </a>
-      </div>
 
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
+reated"
               datetime="2021-03-01T19:15:52+08:00"
               content="2021-03-01">
           03-01
@@ -426,14 +495,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

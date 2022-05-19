@@ -162,6 +162,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/06/08/%E9%9B%86%E6%88%90%E7%AC%AC%E4%B8%89%E6%96%B9web%E5%86%85%E5%AE%B9%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9Awebview%E3%80%81browserView%E3%80%81iframe%E3%80%81browserWindow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="niniun1024">
+      <meta itemprop="description" content="niniun1024's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="niniun1024's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/08/%E9%9B%86%E6%88%90%E7%AC%AC%E4%B8%89%E6%96%B9web%E5%86%85%E5%AE%B9%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9Awebview%E3%80%81browserView%E3%80%81iframe%E3%80%81browserWindow/" class="post-title-link" itemprop="url">集成第三方web内容的四种方式：webview、browserView、iframe、browserWindow</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-08 22:24:16 / 修改时间：22:27:55" itemprop="dateCreated datePublished" datetime="2021-06-08T22:24:16+08:00">2021-06-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="browserWindow"><a href="#browserWindow" class="headerlink" title="browserWindow"></a>browserWindow</h1><blockquote>
+<p>文档：<a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/browser-window#browserwindow">https://www.electronjs.org/docs/api/browser-window#browserwindow</a></p>
+</blockquote>
+<p>新开Electron窗口，拥有所有electron浏览器窗口的方法和属性，另外可打开模态窗口（禁用父窗口的子窗口，创建模态窗口必须设置 parent 和 modal 选项）</p>
+<h1 id="webview"><a href="#webview" class="headerlink" title="webview"></a>webview</h1><blockquote>
+<p>文档：<a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/webview-tag#webview-tag">https://www.electronjs.org/docs/api/webview-tag#webview-tag</a></p>
+</blockquote>
+<p>使用webview标签需在主窗口webPreferences中设置webviewTag:true，另外webview内嵌页面调用node和electron模块需进行如下设置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  主窗口</span></span><br><span class="line">webPreferences: &#123;</span><br><span class="line">  nodeIntegration: <span class="literal">true</span>,</span><br><span class="line">  enableRemoteModule: <span class="literal">true</span>,</span><br><span class="line">  webviewTag: <span class="literal">true</span>,</span><br><span class="line">  contextIsolation: <span class="literal">false</span>   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 标签（display:flex;是为了使内部渲染后的网页视图窗口铺满webview容器）</span></span><br><span class="line">&lt;webview id=<span class="string">&quot;wb&quot;</span> style=<span class="string">&quot;display:flex;width:500px;height:500px&quot;</span> src=<span class="string">&quot;http://www.baidu.com&quot;</span> webpreferences=<span class="string">&quot;contextIsolation=false&quot;</span>  nodeintegration=<span class="string">&quot;true&quot;</span> enableremotemodule=<span class="string">&quot;true&quot;</span>  &gt;&lt;/webview&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>electron12把contextIsolation默认值改为true,虽然主窗口中已设置false,但是webview标签内需再次设置webpreferences=”contextIsolation=false”，另外主窗口和webview的nodeintegration和enableremotemodule需同时设为true，才能成功使内嵌页调用node和electron模块</p>
+<p>webview可以监听DOM加载的开始与结束，并打开独立控制台</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webview = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;webview&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> indicator = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.indicator&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> loadstart = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  indicator.innerText = <span class="string">&#x27;loading...&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> loadstop = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  indicator.innerText = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  webview.openDevTools();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">webview.addEventListener(<span class="string">&#x27;dom-ready&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  webview.openDevTools()</span><br><span class="line">&#125;)</span><br><span class="line">    </span><br><span class="line">webview.addEventListener(<span class="string">&#x27;did-start-loading&#x27;</span>, loadstart)</span><br><span class="line">webview.addEventListener(<span class="string">&#x27;did-stop-loading&#x27;</span>, loadstop)</span><br></pre></td></tr></table></figure>
+<p>src 属性除了接受url地址，还可以接受数据 URL, 如 data:text/plain, Hello, world!。<br>webview拥有原生浏览器的前进、后退、停止加载、复制、粘贴、剪切、查找、全选、替换、打印、放大、缩小等功能接口，注入CSS和JS代码的方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;webview src=<span class="string">&quot;https://www.github.com/&quot;</span> preload=<span class="string">&quot;./test.js&quot;</span>&gt;&lt;/webview&gt;</span><br></pre></td></tr></table></figure>
+<p>preload脚本的URL的协议必须是 file: asar:二者之一，因为在访客页中，它是通过“内部”的 require 去加载的。当访客页没有 node integration ，这个脚本仍然有能力去访问所有的 Node APIs, 但是当这个脚本执行执行完成之后，通过Node 注入的全局对象（global objects）将会被删除。</p>
+<p>可通过httpreferrer设置嵌入页面的referrer，useragent设置嵌入页面的useragent，disablewebsecurity关闭web安全限制（默认true）</p>
+<p><font color=#f00>Electron的 webview 标签基于 Chromium webview，后者正在经历巨大的架构变化。 这将影响 webview 的稳定性，包括呈现、导航和事件路由。 我们目前建议不使用 webview 标签，并考虑其他替代方案，如 iframe ，Electron的 BrowserView 或完全避免嵌入内容的架构。</font></p>
+<h1 id="browserView"><a href="#browserView" class="headerlink" title="browserView"></a>browserView</h1><blockquote>
+<p>文档：<a target="_blank" rel="noopener" href="https://www.electronjs.org/docs/api/browser-view#browserview">https://www.electronjs.org/docs/api/browser-view#browserview</a></p>
+</blockquote>
+<p>browserView提供的接口功能较少且多为实验性功能，browserView位置是相对于父窗口偏移，窗口直接覆盖在父窗口之上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> win = <span class="keyword">new</span> BrowserWindow(&#123;</span><br><span class="line">  width: <span class="number">1000</span>,</span><br><span class="line">  height: <span class="number">650</span></span><br><span class="line">&#125;)</span><br><span class="line">win.loadFile(<span class="string">&#x27;index.html&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> view = <span class="keyword">new</span> BrowserView(); <span class="comment">//创建view窗口</span></span><br><span class="line">win.setBrowserView(view); <span class="comment">// 将子窗口view嵌入到父窗口win中</span></span><br><span class="line">view.setBounds(&#123; <span class="attr">x</span>: <span class="number">50</span>, <span class="attr">y</span>: <span class="number">50</span>, <span class="attr">width</span>: <span class="number">300</span>, <span class="attr">height</span>: <span class="number">300</span> &#125;); <span class="comment">// 设置view的宽高，相对父窗口的位置</span></span><br><span class="line">view.webContents.loadURL(<span class="string">&#x27;https://www.baidu.com&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h1><p>Iframe 在 Electron 中的行为与普通浏览器中类似。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>1、browserWindow适用于新开窗口，位置脱离主窗口，包含丰富的功能接口，拥有调用node和electron模块的能力<br>2、webview可以与页面布局融合在一起，拥有丰富的浏览器功能接口，拥有调用node和electron模块的能力，不过需注意内核架构更新变化对它的影响<br>3、broswerView适用于简单嵌入第三方页面，位置相对于父窗口，直接覆盖在父窗口之上，为实验性功能<br>4、iframe适用场景同浏览器中iframe</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/06/08/vue3%E4%B8%8Evue-Router4%E4%B8%8BKeep-alive%E8%B8%A9%E5%9D%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -900,82 +991,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://niniun1024.github.io/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="niniun1024">
-      <meta itemprop="description" content="niniun1024's blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="niniun1024's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/27/Electron%E4%B9%8B%E5%AE%89%E8%A3%85%E7%95%8C%E9%9D%A2/" class="post-title-link" itemprop="url">Electron之安装界面</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-02-27 14:25:44 / 修改时间：15:30:43" itemprop="dateCreated datePublished" datetime="2021-02-27T14:25:44+08:00">2021-02-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Electron/" itemprop="url" rel="index"><span itemprop="name">Electron</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Electron开发的应用默认安装界面较简洁，无法选择安装路径，一般在桌面应用开发过程中需要更丰富的安装功能，如展示使用协议、选择安装目录、选择安装组件等，安装成功后执行哪些操作等等。<br>下方以Electron+Vue项目为例，使用electron-builder+nsis自定义打包界面。</p>
-<h1 id="在vue-config-js中配置NSIS，救命代码如下："><a href="#在vue-config-js中配置NSIS，救命代码如下：" class="headerlink" title="在vue.config.js中配置NSIS，救命代码如下："></a>在vue.config.js中配置NSIS，救命代码如下：</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 第三方插件配置</span></span><br><span class="line">  pluginOptions: &#123;</span><br><span class="line">    <span class="comment">// vue-cli-plugin-electron-builder配置</span></span><br><span class="line">    electronBuilder: &#123;</span><br><span class="line">      builderOptions: &#123;</span><br><span class="line">        win: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 图标路径 windows系统中icon需要256*256的ico格式图片，更换应用图标亦在此处</span></span><br><span class="line">          target: [&#123;</span><br><span class="line">            <span class="comment">// 打包成一个独立的 exe 安装程序</span></span><br><span class="line">            target: <span class="string">&#x27;nsis&#x27;</span>,</span><br><span class="line">            <span class="comment">// 这个意思是打出来32 bit + 64 bit的包，但是要注意：这样打包出来的安装包体积比较大，所以建议直接打32的安装包。</span></span><br><span class="line">            <span class="string">&#x27;arch&#x27;</span>: [</span><br><span class="line">              <span class="string">&#x27;x64&#x27;</span></span><br><span class="line">              <span class="comment">// &#x27;ia32&#x27;</span></span><br><span class="line">            ]</span><br><span class="line">          &#125;]</span><br><span class="line">        &#125;,</span><br><span class="line">        dmg: &#123;</span><br><span class="line">          <span class="string">&#x27;contents&#x27;</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&#x27;x&#x27;</span>: <span class="number">410</span>,</span><br><span class="line">              <span class="string">&#x27;y&#x27;</span>: <span class="number">150</span>,</span><br><span class="line">              <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;link&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;path&#x27;</span>: <span class="string">&#x27;/Applications&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="string">&#x27;x&#x27;</span>: <span class="number">130</span>,</span><br><span class="line">              <span class="string">&#x27;y&#x27;</span>: <span class="number">150</span>,</span><br><span class="line">              <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;file&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;,</span><br><span class="line">        linux: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          target: <span class="string">&#x27;AppImage&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        mac: &#123;</span><br><span class="line">          icon: <span class="string">&#x27;public/logo.ico&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        files: [<span class="string">&#x27;**/*&#x27;</span>],</span><br><span class="line">        asar: <span class="literal">false</span>,</span><br><span class="line">        nsis: &#123;</span><br><span class="line">          <span class="string">&quot;include&quot;</span>: <span class="string">&quot;public/nim/nim_setup.nsi&quot;</span>,</span><br><span class="line">          <span class="comment">// 是否一键安装，建议为 false，可以让用户点击下一步、下一步、下一步的形式安装程序，如果为true，当用户双击构建好的程序，自动安装程序并打开，即：一键安装（one-click installer）</span></span><br><span class="line">          oneClick: <span class="literal">false</span>,</span><br><span class="line">          <span class="comment">// 允许请求提升。 如果为false，则用户必须使用提升的权限重新启动安装程序。</span></span><br><span class="line">          allowElevation: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 允许修改安装目录，建议为 true，是否允许用户改变安装目录，默认是不允许</span></span><br><span class="line">          allowToChangeInstallationDirectory: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 安装图标</span></span><br><span class="line">          installerIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 卸载图标</span></span><br><span class="line">          uninstallerIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 安装时头部图标</span></span><br><span class="line">          installerHeaderIcon: <span class="string">&#x27;public/logo.ico&#x27;</span>,</span><br><span class="line">          <span class="comment">// 创建桌面图标</span></span><br><span class="line">          createDesktopShortcut: <span class="literal">true</span>,</span><br><span class="line">          <span class="comment">// 创建开始菜单图标</span></span><br><span class="line">          createStartMenuShortcut: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      chainWebpackMainProcess: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        config.plugin(<span class="string">&#x27;define&#x27;</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">          args[ <span class="number">0</span> ][ <span class="string">&#x27;IS_ELECTRON&#x27;</span> ] = <span class="literal">true</span></span><br><span class="line">          <span class="keyword">return</span> args</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      chainWebpackRendererProcess: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        config.plugin(<span class="string">&#x27;define&#x27;</span>).tap(<span class="function"><span class="params">args</span> =&gt;</span> &#123;</span><br><span class="line">          args[ <span class="number">0</span> ][ <span class="string">&#x27;IS_ELECTRON&#x27;</span> ] = <span class="literal">true</span></span><br><span class="line">          <span class="keyword">return</span> args</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      outputDir: <span class="string">&#x27;dist&#x27;</span>,</span><br><span class="line">      <span class="comment">// mainProcessFile: &#x27;src/main.js&#x27;,</span></span><br><span class="line">      <span class="comment">// mainProcessWatch: [&#x27;src/main&#x27;]</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>注意： window下图标需为ico或png格式且不小于256*256<br>参考资料 <a target="_blank" rel="noopener" href="https://www.electron.build/icons.html#windows-nsis">https://www.electron.build/icons.html#windows-nsis</a></p>
-<h1 id="使用NSIS自定义安装界面"><a href="#使用NSIS自定义安装界面" class="headerlink" title="使用NSIS自定义安装界面"></a>使用NSIS自定义安装界面</h1><p>NSIS简界代码示例：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">nsis文件中配置安装界面相关信息（可通过nsis安装界面开发工具开发），nsi文件示例：</span><br><span class="line"><span class="comment">; HM NIS Edit Wizard helper defines</span></span><br><span class="line">!include <span class="string">&quot;MUI2.nsh&quot;</span></span><br><span class="line"><span class="comment">; ; MUI Settings</span></span><br><span class="line">!define MUI_ABORTWARNING</span><br><span class="line"><span class="comment">; 欢迎页面</span></span><br><span class="line">!<span class="keyword">insertmacro </span>MUI_PAGE_WELCOME</span><br><span class="line"><span class="keyword">ShowInstDetails </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">ShowUnInstDetails </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">SpaceTexts </span><span class="keyword">show</span></span><br><span class="line"><span class="keyword">; </span>安装脚本</span><br><span class="line">!macro customInstall</span><br><span class="line">!macroend</span><br></pre></td></tr></table></figure>
-
-<h1 id="NSIS界面开发"><a href="#NSIS界面开发" class="headerlink" title="NSIS界面开发"></a>NSIS界面开发</h1><h2 id="使用NSIS和HM-NIS-Edit生成NSIS文件"><a href="#使用NSIS和HM-NIS-Edit生成NSIS文件" class="headerlink" title="使用NSIS和HM NIS Edit生成NSIS文件"></a>使用NSIS和HM NIS Edit生成NSIS文件</h2><p>NSIS下载地址：<a target="_blank" rel="noopener" href="https://nsis.sourceforge.io/Download">https://nsis.sourceforge.io/Download</a><br>HM NIS Edit下载地址：<a target="_blank" rel="noopener" href="http://hmne.sourceforge.net/">http://hmne.sourceforge.net</a><br><strong>使用步骤</strong><br>1、打开HM NIS Edit，通过新建向导生成NSIS文件<br><img src="/img/2021-2-27/nsis01.png"><br><img src="/img/2021-2-27/nsis02.png"><br>2、填写应用相关信息<br><img src="/img/2021-2-27/nsis03.png"><br>3、选择语言及协议文件<br><img src="/img/2021-2-27/nsis04.png"><br><img src="/img/2021-2-27/nsis05.png"><br>4、选择应用打包目录，electron build生成的目录，对应out/win-unpacked<br><img src="/img/2021-2-27/nsis06.png"><br><img src="/img/2021-2-27/nsis07.png"><br><img src="/img/2021-2-27/nsis08.png"><br><img src="/img/2021-2-27/nsis09.png"><br><img src="/img/2021-2-27/nsis10.png"><br><img src="/img/2021-2-27/nsis11.png"><br><img src="/img/2021-2-27/nsis12.png"><br><img src="/img/2021-2-27/nsis13.png"><br><img src="/img/2021-2-27/nsis14.png"></p>
-<p>参考资料： <a target="_blank" rel="noopener" href="https://lihefei.blog.csdn.net/article/details/108797377">https://lihefei.blog.csdn.net/article/details/108797377</a></p>
-<h2 id="牛牛安装界面控件"><a href="#牛牛安装界面控件" class="headerlink" title="牛牛安装界面控件"></a>牛牛安装界面控件</h2><p>牛牛安装界面控件是一款安装包UI控制，可自定义安装皮肤界面。<br>1、下载牛牛安装界面控件<br><a target="_blank" rel="noopener" href="http://www.ggniu.cn/download.htm">http://www.ggniu.cn/download.htm</a><br>2、修改包里对应的NSIS配置项，配置在SetupScripts目录下<br>3、把生成的electron文件放到FilesToInstall目录<br>4、运行build-nim-nozip.bat进行打包，最终输出exe文件到Output目录</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1045,14 +1060,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
